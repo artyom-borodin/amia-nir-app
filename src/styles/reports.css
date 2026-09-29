@@ -1,0 +1,110 @@
+
+.nir-report-filters {
+  margin-bottom: var(--nir-gap-sm);
+}
+
+.nir-report-filters > .el-card.nir-period-card {
+  margin-bottom: 0;
+  border-radius: var(--nir-radius-top);
+  border-bottom: none;
+}
+
+.nir-report-filters > .el-card.nir-filter-card {
+  margin-bottom: 0;
+  border-radius: var(--nir-radius-bottom);
+}
+
+.nir-report-card {
+  border-radius: var(--nir-radius-card);
+}
+
+.nir-report-scroll {
+  overflow-x: auto;
+}
+
+.nir-report-table {
+  width: 100%;
+  min-width: var(--nir-report-table-min-w);
+}
+
+.nir-report-table-sm {
+  min-width: var(--nir-report-table-min-w-sm);
+}
+
+.nir-report-table th.el-table__cell,
+.nir-drill-table th.el-table__cell {
+  background: var(--nir-color-soft-bg);
+  font-weight: var(--nir-font-weight-semibold);
+}
+
+.nir-course-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nir-gap-3xs);
+}
+
+.nir-totals {
+  margin-top: var(--nir-gap-sm);
+  background: var(--nir-color-soft-bg);
+  border: var(--nir-border-w) solid var(--nir-color-border);
+  border-radius: var(--nir-radius-block);
+  padding: var(--nir-totals-pad);
+}
+
+.nir-totals-title {
+  font-weight: var(--nir-font-weight-semibold);
+  font-size: var(--nir-totals-title-size);
+  line-height: var(--nir-lh-tight);
+  margin-bottom: var(--nir-gap-2xs);
+  color: var(--nir-color-ink);
+}
+
+.nir-totals-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nir-gap-2xs);
+}
+
+.nir-totals-item {
+  background: var(--nir-color-card-bg);
+  border: var(--nir-border-w) solid var(--nir-color-border);
+  border-radius: var(--nir-radius-chip);
+  padding: var(--nir-totals-item-pad);
+  display: flex;
+  gap: var(--nir-gap-2xs);
+  align-items: baseline;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.nir-totals-label {
+  color: var(--nir-color-faint);
+  font-size: var(--nir-label-size);
+  white-space: nowrap;
+}
+
+.nir-totals-value {
+  font-weight: var(--nir-font-weight-semibold);
+  font-size: var(--nir-totals-value-size);
+  color: var(--nir-color-ink);
+  white-space: nowrap;
+}
+
+.nir-drill-scroll {
+  overflow-x: auto;
+}
+
+.nir-drill-table {
+  width: 100%;
+  min-width: var(--nir-drill-table-min-w);
+}
+
+.nir-drill-table .el-table__cell {
+  vertical-align: top;
+}
+
+.nir-chart {
+  width: 100%;
+  height: var(--nir-chart-h);
+  min-height: 0;
+}

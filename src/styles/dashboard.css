@@ -1,0 +1,54 @@
+
+.nir-dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--nir-dash-col), 1fr));
+  gap: var(--nir-gap-sm);
+  align-items: start;
+}
+
+.nir-dash-grid .el-card {
+  border-radius: var(--nir-radius-card);
+  min-width: 0;
+}
+
+.nir-dash-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nir-dash-gap);
+}
+
+.nir-dash-row {
+  display: flex;
+  align-items: center;
+  gap: var(--nir-dash-gap);
+  padding: var(--nir-dash-row-pad);
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--nir-radius-block);
+  border: var(--nir-border-w) solid var(--nir-color-transparent);
+  min-width: 0;
+}
+
+.nir-dash-row:hover {
+  background: var(--el-fill-color-light); /* el-зависимость */
+  border-color: var(--el-border-color-lighter); /* el-зависимость */
+}
+
+.nir-dash-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: var(--nir-lh-base);
+}
+
+.nir-dash-count {
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--nir-dash-count-w);
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.nir-dash-arrow {
+  color: var(--el-text-color-secondary);
+  flex: 0 0 auto;
+}

@@ -1,0 +1,9 @@
+export const DATE_VALUE_FORMAT = 'YYYY-MM-DD'
+export const MONTH_VALUE_FORMAT = 'YYYY-MM'
+export const MONTH_VALUE_LEN = 7
+export const DATE_MODE_DATE = 'date'
+export const DATE_MODE_MONTH = 'month'
+export const NEW_TAB_TARGET = '_blank'
+export const INPUTMODE_NUMERIC = 'numeric'
+export const LIST_JOINER = ', '
+export const KV_JOINER = ': '
