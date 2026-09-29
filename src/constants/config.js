@@ -5,7 +5,7 @@ export const STORAGE_PREFIX = 'nir_'
 export const API_ROOT = RAW_API_ROOT.replace(TRAILING_SLASH_RE, '')
 export const API_PREFIX = import.meta.env.VITE_API_PREFIX || '/api'
 export const API_TIMEOUT_MS = Number(import.meta.env.VITE_API_TIMEOUT_MS) || 20000
-export const AUTH_HEADER_NAME = import.meta.env.VITE_AUTH_HEADER || 'X-Authorization'
+export const AUTH_HEADER_NAME = 'Authorization'
 
 export const APP_BASE_URL = import.meta.env.BASE_URL || '/'
 export const APP_LOCALE = 'ru'
