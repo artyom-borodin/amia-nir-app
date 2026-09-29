@@ -1,0 +1,56 @@
+
+.nir-login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--nir-login-page-pad);
+  min-height: calc(var(--nir-app-h-fallback) - var(--nir-login-page-offset));
+  min-height: calc(var(--nir-app-h) - var(--nir-login-page-offset));
+  background:
+    radial-gradient(var(--nir-login-glow-size) at var(--nir-login-glow-pos), var(--el-fill-color-light) 0%, var(--nir-color-transparent) var(--nir-login-glow-stop));
+}
+
+.nir-login-card {
+  width: var(--nir-login-card-w);
+  box-sizing: border-box;
+  border-radius: var(--nir-radius-card);
+  box-shadow: var(--nir-shadow-card);
+  --el-card-padding: var(--nir-login-card-pad);
+}
+
+.nir-login-title {
+  margin: 0;
+  text-align: center;
+  line-height: var(--nir-lh-tight);
+  font-size: var(--nir-login-title-size);
+  color: var(--el-text-color-primary);
+}
+
+.nir-login-subtitle {
+  margin: 0;
+  padding: var(--nir-login-subtitle-pad);
+  text-align: center;
+  text-wrap: balance;
+  line-height: var(--nir-lh-base);
+  font-size: var(--nir-login-subtitle-size);
+  color: var(--el-text-color-secondary);
+}
+
+.nir-login-form {
+  --el-form-item-margin-bottom: var(--nir-gap-3xs);
+}
+
+.nir-login-form .el-input,
+.nir-login-form .el-select {
+  width: 100%;
+}
+
+.nir-login-submit-item {
+  margin-bottom: 0;
+}
+
+.nir-login-submit {
+  width: 100%;
+}

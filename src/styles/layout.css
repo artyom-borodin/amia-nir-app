@@ -1,0 +1,105 @@
+
+.nir-layout {
+  height: var(--nir-app-h-fallback);
+  height: var(--nir-app-h);
+  overflow: hidden;
+}
+
+.el-aside.nir-aside {
+  height: var(--nir-app-h-fallback);
+  height: var(--nir-app-h);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+  background: var(--nir-color-sidebar-bg);
+  border-right: var(--nir-border-w) solid var(--nir-color-border);
+  padding: var(--nir-sidebar-pad);
+  padding-right: calc(var(--nir-sidebar-pad) + var(--nir-resizer-w));
+  flex: 0 0 auto;
+  width: clamp(var(--nir-sidebar-min), var(--nir-sidebar-custom-w), var(--nir-sidebar-max));
+}
+
+.nir-aside-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--nir-sidebar-head-gap);
+}
+
+.nir-aside-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: var(--nir-font-weight-bold);
+  font-size: var(--nir-form-subtitle-size);
+  line-height: var(--nir-lh-tight);
+  margin: 0;
+  padding: var(--nir-sidebar-title-pad);
+  overflow-wrap: anywhere;
+}
+
+.nir-aside-toggle {
+  flex: 0 0 auto;
+}
+
+.nir-menu-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.nir-menu-scroll .el-menu {
+  border-right: none;
+  background: var(--nir-color-transparent);
+}
+
+.nir-aside-foot {
+  flex: 0 0 auto;
+  margin-top: var(--nir-sidebar-foot-gap);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nir-gap-2xs);
+}
+
+.nir-user-chip {
+  display: inline-block;
+  max-width: var(--nir-user-chip-max);
+  vertical-align: bottom;
+}
+
+.nir-resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--nir-resizer-w);
+  cursor: ew-resize;
+  touch-action: none;
+  background: var(--nir-color-transparent);
+  opacity: 1;
+  transition: background-color var(--el-transition-duration-fast, var(--nir-transition-fast));
+}
+
+.nir-resizer:hover,
+.nir-resizer.is-active {
+  background: var(--nir-color-resizer-active);
+  opacity: var(--nir-resizer-opacity);
+}
+
+.nir-content {
+  height: var(--nir-app-h-fallback);
+  height: var(--nir-app-h);
+  min-height: 0;
+  min-width: 0;
+}
+
+.nir-toolbar-top {
+  flex: 0 0 auto;
+  padding: var(--nir-toolbar-pad);
+}
+
+.nir-main {
+  padding: var(--nir-main-pad);
+}

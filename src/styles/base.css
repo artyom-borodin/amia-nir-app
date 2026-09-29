@@ -1,0 +1,88 @@
+
+body {
+  margin: 0;
+  font-family: var(--nir-font-stack);
+}
+
+#app {
+  min-height: var(--nir-app-h-fallback);
+  min-height: var(--nir-app-h);
+}
+
+:focus-visible {
+  outline: var(--nir-focus-ring-w) solid var(--el-color-primary);
+  outline-offset: var(--nir-focus-ring-w);
+}
+
+.el-drawer__header {
+  font-weight: var(--nir-font-weight-semibold);
+  color: var(--el-text-color-primary);
+  margin-bottom: var(--nir-gap-sm);
+}
+
+.nir-page {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.nir-toolbar,
+.nir-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--nir-gap-2xs);
+  flex-wrap: wrap;
+}
+
+:is(.nir-toolbar, .nir-actions-bar) {
+  justify-content: flex-start;
+  margin: var(--nir-gap-3xs) 0 var(--nir-gap-sm);
+}
+
+:is(.nir-table, .nir-report-table, .nir-drill-table) .cell {
+  white-space: normal;
+  word-break: break-word;
+  line-height: var(--nir-lh-cell);
+}
+
+.nir-hint {
+  margin-top: var(--nir-gap-xs);
+  color: var(--nir-color-hint);
+  font-size: var(--nir-label-size);
+  line-height: var(--nir-lh-base);
+}
+
+.nir-hint-top {
+  margin: 0 0 var(--nir-gap-xs);
+}
+
+.nir-muted {
+  color: var(--nir-color-muted);
+}
+
+.nir-field-full {
+  width: 100%;
+}
+
+.nir-field-flex {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.nir-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nir-error-alert {
+  margin-bottom: var(--nir-gap-xs);
+}
+
+.nir-error-list {
+  margin: 0 0 var(--nir-gap-xs) var(--nir-error-list-indent);
+  padding: 0;
+  color: var(--el-color-danger);
+  font-size: var(--nir-label-size);
+  line-height: var(--nir-lh-base);
+}
