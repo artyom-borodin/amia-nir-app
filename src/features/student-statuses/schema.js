@@ -6,7 +6,7 @@ import { requiredBlur, TRIGGER_BLUR, ACADEMIC_YEAR_RE, FORMAT_ACADEMIC_YEAR } fr
 export const FIELDS = [
   ...LEARNER_FIELDS,
   { prop: 'academic_year', label: TEXT_STUDY_YEAR_LABEL, type: FIELD_TYPES.TEXT, required: true, placeholder: TEXT_STUDY_YEAR_PLACEHOLDER },
-  { prop: 'order_number', label: 'N распоряжения', type: FIELD_TYPES.TEXT, required: false },
+  { prop: 'order_number', label: '№ распоряжения', type: FIELD_TYPES.TEXT, required: false },
   { prop: 'gifted_db', label: 'Банк данных одарённой молодёжи', type: FIELD_TYPES.BOOL, required: false },
   { prop: 'president_fund', label: 'Поощрения специального фонда Президента Республики Беларусь', type: FIELD_TYPES.BOOL, required: false }
 ]
