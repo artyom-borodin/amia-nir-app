@@ -26,6 +26,10 @@ const LABEL_FORMATTERS = [
   {
     test: (row) => row.last_name_rus,
     format: (row) => [row.last_name_rus, row.first_name_rus, row.patronymic_rus].filter(Boolean).join(FIO_SEPARATOR)
+  },
+  {
+    test: (row) => row.report_title,
+    format: (row) => 'Доклад: ' + String(row.report_title) + (row.conference_title ? ' и конференция: ' + String(row.conference_title) : '')
   }
 ]
 
