@@ -2,6 +2,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { useCrud } from './useCrud.js'
+import { useDictionariesStore } from '../stores/dictionaries.js'
 import { getEndpoint } from '../constants/tables.js'
 import { parseApiError } from '../api/errors.js'
 import { shouldAutoCreate } from '../constants/routes.js'
@@ -11,6 +12,7 @@ import { fillForm, emptyFilters, buildFilterQuery, getRowLabel } from '../featur
 export function useCrudPage(key, { filterDefs, emptyFormFn, validateFn = null, normalizeFn = null }) {
   const { rows, total, loading, error, fieldErrors, page, pageSize, fetch, remove, setQuery, onSortChange, crud: crudApi } =
     useCrud(getEndpoint(key))
+  const dicts = useDictionariesStore()
 
   const route = useRoute()
 
@@ -61,6 +63,7 @@ export function useCrudPage(key, { filterDefs, emptyFormFn, validateFn = null, n
       return
     }
     await remove(row.id)
+    dicts.clear()
   }
 
   function onPage(p) {
@@ -106,6 +109,7 @@ export function useCrudPage(key, { filterDefs, emptyFormFn, validateFn = null, n
         ElMessage.success(TEXT_CREATED)
       }
       drawer.value = false
+      dicts.clear()
       await fetch()
     } catch (e) {
       const p = parseApiError(e)
