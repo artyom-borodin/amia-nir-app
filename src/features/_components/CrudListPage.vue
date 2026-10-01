@@ -3,6 +3,7 @@
     <FilterPanel v-model="filters" collapsible @search="onSearch" @reset="onReset">
       <el-form-item v-for="f in filterDefs" :key="f.prop" :label="f.label">
         <el-input v-if="f.type === FIELD_TYPES.TEXT" v-model="filters[f.prop]" clearable :placeholder="TEXT_ALL" />
+        <el-input v-else-if="f.type === FIELD_TYPES.NUMBER" v-model="filters[f.prop]" type="number" :min="f.min" :max="f.max" clearable :placeholder="TEXT_ALL" />
         <el-select v-else-if="f.type === FIELD_TYPES.SELECT" v-model="filters[f.prop]" clearable :placeholder="TEXT_ALL">
           <el-option v-for="o in f.options" :key="o.value" :value="o.value" :label="o.label" />
         </el-select>

@@ -14,7 +14,7 @@ import {
   TEXT_MSG_CITY_REQUIRED,
   requiredTitleMsg
 } from '../../constants/texts.js'
-import { LABEL_DATE_FROM, LABEL_DATE_TO } from '../../constants/labels.js'
+import { LABEL_START_DATE_FROM, LABEL_END_DATE_TO } from '../../constants/labels.js'
 export const FIELDS = [
   ...withLabels(EVENT_INFO_FIELDS, { title: 'Название конференции' }),
   { prop: 'level', label: 'Уровень конференции', type: FIELD_TYPES.SELECT, required: true, options: CONF_LEVEL }
@@ -25,6 +25,7 @@ export const COLUMNS = [
   { prop: 'start_date', label: TEXT_START_DATE },
   { prop: 'end_date', label: TEXT_END_DATE },
   { prop: 'founder_name', label: TEXT_FOUNDER },
+  { prop: 'city', label: TEXT_CITY },
   { prop: 'get_level', label: 'Уровень конференции' }
 ]
 export const RULES = {
@@ -37,11 +38,11 @@ export const RULES = {
 }
 export const FILTERS = [
   { prop: 'title', label: 'Название конференции', type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
-  { prop: 'city', label: TEXT_CITY, type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
-  { prop: 'level', label: 'Уровень конференции', type: FIELD_TYPES.SELECT, options: CONF_LEVEL },
+  { prop: 'start_date__gte', label: LABEL_START_DATE_FROM, type: FIELD_TYPES.DATE },
+  { prop: 'end_date__lte', label: LABEL_END_DATE_TO, type: FIELD_TYPES.DATE },
   { prop: 'founder', label: TEXT_FOUNDER, type: FIELD_TYPES.REF, ref: ENDPOINTS.FOUNDERS },
-  { prop: 'start_date__gte', label: LABEL_DATE_FROM, type: FIELD_TYPES.DATE },
-  { prop: 'end_date__lte', label: LABEL_DATE_TO, type: FIELD_TYPES.DATE }
+  { prop: 'city', label: TEXT_CITY, type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
+  { prop: 'level', label: 'Уровень конференции', type: FIELD_TYPES.SELECT, options: CONF_LEVEL }
 ]
 export function emptyForm() {
   return { title: '', start_date: '', end_date: '', founder: null, city: '', level: '' }

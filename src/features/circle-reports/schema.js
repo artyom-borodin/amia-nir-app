@@ -22,12 +22,12 @@ export const FILTERS = [
 ]
 export const RULES = {
   year: [
-    requiredBlur(requiredTitleMsg('год (календарный)')),
+    requiredBlur('Укажите год (календарный)'),
     { validator: integerValidator, min: YEAR_MIN, max: YEAR_MAX, trigger: TRIGGER_BLUR }
   ],
   circle: [requiredChange(TEXT_MSG_CIRCLE_REQUIRED)],
   reports_count: [
-    requiredBlur(requiredTitleMsg('количество докладов')),
+    requiredBlur('Укажите количество докладов'),
     { validator: integerValidator, min: NON_NEGATIVE_MIN, trigger: TRIGGER_BLUR }
   ]
 }

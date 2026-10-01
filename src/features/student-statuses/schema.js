@@ -14,12 +14,14 @@ export const COLUMNS = [
   ID_COLUMN,
   { prop: 'student_fio', label: 'Обучающийся' },
   { prop: 'academic_year', label: TEXT_STUDY_YEAR_LABEL, width: 130 },
+  { prop: 'order_number', label: '№ распоряжения' },
   { prop: 'gifted_db', label: 'Банк данных одарённой молодёжи', width: 130 },
   { prop: 'president_fund', label: 'Поощрения специального фонда Президента Республики Беларусь', width: 130 }
 ]
 export const FILTERS = [
   ...LEARNER_FILTERS,
   { prop: 'academic_year', label: TEXT_STUDY_YEAR_LABEL, type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
+  { prop: 'order_number', label: '№ распоряжения', type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
   { prop: 'gifted_db', label: 'Банк данных одарённой молодёжи', type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
   { prop: 'president_fund', label: 'Поощрения специального фонда Президента Республики Беларусь', type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS }
 ]

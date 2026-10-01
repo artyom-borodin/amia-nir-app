@@ -94,7 +94,7 @@ export const TEXT_CIRCLE_PLACEHOLDER = 'Название научного соо
 export const TEXT_GROUP_PLACEHOLDER = 'Название группы'
 export const TEXT_YEAR_OR_STUDY_YEAR_PLACEHOLDER = 'ГГГГ или ГГГГ/ГГГГ, напр. 2025 или 2025/2026'
 
-export const TEXT_MONTH_DAY_HINT = 'День 01 означает указан только месяц'
+export const TEXT_MONTH_DAY_HINT = 'День 01 означает, что указан только месяц'
 
 export const TEXT_ADD_FOUNDER = 'Добавить учредителя'
 export const TEXT_ADD_CONFERENCE = 'Добавить конференцию'

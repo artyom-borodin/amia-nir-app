@@ -1,7 +1,7 @@
 import { PUB_KIND, YES_NO_OPTIONS } from '../../constants/choices.js'
 import { ENDPOINTS } from '../../constants/endpoints.js'
 import { FIELD_TYPES } from '../../constants/fieldTypes.js'
-import { LABEL_LEARNER } from '../../constants/labels.js'
+import { LABEL_LEARNER, LABEL_PROBLEM_GROUP } from '../../constants/labels.js'
 import { TEXT_MSG_COURSE_REQUIRED, TEXT_MSG_SUPERVISOR_REQUIRED, requiredTitleMsg } from '../../constants/texts.js'
 import { requiredBlur, requiredChange } from '../../constants/validation.js'
 import { ID_COLUMN, LEARNER_FIELDS, LEARNER_FILTERS, PARTICIPANT_FIELDS, PARTICIPANT_FILTERS, emptyLearner, LOOKUP_ICONTAINS } from '../_shared.js'
@@ -20,19 +20,29 @@ export const FIELDS = [
 export const COLUMNS = [
   ID_COLUMN,
   { prop: 'student_fio', label: LABEL_LEARNER },
+  { prop: 'get_course', label: 'Курс на момент участия', width: 80 },
+  { prop: 'supervisor_display', label: 'Научный руководитель (ППС кафедры)' },
   { prop: 'title', label: 'Название статьи' },
-  { prop: 'get_pub_type', label: 'Вид публикации', width: 170 }
+  { prop: 'get_pub_type', label: 'Вид публикации', width: 170 },
+  { prop: 'output_data', label: 'Выходные данные' },
+  { prop: 'has_electronic', label: 'Электронная версия', width: 130 },
+  { prop: 'has_print', label: 'Печатное издание', width: 130 },
+  { prop: 'conference_title', label: 'Название конференции' },
+  { prop: 'report_title', label: 'Тема доклада' },
+  { prop: 'problem_group_name', label: LABEL_PROBLEM_GROUP }
 ]
 export const FILTERS = [
   ...LEARNER_FILTERS,
-  PARTICIPANT_FILTERS.supervisor,
+  PARTICIPANT_FILTERS.category,
   PARTICIPANT_FILTERS.course,
-  { prop: 'pub_type', label: 'Вид публикации', type: FIELD_TYPES.SELECT, options: PUB_KIND },
+  PARTICIPANT_FILTERS.supervisor,
   { prop: 'title', label: 'Название статьи', type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
-  { prop: 'conference_link', label: 'Связь с конференцией', type: FIELD_TYPES.REF, ref: ENDPOINTS.CONFERENCE_PARTS },
-  PARTICIPANT_FILTERS.problem_group,
+  { prop: 'pub_type', label: 'Вид публикации', type: FIELD_TYPES.SELECT, options: PUB_KIND },
+  { prop: 'output_data', label: 'Выходные данные', type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
   { prop: 'has_electronic', label: 'Электронная версия', type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
-  { prop: 'has_print', label: 'Печатное издание', type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS }
+  { prop: 'has_print', label: 'Печатное издание', type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
+  { prop: 'conference_link', label: 'Связь с конференцией', type: FIELD_TYPES.REF, ref: ENDPOINTS.CONFERENCE_PARTS },
+  PARTICIPANT_FILTERS.problem_group
 ]
 export const RULES = {
   course: [requiredChange(TEXT_MSG_COURSE_REQUIRED)],
