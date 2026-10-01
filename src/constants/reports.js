@@ -137,6 +137,52 @@ export const REPORT_HIDDEN_COLUMNS = {
   dynamics: []
 }
 
+const BASE_REPORT_FILTERS = [
+  'cadet',
+  'student',
+  'fpk_student',
+  'pps',
+  'department',
+  'subdivision',
+  'circle',
+  'problem_group',
+  'category',
+  'course',
+  'level',
+  'founder',
+  'city',
+  'work_type',
+  'pub_type',
+  'title',
+  'has_electronic',
+  'has_print',
+  'result_category',
+  'result',
+  'activity_type',
+  'organization',
+  'diploma',
+  'has_certificate',
+  'gifted_db',
+  'president_fund'
+]
+
+function dropReportFilters(drop) {
+  return BASE_REPORT_FILTERS.filter((k) => !drop.includes(k))
+}
+
+export const REPORT_FILTER_FIELDS = {
+  summary: BASE_REPORT_FILTERS,
+  'by-student': BASE_REPORT_FILTERS,
+  'by-faculty': BASE_REPORT_FILTERS,
+  'by-pps': dropReportFilters(['activity_type', 'organization', 'result', 'gifted_db', 'president_fund']),
+  'by-department': dropReportFilters(['gifted_db', 'president_fund']),
+  'by-circles': dropReportFilters(['activity_type', 'organization', 'result', 'gifted_db', 'president_fund']),
+  'by-category': dropReportFilters(['gifted_db', 'president_fund']),
+  'by-founder': dropReportFilters(['activity_type', 'organization', 'result', 'gifted_db', 'president_fund']),
+  dynamics: dropReportFilters(['gifted_db', 'president_fund']),
+  'by-status': ['cadet', 'student', 'fpk_student', 'subdivision', 'category', 'gifted_db', 'president_fund']
+}
+
 export const REPORT_ROW_KEYS = {
   'by-faculty': { key: ['key', 'id', 'faculty', 'student', 'supervisor', 'department', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },
   'by-department': { key: ['key', 'id', 'department', 'student', 'supervisor', 'faculty', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },

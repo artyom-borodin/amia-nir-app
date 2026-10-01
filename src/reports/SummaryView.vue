@@ -3,7 +3,7 @@
     <div class="nir-report-filters">
       <PeriodFilter v-model="period" @update:modelValue="onChange" />
       <FilterPanel v-model="filters" :show-actions="false" :show-search="false" collapsible @search="onLoad">
-        <ReportFilters :model-value="filters" @update:modelValue="filters = $event" />
+        <ReportFilters :model-value="filters" :fields="REPORT_FILTER_FIELDS[KIND]" @update:modelValue="filters = $event" />
       </FilterPanel>
     </div>
     <ErrorAlert :message="error" />
@@ -35,13 +35,13 @@ import { computed } from 'vue'
 import PeriodFilter from '../components/PeriodFilter.vue'
 import FilterPanel from '../components/FilterPanel.vue'
 import ReportFilters from './ReportFilters.vue'
+import { REPORT_FILTER_FIELDS, SUMMARY_METRIC_LABELS } from '../constants/reports.js'
 import ErrorAlert from '../components/ErrorAlert.vue'
 import DrillDownDrawer from './DrillDownDrawer.vue'
 import ReportActions from './ReportActions.vue'
 import { useReportPage } from '../composables/useReportPage.js'
 import { TEXT_DRILL_HINT, TEXT_EMPTY, TEXT_REPORT_IDLE, TEXT_METRIC, TEXT_COUNT } from '../constants/texts.js'
 import { BTN_PRIMARY } from '../constants/ui.js'
-import { SUMMARY_METRIC_LABELS } from '../constants/reports.js'
 import { REPORT_KIND_SUMMARY } from '../constants/tables.js'
 import { normalizeSummary, hasSummaryDetails } from './reportHelpers.js'
 
