@@ -13,16 +13,19 @@ export const FIELDS = [
 ]
 export const COLUMNS = [
   ID_COLUMN,
-  { prop: 'name', label: 'Название группы/секции' },
   { prop: 'circle_name', label: LABEL_CIRCLE },
+  { prop: 'name', label: 'Название группы/секции' },
   { prop: 'department_name', label: LABEL_DEPARTMENT },
-  { prop: 'supervisor_display', label: 'Ответственный (ППС кафедры)' }
+  { prop: 'supervisor_display', label: 'Ответственный (ППС кафедры)' },
+  { prop: 'members_count', label: 'Количество членов', width: 120 }
 ]
 export const FILTERS = [
-  { prop: 'name', label: 'Название группы/секции', type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
   { prop: 'circle', label: LABEL_CIRCLE, type: FIELD_TYPES.REF, ref: ENDPOINTS.SCIENCE_CIRCLES },
+  { prop: 'name', label: 'Название группы/секции', type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
   { prop: 'department', label: LABEL_DEPARTMENT, type: FIELD_TYPES.REF, ref: ENDPOINTS.SUBDIVISION },
-  { prop: 'supervisor', label: 'Ответственный (ППС кафедры)', type: FIELD_TYPES.REF, ref: ENDPOINTS.PPS_DEPTS }
+  { prop: 'supervisor', label: 'Ответственный (ППС кафедры)', type: FIELD_TYPES.REF, ref: ENDPOINTS.PPS_DEPTS },
+  { prop: 'members_count__gte', label: 'Количество членов с', type: FIELD_TYPES.NUMBER, min: NON_NEGATIVE_MIN },
+  { prop: 'members_count__lte', label: 'Количество членов по', type: FIELD_TYPES.NUMBER, min: NON_NEGATIVE_MIN }
 ]
 export const RULES = {
   circle: [requiredChange(TEXT_MSG_CIRCLE_REQUIRED)],

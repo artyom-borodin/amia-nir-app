@@ -1,4 +1,4 @@
-import { COURSE, YES_NO_OPTIONS, UNKNOWN_LABEL_PREFIX } from '../constants/choices.js'
+import { COURSE, YES_NO_OPTIONS, UNKNOWN_LABEL_PREFIX, LEARNER_CATEGORIES } from '../constants/choices.js'
 import { TEXT_LEARNER_REQUIRED, TEXT_TITLE_PLACEHOLDER, TEXT_CITY, TEXT_START_DATE, TEXT_END_DATE, TEXT_MSG_DATE_RANGE, TEXT_FOUNDER, TEXT_ADD_FOUNDER, TEXT_MSG_INTEGER } from '../constants/texts.js'
 import { TABLE_ID_WIDTH, TABLE_ID_PROP } from '../constants/ui.js'
 import { LOOKUP_SEP, QUERY_SEARCH, PK_FIELD, isEmptyValue } from '../constants/api.js'
@@ -59,6 +59,7 @@ export const PARTICIPANT_FIELDS = {
 export const PARTICIPANT_FILTERS = {
   supervisor: { prop: 'supervisor', label: 'Научный руководитель (ППС кафедры)', type: FIELD_TYPE_REF, ref: ENDPOINTS.PPS_DEPTS },
   course: { prop: 'course', label: 'Курс на момент участия', type: FIELD_TYPE_SELECT, options: COURSE },
+  category: { prop: 'category', label: 'Категория (Статус)', type: FIELD_TYPE_SELECT, options: LEARNER_CATEGORIES },
   problem_group: { prop: 'problem_group', label: 'Проблемная группа (секция)', type: FIELD_TYPE_REF, ref: ENDPOINTS.PROBLEM_GROUPS }
 }
 
