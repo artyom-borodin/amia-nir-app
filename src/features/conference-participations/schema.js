@@ -3,7 +3,7 @@ import { ENDPOINTS } from '../../constants/endpoints.js'
 import { FIELD_TYPES } from '../../constants/fieldTypes.js'
 import { LABEL_COURSE, LABEL_LEARNER, LABEL_SUPERVISOR, LABEL_WORK_TYPE } from '../../constants/labels.js'
 import { crudCreatePath } from '../../constants/routes.js'
-import { TEXT_ADD_CONFERENCE, TEXT_EVENT_DATE, TEXT_MSG_COURSE_REQUIRED, TEXT_MSG_SUPERVISOR_REQUIRED } from '../../constants/texts.js'
+import { TEXT_ADD_CONFERENCE, TEXT_START_DATE, TEXT_END_DATE, TEXT_MSG_COURSE_REQUIRED, TEXT_MSG_SUPERVISOR_REQUIRED } from '../../constants/texts.js'
 import { requiredBlur, requiredChange } from '../../constants/validation.js'
 import { ID_COLUMN, LEARNER_FIELDS, LEARNER_FILTERS, PARTICIPANT_FIELDS, PARTICIPANT_FILTERS, emptyLearner, LOOKUP_ICONTAINS } from '../_shared.js'
 export const FIELDS = [
@@ -25,7 +25,8 @@ export const COLUMNS = [
   { prop: 'get_course', label: LABEL_COURSE, width: 80 },
   { prop: 'supervisor_display', label: LABEL_SUPERVISOR },
   { prop: 'conference_title', label: 'Конференция' },
-  { prop: 'conference_date', label: TEXT_EVENT_DATE, width: 130 },
+  { prop: 'conference_start_date', label: TEXT_START_DATE, width: 130 },
+  { prop: 'conference_end_date', label: TEXT_END_DATE, width: 130 },
   { prop: 'report_title', label: 'Тема доклада' },
   { prop: 'get_work_type', label: LABEL_WORK_TYPE, width: 130 }
 ]
@@ -37,8 +38,8 @@ export const FILTERS = [
   { prop: 'work_type', label: LABEL_WORK_TYPE, type: FIELD_TYPES.SELECT, options: WORK_KIND },
   { prop: 'report_title', label: 'Тема доклада', type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
   PARTICIPANT_FILTERS.problem_group,
-  { prop: 'conference__date__gte', label: 'Дата конференции с', type: FIELD_TYPES.DATE },
-  { prop: 'conference__date__lte', label: 'Дата конференции по', type: FIELD_TYPES.DATE },
+  { prop: 'conference__start_date__gte', label: 'Дата конференции с', type: FIELD_TYPES.DATE },
+  { prop: 'conference__end_date__lte', label: 'Дата конференции по', type: FIELD_TYPES.DATE },
   { prop: 'diploma_1', label: 'Диплом 1 степени', type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
   { prop: 'diploma_2', label: 'Диплом 2 степени', type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
   { prop: 'diploma_3', label: 'Диплом 3 степени', type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
