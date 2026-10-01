@@ -1,5 +1,5 @@
 import { COURSE, YES_NO_OPTIONS, UNKNOWN_LABEL_PREFIX } from '../constants/choices.js'
-import { TEXT_LEARNER_REQUIRED, TEXT_TITLE_PLACEHOLDER, TEXT_CITY, TEXT_EVENT_DATE, TEXT_FOUNDER, TEXT_ADD_FOUNDER, TEXT_MSG_INTEGER } from '../constants/texts.js'
+import { TEXT_LEARNER_REQUIRED, TEXT_TITLE_PLACEHOLDER, TEXT_CITY, TEXT_START_DATE, TEXT_END_DATE, TEXT_MSG_DATE_RANGE, TEXT_FOUNDER, TEXT_ADD_FOUNDER, TEXT_MSG_INTEGER } from '../constants/texts.js'
 import { TABLE_ID_WIDTH, TABLE_ID_PROP } from '../constants/ui.js'
 import { LOOKUP_SEP, QUERY_SEARCH, PK_FIELD, isEmptyValue } from '../constants/api.js'
 import { FIELD_TYPES, FIELD_TYPE_TEXT, FIELD_TYPE_REF, FIELD_TYPE_SELECT, FIELD_TYPE_DATE } from '../constants/fieldTypes.js'
@@ -42,6 +42,14 @@ export function validateLearner(form) {
   if (picked.length === 1) return ''
   return TEXT_LEARNER_REQUIRED
 }
+export function validateEventDates(form) {
+  const start = form?.start_date
+  const end = form?.end_date
+  if (!isEmptyValue(start) && !isEmptyValue(end) && end < start) {
+    return TEXT_MSG_DATE_RANGE
+  }
+  return ''
+}
 export const PARTICIPANT_FIELDS = {
   supervisor: { prop: 'supervisor', label: 'Научный руководитель (ППС кафедры)', type: FIELD_TYPE_REF, required: true, ref: ENDPOINTS.PPS_DEPTS },
   course: { prop: 'course', label: 'Курс на момент участия', type: FIELD_TYPE_SELECT, required: true, options: COURSE },
@@ -59,7 +67,8 @@ export function courseField({ required = true } = {}) {
 }
 export const EVENT_INFO_FIELDS = [
   { prop: 'title', label: 'Название', type: FIELD_TYPE_TEXT, required: true, placeholder: TEXT_TITLE_PLACEHOLDER },
-  { prop: 'date', label: TEXT_EVENT_DATE, type: FIELD_TYPE_DATE, required: true },
+  { prop: 'start_date', label: TEXT_START_DATE, type: FIELD_TYPE_DATE, required: true },
+  { prop: 'end_date', label: TEXT_END_DATE, type: FIELD_TYPE_DATE, required: true },
   { prop: 'founder', label: TEXT_FOUNDER, type: FIELD_TYPE_REF, required: true, ref: ENDPOINTS.FOUNDERS, addRoute: crudCreatePath(ENDPOINTS.FOUNDERS), addLabel: TEXT_ADD_FOUNDER },
   { prop: 'city', label: TEXT_CITY, type: FIELD_TYPE_TEXT, required: true, placeholder: TEXT_CITY }
 ]

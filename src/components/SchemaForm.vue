@@ -26,7 +26,8 @@
         <div v-if="eventPreview && f.prop === eventPreview.watchProp && eventInfo" class="nir-event-info">
           <el-descriptions :column="1" :size="UI_SIZE_SMALL" border>
             <el-descriptions-item :label="eventPreview.titleLabel">{{ eventInfo.title }}</el-descriptions-item>
-            <el-descriptions-item :label="TEXT_EVENT_DATE">{{ eventInfo.date }}</el-descriptions-item>
+            <el-descriptions-item :label="TEXT_START_DATE">{{ eventInfo.start_date }}</el-descriptions-item>
+            <el-descriptions-item :label="TEXT_END_DATE">{{ eventInfo.end_date }}</el-descriptions-item>
             <el-descriptions-item :label="TEXT_FOUNDER">{{ eventInfo.founder_name || eventInfo.founder }}</el-descriptions-item>
             <el-descriptions-item :label="TEXT_CITY">{{ eventInfo.city }}</el-descriptions-item>
           </el-descriptions>
@@ -43,7 +44,7 @@ import {
   DATE_VALUE_FORMAT,
   MONTH_VALUE_FORMAT
 } from '../constants/formats.js'
-import { TEXT_CHOOSE, TEXT_DAY, TEXT_MONTH, TEXT_EVENT_DATE, TEXT_FOUNDER, TEXT_CITY } from '../constants/texts.js'
+import { TEXT_CHOOSE, TEXT_DAY, TEXT_MONTH, TEXT_START_DATE, TEXT_END_DATE, TEXT_FOUNDER, TEXT_CITY } from '../constants/texts.js'
 import { FIELD_TYPES } from '../constants/fieldTypes.js'
 import { UI_SIZE_SMALL } from '../constants/ui.js'
 import { UPDATE_MODEL_EVENT } from '../constants/events.js'
