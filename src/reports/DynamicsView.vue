@@ -3,7 +3,7 @@
     <div class="nir-report-filters">
       <PeriodFilter v-model="period" @update:modelValue="onChange" />
       <FilterPanel v-model="filters" :show-actions="false" :show-search="false" collapsible @search="onLoad">
-      <ReportFilters :model-value="filters" @update:modelValue="filters = $event" />
+      <ReportFilters :model-value="filters" :fields="REPORT_FILTER_FIELDS[KIND]" @update:modelValue="filters = $event" />
     </FilterPanel>
     </div>
     <ErrorAlert :message="error" />
@@ -38,13 +38,13 @@ import FilterPanel from '../components/FilterPanel.vue'
 import ErrorAlert from '../components/ErrorAlert.vue'
 import DrillDownDrawer from './DrillDownDrawer.vue'
 import ReportFilters from './ReportFilters.vue'
+import { REPORT_FILTER_FIELDS, DYNAMICS_METRICS, REPORT_STRATEGY_KEYS_LENGTH } from '../constants/reports.js'
 import ReportActions from './ReportActions.vue'
 import ReportTotals from './ReportTotals.vue'
 import { useReportPage } from '../composables/useReportPage.js'
 import { TEXT_DRILL_HINT, TEXT_EMPTY, TEXT_REPORT_IDLE } from '../constants/texts.js'
 import { TABLE_MIN_WIDTH, BTN_PRIMARY } from '../constants/ui.js'
 import { useEcharts } from '../composables/useEcharts.js'
-import { DYNAMICS_METRICS, REPORT_STRATEGY_KEYS_LENGTH } from '../constants/reports.js'
 import { REPORT_KIND_DYNAMICS } from '../constants/tables.js'
 
 const KIND = REPORT_KIND_DYNAMICS

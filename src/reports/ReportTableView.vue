@@ -3,7 +3,7 @@
     <div class="nir-report-filters">
       <PeriodFilter v-model="period" @update:modelValue="onChange" />
       <FilterPanel v-model="filters" :show-actions="false" :show-search="false" collapsible @search="onLoad">
-      <ReportFilters :model-value="filters" @update:modelValue="filters = $event" />
+      <ReportFilters :model-value="filters" :fields="REPORT_FILTER_FIELDS[props.kind]" @update:modelValue="filters = $event" />
     </FilterPanel>
     </div>
     <ErrorAlert :message="error" />
@@ -39,6 +39,7 @@ import FilterPanel from '../components/FilterPanel.vue'
 import ErrorAlert from '../components/ErrorAlert.vue'
 import DrillDownDrawer from './DrillDownDrawer.vue'
 import ReportFilters from './ReportFilters.vue'
+import { REPORT_FILTER_FIELDS } from '../constants/reports.js'
 import ReportActions from './ReportActions.vue'
 import ReportTotals from './ReportTotals.vue'
 import { useReportPage } from '../composables/useReportPage.js'
