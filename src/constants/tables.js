@@ -20,7 +20,7 @@ export const TABLES = [
   { key: 'contest-participations', title: 'Конкурсы', endpoint: 'nir-contest-participations' },
   { key: 'implementation-acts', title: 'Акты о внедрении', endpoint: 'nir-implementation-acts' },
   { key: 'department-exhibitions', title: 'Кафедральные выставки', endpoint: 'nir-department-exhibitions' },
-  { key: 'student-statuses', title: 'Статусы обучающихся', endpoint: 'nir-student-statuses' },
+  { key: 'student-statuses', title: 'Одарённая молодёжь', endpoint: 'nir-student-statuses' },
   { key: 'circle-reports', title: 'Доклады научного сообщества (кружка)', endpoint: 'nir-circle-reports' },
   { key: 'pps-departments', title: 'ППС кафедры', endpoint: 'nir-pps-departments' }
 ]
@@ -35,7 +35,7 @@ export const REPORT_KINDS = [
   { value: REPORT_KIND_FACULTY, label: 'По факультету' },
   { value: REPORT_KIND_CIRCLES, label: 'По научным сообществам (кружкам) и проблемным группам (секциям)' },
   { value: REPORT_KIND_CATEGORY, label: 'По категориям обучающихся' },
-  { value: REPORT_KIND_STATUS, label: 'По статусам обучающихся' },
+  { value: REPORT_KIND_STATUS, label: 'По одарённой молодёжи' },
   { value: REPORT_KIND_FOUNDER, label: 'По учредителям' },
   { value: REPORT_KIND_DYNAMICS, label: 'Динамика по годам' }
 ]
