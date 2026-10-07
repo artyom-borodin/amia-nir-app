@@ -13,6 +13,7 @@ export const TABLES = [
   { key: 'science-circles', title: 'Научные сообщества (кружки)', endpoint: 'nir-science-circles' },
   { key: 'problem-groups', title: 'Проблемные группы (секции)', endpoint: 'nir-problem-groups' },
   { key: 'founders', title: 'Учредители конкурсов и конференций', endpoint: 'nir-founders' },
+  { key: 'implementation-organizations', title: 'Организации, внедрившие разработку', endpoint: 'nir-implementation-organizations' },
   { key: 'conference-infos', title: 'Конференции (справочник)', endpoint: 'nir-conference-infos' },
   { key: 'contest-infos', title: 'Конкурсы (справочник)', endpoint: 'nir-contest-infos' },
   { key: 'conference-participations', title: 'Конференции', endpoint: 'nir-conference-participations' },

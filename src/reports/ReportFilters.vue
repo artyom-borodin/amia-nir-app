@@ -84,7 +84,7 @@
       </el-select>
     </el-form-item>
     <el-form-item :label="LABEL_ORGANIZATION" v-if="shown('organization')">
-      <el-input :model-value="modelValue.organization" clearable :placeholder="TEXT_ALL" @update:modelValue="setField('organization', $event)" />
+      <ReferenceSelect :model-value="modelValue.organization" :endpoint="REPORT_FILTER_ENDPOINTS.organization" :label-field="DICT_LABEL_FIELD" :placeholder="TEXT_ALL" @update:modelValue="setField('organization', $event)" />
     </el-form-item>
     <el-form-item label="Наличие диплома" v-if="shown('diploma')">
       <el-select :model-value="diplomaValue" clearable :placeholder="TEXT_ALL" @update:modelValue="setDiploma($event)">
