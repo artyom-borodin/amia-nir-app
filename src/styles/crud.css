@@ -223,3 +223,34 @@
 .nir-ref-add {
   flex: 0 0 auto;
 }
+
+.el-select-dropdown__item:has(> .nir-ref-option) {
+  height: auto;
+  padding-top: var(--nir-gap-2xs);
+  padding-bottom: var(--nir-gap-2xs);
+  line-height: 1.5;
+}
+
+.el-select-dropdown__item:has(> .nir-ref-option):nth-child(even):not(.hover):not(.selected) {
+  background: var(--el-fill-color-light);
+}
+
+.nir-ref-option {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nir-gap-2xs);
+  white-space: normal;
+}
+
+.nir-ref-option-row {
+  display: flex;
+  gap: var(--nir-gap-2xs);
+  align-items: baseline;
+  min-width: 0;
+}
+
+.nir-ref-option-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
