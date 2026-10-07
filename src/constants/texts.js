@@ -97,6 +97,7 @@ export const TEXT_YEAR_OR_STUDY_YEAR_PLACEHOLDER = 'ГГГГ или ГГГГ/Г�
 export const TEXT_MONTH_DAY_HINT = 'День 01 означает, что указан только месяц'
 
 export const TEXT_ADD_FOUNDER = 'Добавить учредителя'
+export const TEXT_ADD_ORGANIZATION = 'Добавить организацию'
 export const TEXT_ADD_CONFERENCE = 'Добавить конференцию'
 export const TEXT_ADD_CONTEST = 'Добавить конкурс'
 
@@ -107,6 +108,7 @@ export const TEXT_MSG_START_DATE_REQUIRED = 'Укажите дату начал�
 export const TEXT_MSG_END_DATE_REQUIRED = 'Укажите дату окончания'
 export const TEXT_MSG_DATE_RANGE = 'Дата окончания не может быть раньше даты начала'
 export const TEXT_MSG_FOUNDER_REQUIRED = 'Выберите учредителя'
+export const TEXT_MSG_ORGANIZATION_REQUIRED = 'Выберите организацию'
 export const TEXT_MSG_CITY_REQUIRED = 'Укажите город проведения'
 export const TEXT_MSG_CIRCLE_REQUIRED = 'Выберите научное сообщество (кружок)'
 export const TEXT_MSG_WORK_TITLE_REQUIRED = 'Укажите название работы'

@@ -1,6 +1,7 @@
 import CirclesList from './science-circles/views/ListView.vue'
 import GroupsList from './problem-groups/views/ListView.vue'
 import FoundersList from './founders/views/ListView.vue'
+import OrganizationsList from './implementation-organizations/views/ListView.vue'
 import ConfInfosList from './conference-infos/views/ListView.vue'
 import ContestInfosList from './contest-infos/views/ListView.vue'
 import ConfPartsList from './conference-participations/views/ListView.vue'
@@ -17,6 +18,7 @@ export const CRUD_LIST_MAP = {
   [TABLE_KEYS.SCIENCE_CIRCLES]: CirclesList,
   [TABLE_KEYS.PROBLEM_GROUPS]: GroupsList,
   [TABLE_KEYS.FOUNDERS]: FoundersList,
+  [TABLE_KEYS.IMPLEMENTATION_ORGANIZATIONS]: OrganizationsList,
   [TABLE_KEYS.CONFERENCE_INFOS]: ConfInfosList,
   [TABLE_KEYS.CONTEST_INFOS]: ContestInfosList,
   [TABLE_KEYS.CONFERENCE_PARTS]: ConfPartsList,

@@ -87,6 +87,7 @@ export const REPORT_COLUMN_LABELS = {
   work_type: 'Вид работы',
   pub_type: 'Вид публикации',
   organization: 'Организация, внедрившая разработку',
+  organization_name: 'Организация, внедрившая разработку',
   act_date: 'Дата акта',
   act_number: 'Номер акта',
   result_date: 'Дата получения результата',
@@ -121,7 +122,8 @@ export const REPORT_FILTER_ENDPOINTS = {
   subdivision: 'subdivision',
   circle: 'nir-science-circles',
   problem_group: 'nir-problem-groups',
-  founder: 'nir-founders'
+  founder: 'nir-founders',
+  organization: 'nir-implementation-organizations'
 }
 
 export const REPORT_HIDDEN_COLUMNS = {
