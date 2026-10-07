@@ -28,6 +28,10 @@ const LABEL_FORMATTERS = [
     format: (row) => [row.last_name_rus, row.first_name_rus, row.patronymic_rus].filter(Boolean).join(FIO_SEPARATOR)
   },
   {
+    test: (row) => row.title && row.start_date,
+    format: (row) => String(row.title) + ' (' + String(row.start_date) + (row.end_date ? ' - ' + String(row.end_date) : '') + (row.city ? ', ' + String(row.city) : '') + ')'
+  },
+  {
     test: (row) => row.report_title,
     format: (row) => 'Доклад: ' + String(row.report_title) + (row.conference_title ? ' и конференция: ' + String(row.conference_title) : '')
   }
