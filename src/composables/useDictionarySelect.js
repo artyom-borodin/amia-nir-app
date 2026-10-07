@@ -22,7 +22,7 @@ const LABEL_FORMATTERS = [
     format: (row) => String(row.subdivision_short_name || row.subdivision_name)
   },
   { test: (row) => row.group_name, format: (row) => String(row.group_name) },
-  { test: (row) => row.get_full_name, format: (row) => String(row.get_full_name) },
+  { test: (row) => row.get_full_name, format: (row) => [row.last_name_rus, row.first_name_rus, row.patronymic_rus].filter(Boolean).join(FIO_SEPARATOR) || String(row.get_full_name) },
   {
     test: (row) => row.last_name_rus,
     format: (row) => [row.last_name_rus, row.first_name_rus, row.patronymic_rus].filter(Boolean).join(FIO_SEPARATOR)
