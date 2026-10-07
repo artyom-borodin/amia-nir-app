@@ -11,7 +11,19 @@
       class="nir-ref-select"
       @change="$emit(UPDATE_MODEL_EVENT, $event)"
     >
-      <el-option v-for="o in options" :key="o.value" :value="o.value" :label="o.label" />
+      <el-option v-for="o in options" :key="o.value" :value="o.value" :label="o.label">
+        <span v-if="o.raw && o.raw.report_title" class="nir-ref-option">
+          <span class="nir-ref-option-row">
+            <el-tag :size="UI_SIZE_SMALL">Доклад</el-tag>
+            <span class="nir-ref-option-text">{{ o.raw.report_title }}</span>
+          </span>
+          <span v-if="o.raw.conference_title" class="nir-ref-option-row">
+            <el-tag :size="UI_SIZE_SMALL">Конференция</el-tag>
+            <span class="nir-ref-option-text">{{ o.raw.conference_title }}</span>
+          </span>
+        </span>
+        <span v-else>{{ o.label }}</span>
+      </el-option>
     </el-select>
     <el-button v-if="addRoute" :size="UI_SIZE_SMALL" class="nir-ref-add" :title="addHint" @click="goAdd">{{ addButtonLabel }}</el-button>
   </div>
