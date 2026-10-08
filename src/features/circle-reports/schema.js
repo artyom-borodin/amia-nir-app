@@ -2,19 +2,21 @@ import { ID_COLUMN, integerValidator, YEAR_MIN, YEAR_MAX, NON_NEGATIVE_MIN } fro
 import { FIELD_TYPES } from '../../constants/fieldTypes.js'
 import { ENDPOINTS } from '../../constants/endpoints.js'
 import { LABEL_CIRCLE } from '../../constants/labels.js'
+import { REPORT_COLUMN_LABELS } from '../../constants/reports.js'
 import { TEXT_YEAR_CALENDAR, TEXT_MSG_CIRCLE_REQUIRED, requiredTitleMsg } from '../../constants/texts.js'
+import { COL_SELECT_W } from '../../constants/ui.js'
 import { requiredBlur, requiredChange, TRIGGER_BLUR } from '../../constants/validation.js'
 
 export const FIELDS = [
   { prop: 'year', label: TEXT_YEAR_CALENDAR, type: FIELD_TYPES.NUMBER, required: true, min: YEAR_MIN, max: YEAR_MAX },
   { prop: 'circle', label: LABEL_CIRCLE, type: FIELD_TYPES.REF, required: true, ref: ENDPOINTS.SCIENCE_CIRCLES },
-  { prop: 'reports_count', label: 'Количество докладов', type: FIELD_TYPES.NUMBER, required: true, min: NON_NEGATIVE_MIN }
+  { prop: 'reports_count', label: REPORT_COLUMN_LABELS.reports_count, type: FIELD_TYPES.NUMBER, required: true, min: NON_NEGATIVE_MIN }
 ]
 export const COLUMNS = [
   ID_COLUMN,
   { prop: 'year', label: TEXT_YEAR_CALENDAR, width: 100 },
   { prop: 'circle_name', label: LABEL_CIRCLE },
-  { prop: 'reports_count', label: 'Количество докладов', width: 170 }
+  { prop: 'reports_count', label: REPORT_COLUMN_LABELS.reports_count, width: COL_SELECT_W }
 ]
 export const FILTERS = [
   { prop: 'year', label: TEXT_YEAR_CALENDAR, type: FIELD_TYPES.TEXT },

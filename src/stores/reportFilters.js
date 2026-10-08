@@ -38,8 +38,6 @@ export const FILTER_FIELD_NAMES = [
   'search'
 ]
 
-export const REPORT_FILTER_FIELDS = FILTER_FIELD_NAMES
-
 function defaultFilters() {
   return Object.fromEntries(FILTER_FIELD_NAMES.map((k) => [k, EMPTY_FILTER_VALUE]))
 }

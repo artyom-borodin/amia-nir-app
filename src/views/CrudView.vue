@@ -1,7 +1,7 @@
 <template>
   <div class="nir-crud">
     <h2 class="nir-crud-title">{{ title }}</h2>
-    <component :is="currentList" v-if="currentList" />
+    <component :is="currentList.component" v-if="currentList" :key="props.tableKey" v-bind="currentList.props" />
     <div v-else>
       <p>{{ TEXT_TABLE_NOT_FOUND }}: {{ tableKey }}</p>
     </div>

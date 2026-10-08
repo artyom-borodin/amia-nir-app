@@ -2,6 +2,7 @@ import { ref, onUnmounted } from 'vue'
 import { useDictionariesStore } from '../stores/dictionaries.js'
 import { UI_DICT_LIMIT, UI_SEARCH_DEBOUNCE_MS, DICT_VALUE_FIELD, DICT_LABEL_FIELD } from '../constants/ui.js'
 import { LABEL_SEPARATOR, FIO_SEPARATOR } from '../constants/choices.js'
+import { TITLE_SEPARATOR, LIST_JOINER } from '../constants/formats.js'
 import { LOOKUP_ICONTAINS, unknownLabel } from '../features/_shared.js'
 import { LOOKUP_SEP, QUERY_SEARCH, PK_FIELD } from '../constants/api.js'
 
@@ -29,7 +30,7 @@ const LABEL_FORMATTERS = [
   },
   {
     test: (row) => row.title && row.start_date,
-    format: (row) => String(row.title) + ' (' + String(row.start_date) + (row.end_date ? ' - ' + String(row.end_date) : '') + (row.city ? ', ' + String(row.city) : '') + ')'
+    format: (row) => String(row.title) + ' (' + String(row.start_date) + (row.end_date ? TITLE_SEPARATOR + String(row.end_date) : '') + (row.city ? LIST_JOINER + String(row.city) : '') + ')'
   },
   {
     test: (row) => row.report_title,

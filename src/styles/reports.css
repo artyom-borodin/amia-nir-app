@@ -14,10 +14,6 @@
   border-radius: var(--nir-radius-bottom);
 }
 
-.nir-report-card {
-  border-radius: var(--nir-radius-card);
-}
-
 .nir-report-table {
   min-width: var(--nir-report-table-min-w);
 }

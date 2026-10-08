@@ -1,3 +1,6 @@
+import { TITLE_SEPARATOR } from './formats.js'
+import { TEXT_YES, TEXT_NO } from './texts.js'
+
 export const RESULT_NO_CATEGORY = 'Без категории'
 
 export const COURSE = [
@@ -60,10 +63,10 @@ export const LEARNER_CATEGORIES = [
 ]
 
 export const YES_NO_OPTIONS = [
-  { value: 'true', label: 'Да' },
-  { value: 'false', label: 'Нет' }
+  { value: 'true', label: TEXT_YES },
+  { value: 'false', label: TEXT_NO }
 ]
 
-export const LABEL_SEPARATOR = ' - '
+export const LABEL_SEPARATOR = TITLE_SEPARATOR
 export const FIO_SEPARATOR = ' '
 export const UNKNOWN_LABEL_PREFIX = 'ID '

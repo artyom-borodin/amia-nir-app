@@ -15,7 +15,6 @@
 .nir-login-card {
   width: var(--nir-login-card-w);
   box-sizing: border-box;
-  border-radius: var(--nir-radius-card);
   box-shadow: var(--nir-shadow-card);
   --el-card-padding: var(--nir-login-card-pad);
 }

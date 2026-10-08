@@ -21,7 +21,7 @@
           :sortable="TABLE_SORT_CUSTOM"
         >
           <template #default="scope">
-            <span class="nir-cell">{{ formatCell(scope.row[c.prop]) }}</span>
+            <span class="nir-cell">{{ formatTableCell(scope.row[c.prop]) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -61,7 +61,7 @@ import {
   TABLE_ATTRS
 } from '../constants/ui.js'
 import { TEXT_EMPTY, TEXT_ACTIONS, TEXT_EDIT, TEXT_DELETE } from '../constants/texts.js'
-import { formatBoolCell } from '../utils/format.js'
+import { formatTableCell } from '../utils/format.js'
 import NirPagination from './NirPagination.vue'
 
 const props = defineProps({
@@ -88,10 +88,5 @@ const normalizedColumns = computed(() =>
   })
 )
 
-function formatCell(value) {
-  const b = formatBoolCell(value)
-  if (b !== undefined) return b
-  return value
-}
 </script>
 

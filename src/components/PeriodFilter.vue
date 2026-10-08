@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { computed } from 'vue'
 import {
   PERIOD_TYPES,
   defaultPeriod,
@@ -59,6 +59,7 @@ import {
 import { DATE_VALUE_FORMAT, INPUTMODE_NUMERIC } from '../constants/formats.js'
 import { UI_CARD_SHADOW } from '../constants/ui.js'
 import { UPDATE_MODEL_EVENT } from '../constants/events.js'
+import { useSyncedLocal } from '../composables/useSyncedLocal.js'
 import {
   TEXT_PERIOD_PLACEHOLDER,
   TEXT_YEAR_PLACEHOLDER,
@@ -81,12 +82,8 @@ const props = defineProps({
 })
 const emit = defineEmits([UPDATE_MODEL_EVENT])
 
-const local = ref({ ...defaultPeriod(), ...props.modelValue })
+const { local } = useSyncedLocal(props, emit, (v) => ({ ...defaultPeriod(), ...v }))
 
 const fiveYearText = computed(() => formatFiveYearRange(local.value.startYear))
-
-watch(local, (val) => {
-  emit(UPDATE_MODEL_EVENT, { ...val })
-}, { deep: true })
 </script>
 

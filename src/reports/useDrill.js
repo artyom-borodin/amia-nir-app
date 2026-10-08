@@ -1,21 +1,7 @@
 import { ref } from 'vue'
-import { labelFor, formatDrillTitle, isTechnicalKey } from './reportHelpers.js'
-import { LIST_JOINER, KV_JOINER } from '../constants/formats.js'
+import { columnsFromKeys, formatDrillTitle, isTechnicalKey } from './reportHelpers.js'
 
 export { isTechnicalKey }
-
-export function formatCompound(v) {
-  if (Array.isArray(v)) return v.join(LIST_JOINER)
-  if (typeof v === 'object' && v !== null) return Object.keys(v).map((k) => k + KV_JOINER + v[k]).join(LIST_JOINER)
-  return undefined
-}
-
-export function formatReportCell(v) {
-  if (v == null) return ''
-  const compound = formatCompound(v)
-  if (compound !== undefined) return compound
-  return String(v)
-}
 
 export function resolveDrillDetails(data, key, col) {
   const byKey = data?.details?.[key]
@@ -37,7 +23,7 @@ export function buildDrillColumns(rows) {
       }
     }
   }
-  return union.map((k) => ({ prop: k, label: labelFor(k) }))
+  return columnsFromKeys(union)
 }
 
 export function useDrill(dataRef) {

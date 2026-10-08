@@ -30,7 +30,7 @@
     />
     <FormDrawer v-model="drawer" :title="editId ? TEXT_EDIT_RECORD : TEXT_ADD_RECORD" :loading="saving" @save="onSave">
       <ErrorAlert :message="formError" :fields="formFields" />
-      <component :is="formComponent" v-model="form" ref="formViewRef" />
+      <component :is="formComponent" v-model="form" v-bind="formProps" ref="formViewRef" />
     </FormDrawer>
   </div>
 </template>
@@ -53,13 +53,15 @@ import {
   TEXT_ADD_RECORD
 } from '../../constants/texts.js'
 import { useCrudPage } from '../../composables/useCrudPage.js'
+import CrudFormView from './CrudFormView.vue'
 
 const props = defineProps({
   crudKey: { type: String, required: true },
   columns: { type: Array, default: () => [] },
   filterDefs: { type: Array, default: () => [] },
   emptyForm: { type: Function, required: true },
-  formComponent: { type: Object, required: true },
+  formComponent: { type: Object, default: () => CrudFormView },
+  formProps: { type: Object, default: () => ({}) },
 
   validate: { type: Function, default: null },
 

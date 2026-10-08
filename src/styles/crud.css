@@ -1,8 +1,11 @@
 
-.nir-crud {
+:is(.nir-crud, .nir-page) {
   display: flex;
   flex-direction: column;
   min-width: 0;
+}
+
+.nir-crud {
   max-width: 100%;
 }
 
@@ -18,7 +21,6 @@
 .nir-filter-card,
 .nir-period-card {
   margin-bottom: var(--nir-gap-sm);
-  border-radius: var(--nir-radius-card);
 }
 
 .nir-filter-card .el-card__body,
@@ -26,8 +28,7 @@
   padding: var(--nir-card-pad-y) var(--nir-card-pad-x);
 }
 
-.nir-filter-form,
-.nir-period-form {
+:is(.nir-filter-form, .nir-period-form) {
   width: 100%;
 }
 
@@ -100,10 +101,6 @@
 
 .nir-filter-contents {
   display: contents;
-}
-
-.nir-table-card {
-  border-radius: var(--nir-radius-card);
 }
 
 .nir-table-card .el-card__body {
@@ -227,7 +224,7 @@
   height: auto;
   padding-top: var(--nir-gap-2xs);
   padding-bottom: var(--nir-gap-2xs);
-  line-height: 1.5;
+  line-height: var(--nir-lh-relaxed);
 }
 
 .el-select-dropdown__item:has(> .nir-ref-option):nth-child(even):not(.hover):not(.selected) {
@@ -246,10 +243,4 @@
   gap: var(--nir-gap-2xs);
   align-items: baseline;
   min-width: 0;
-}
-
-.nir-ref-option-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
