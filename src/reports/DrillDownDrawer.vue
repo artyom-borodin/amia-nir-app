@@ -1,8 +1,14 @@
 <template>
   <el-drawer :model-value="modelValue" :title="title || TEXT_DRILL_TITLE" :size="DRAWER_DRILL_SIZE" @close="$emit('update:modelValue', false)">
     <div class="nir-drill-scroll">
-      <el-table v-if="columns && columns.length" :data="rows" stripe fit table-layout="auto" :empty-text="TEXT_EMPTY" class="nir-drill-table">
-        <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="160">
+      <el-table
+        v-if="columns && columns.length"
+        v-bind="TABLE_ATTRS"
+        :data="rows"
+        :empty-text="TEXT_EMPTY"
+        class="nir-drill-table"
+      >
+        <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="TABLE_DRILL_MIN_WIDTH">
           <template #default="scope">
             {{ formatCell(scope.row[c.prop]) }}
           </template>
@@ -16,7 +22,7 @@
 <script setup>
 import { formatCompound } from './useDrill.js'
 import { TEXT_DRILL_TITLE, TEXT_EMPTY } from '../constants/texts.js'
-import { DRAWER_DRILL_SIZE } from '../constants/ui.js'
+import { DRAWER_DRILL_SIZE, TABLE_ATTRS, TABLE_DRILL_MIN_WIDTH } from '../constants/ui.js'
 
 import { formatBoolCell } from '../utils/format.js'
 

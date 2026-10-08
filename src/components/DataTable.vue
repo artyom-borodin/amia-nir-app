@@ -2,11 +2,9 @@
   <el-card class="nir-table-card" :shadow="UI_CARD_SHADOW">
     <div class="nir-table-scroll">
       <el-table
+        v-bind="TABLE_ATTRS"
         :data="rows"
         v-loading="loading"
-        stripe
-        fit
-        :table-layout="TABLE_LAYOUT_AUTO"
         :empty-text="TEXT_EMPTY"
         header-cell-class-name="nir-th"
         class="nir-table"
@@ -42,19 +40,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <div class="nir-table-footer">
-      <el-pagination
-        :current-page="page"
-        :page-size="pageSize"
-        :page-sizes="PAGE_SIZES"
-        :total="total"
-        :pager-count="PAGER_COUNT"
-        background
-        :layout="PAGINATION_LAYOUT"
-        @current-change="$emit('page-change', $event)"
-        @size-change="$emit('size-change', $event)"
-      />
-    </div>
+    <NirPagination :page="page" :page-size="pageSize" :total="total" footer-class="nir-table-footer" @page-change="$emit('page-change', $event)" @size-change="$emit('size-change', $event)" />
   </el-card>
 </template>
 
@@ -66,19 +52,17 @@ import {
   TABLE_MIN_WIDTH,
   TABLE_DEFAULT_MIN_WIDTH,
   TABLE_ACTIONS_WIDTH,
-  PAGE_SIZES,
-  PAGER_COUNT,
   UI_CARD_SHADOW,
   UI_SIZE_SMALL,
   BTN_DANGER,
-  TABLE_LAYOUT_AUTO,
   TABLE_SORT_CUSTOM,
   TABLE_FIXED_RIGHT,
   TABLE_ID_PROP,
-  PAGINATION_LAYOUT
+  TABLE_ATTRS
 } from '../constants/ui.js'
 import { TEXT_EMPTY, TEXT_ACTIONS, TEXT_EDIT, TEXT_DELETE } from '../constants/texts.js'
 import { formatBoolCell } from '../utils/format.js'
+import NirPagination from './NirPagination.vue'
 
 const props = defineProps({
   rows: { type: Array, default: () => [] },

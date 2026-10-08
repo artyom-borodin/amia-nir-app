@@ -45,6 +45,19 @@ body {
   line-height: var(--nir-lh-cell);
 }
 
+:is(.nir-table, .nir-report-table, .nir-drill-table) {
+  width: 100%;
+}
+
+:is(.nir-table .nir-th, .nir-report-table th.el-table__cell, .nir-drill-table th.el-table__cell) {
+  background: var(--nir-color-soft-bg);
+  font-weight: var(--nir-font-weight-semibold);
+}
+
+:is(.nir-table-scroll, .nir-report-scroll, .nir-drill-scroll) {
+  overflow-x: auto;
+}
+
 .nir-hint {
   margin-top: var(--nir-gap-xs);
   color: var(--nir-color-hint);
@@ -85,4 +98,33 @@ body {
   color: var(--el-color-danger);
   font-size: var(--nir-label-size);
   line-height: var(--nir-lh-base);
+}
+
+* {
+  scrollbar-color: var(--nir-scrollbar-thumb) var(--nir-scrollbar-track);
+}
+
+*::-webkit-scrollbar {
+  width: var(--nir-scrollbar-size);
+  height: var(--nir-scrollbar-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--nir-scrollbar-track);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--nir-scrollbar-thumb);
+  border-radius: var(--nir-radius-chip);
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background: var(--nir-scrollbar-thumb-hover);
+}
+
+.el-scrollbar {
+  --el-scrollbar-bg-color: var(--nir-scrollbar-thumb);
+  --el-scrollbar-hover-bg-color: var(--nir-scrollbar-thumb-hover);
+  --el-scrollbar-opacity: var(--nir-scrollbar-opacity);
+  --el-scrollbar-hover-opacity: var(--nir-scrollbar-hover-opacity);
 }

@@ -36,6 +36,12 @@
   --nir-color-border: #e4e7ed;
   --nir-color-transparent: transparent;
   --nir-color-resizer-active: var(--el-color-primary);
+  --nir-scrollbar-track: #e9edf2;
+  --nir-scrollbar-thumb: #a7b0be;
+  --nir-scrollbar-thumb-hover: #7e8899;
+  --nir-scrollbar-size: 0.75rem;
+  --nir-scrollbar-opacity: 0.7;
+  --nir-scrollbar-hover-opacity: 1;
   --nir-border-w: 0.0625rem;
   --nir-shadow-card: var(--el-box-shadow-light);
 
@@ -101,6 +107,8 @@
 
   --nir-table-min-w: clamp(24rem, 18rem + 24vw, 40rem);
   --nir-table-actions-w: clamp(11.5rem, 10rem + 6vw, 13rem);
+  --nir-table-max-h-fallback: 60vh;
+  --nir-table-max-h: 60dvh;
 
   --nir-report-table-min-w: clamp(22rem, 16rem + 24vw, 35rem);
   --nir-report-table-min-w-sm: clamp(18rem, 14rem + 20vw, 26.25rem);

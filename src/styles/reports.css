@@ -18,12 +18,7 @@
   border-radius: var(--nir-radius-card);
 }
 
-.nir-report-scroll {
-  overflow-x: auto;
-}
-
 .nir-report-table {
-  width: 100%;
   min-width: var(--nir-report-table-min-w);
 }
 
@@ -31,10 +26,8 @@
   min-width: var(--nir-report-table-min-w-sm);
 }
 
-.nir-report-table th.el-table__cell,
-.nir-drill-table th.el-table__cell {
-  background: var(--nir-color-soft-bg);
-  font-weight: var(--nir-font-weight-semibold);
+.nir-report-footer {
+  margin-top: var(--nir-gap-sm);
 }
 
 .nir-course-tags {
@@ -90,12 +83,7 @@
   white-space: nowrap;
 }
 
-.nir-drill-scroll {
-  overflow-x: auto;
-}
-
 .nir-drill-table {
-  width: 100%;
   min-width: var(--nir-drill-table-min-w);
 }
 

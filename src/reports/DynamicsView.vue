@@ -13,7 +13,12 @@
         <div v-if="items.length" ref="chartRef" class="nir-chart"></div>
         <div v-if="items.length" class="nir-hint nir-hint-top">{{ TEXT_DRILL_HINT }}</div>
         <div class="nir-report-scroll">
-          <el-table v-if="items.length" :data="items" stripe fit table-layout="auto" class="nir-report-table">
+          <el-table
+            v-if="items.length"
+            v-bind="TABLE_ATTRS"
+            :data="pagedItems"
+            class="nir-report-table"
+          >
           <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="TABLE_MIN_WIDTH">
             <template #default="scope">
               <el-link v-if="canDrill(scope.row, c.prop, scope.$index)" :type="BTN_PRIMARY" @click="onCell(scope.row, c, scope.$index)">{{ scope.row[c.prop] }}</el-link>
@@ -22,6 +27,7 @@
           </el-table-column>
         </el-table>
           </div>
+        <NirPagination :page="page" :page-size="pageSize" :total="total" @page-change="onPage" @size-change="onSize" />
         <el-empty v-if="!items.length" :description="TEXT_EMPTY" />
         <ReportTotals :totals="totals" />
       </div>
@@ -36,6 +42,7 @@ import { ref, computed } from 'vue'
 import PeriodFilter from '../components/PeriodFilter.vue'
 import FilterPanel from '../components/FilterPanel.vue'
 import ErrorAlert from '../components/ErrorAlert.vue'
+import NirPagination from '../components/NirPagination.vue'
 import DrillDownDrawer from './DrillDownDrawer.vue'
 import ReportFilters from './ReportFilters.vue'
 import { REPORT_FILTER_FIELDS, DYNAMICS_METRICS, REPORT_STRATEGY_KEYS_LENGTH } from '../constants/reports.js'
@@ -43,7 +50,7 @@ import ReportActions from './ReportActions.vue'
 import ReportTotals from './ReportTotals.vue'
 import { useReportPage } from '../composables/useReportPage.js'
 import { TEXT_DRILL_HINT, TEXT_EMPTY, TEXT_REPORT_IDLE } from '../constants/texts.js'
-import { TABLE_MIN_WIDTH, BTN_PRIMARY } from '../constants/ui.js'
+import { TABLE_MIN_WIDTH, TABLE_ATTRS, BTN_PRIMARY } from '../constants/ui.js'
 import { useEcharts } from '../composables/useEcharts.js'
 import { REPORT_KIND_DYNAMICS } from '../constants/tables.js'
 
@@ -58,6 +65,10 @@ const {
   items,
   columns,
   totals,
+  total,
+  page,
+  pageSize,
+  pagedItems,
   drawer,
   drillTitle,
   drillRows,
@@ -68,7 +79,9 @@ const {
   onChange,
   onLoad,
   onReset,
-  onExport
+  onExport,
+  onPage,
+  onSize
 } = useReportPage(KIND, {
   extraGuard: (prop) => !['year', 'academic_year'].includes(prop),
   objectStrategy: REPORT_STRATEGY_KEYS_LENGTH

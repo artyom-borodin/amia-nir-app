@@ -9,6 +9,11 @@ export const TABLE_ID_WIDTH = 64
 export const TABLE_MIN_WIDTH = 150
 export const TABLE_DEFAULT_MIN_WIDTH = 180
 export const TABLE_ACTIONS_WIDTH = 196
+export const TABLE_MAX_HEIGHT = 'var(--nir-table-max-h, var(--nir-table-max-h-fallback))'
+export const TABLE_SUMMARY_LABEL_MIN_WIDTH = 240
+export const TABLE_SUMMARY_VALUE_MIN_WIDTH = 140
+export const TABLE_SUMMARY_VALUE_WIDTH = 170
+export const TABLE_DRILL_MIN_WIDTH = 160
 export const PAGE_SIZES = [10, 20, 50, 100]
 export const PAGER_COUNT = 5
 
@@ -34,6 +39,13 @@ export const TABLE_SORT_CUSTOM = 'custom'
 export const TABLE_FIXED_RIGHT = 'right'
 export const TABLE_ID_PROP = 'id'
 export const PAGINATION_LAYOUT = 'total, sizes, prev, pager, next'
+export const TABLE_ATTRS = Object.freeze({
+  stripe: true,
+  fit: true,
+  scrollbarAlwaysOn: true,
+  tableLayout: TABLE_LAYOUT_AUTO,
+  maxHeight: TABLE_MAX_HEIGHT
+})
 
 export const UI_CARD_SHADOW = 'never'
 export const UI_SIZE_SMALL = 'small'
