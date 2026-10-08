@@ -15,11 +15,11 @@
         <span v-if="o.raw && o.raw.report_title" class="nir-ref-option">
           <span class="nir-ref-option-row">
             <el-tag :size="UI_SIZE_SMALL">Доклад</el-tag>
-            <span class="nir-ref-option-text">{{ o.raw.report_title }}</span>
+            <span class="nir-ellipsis">{{ o.raw.report_title }}</span>
           </span>
           <span v-if="o.raw.conference_title" class="nir-ref-option-row">
             <el-tag :size="UI_SIZE_SMALL">Конференция</el-tag>
-            <span class="nir-ref-option-text">{{ o.raw.conference_title }}</span>
+            <span class="nir-ellipsis">{{ o.raw.conference_title }}</span>
           </span>
         </span>
         <span v-else>{{ o.label }}</span>

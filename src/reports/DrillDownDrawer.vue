@@ -10,7 +10,7 @@
       >
         <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="TABLE_DRILL_MIN_WIDTH">
           <template #default="scope">
-            {{ formatCell(scope.row[c.prop]) }}
+            {{ formatTableCell(scope.row[c.prop]) }}
           </template>
         </el-table-column>
       </el-table>
@@ -20,11 +20,10 @@
 </template>
 
 <script setup>
-import { formatCompound } from './useDrill.js'
 import { TEXT_DRILL_TITLE, TEXT_EMPTY } from '../constants/texts.js'
 import { DRAWER_DRILL_SIZE, TABLE_ATTRS, TABLE_DRILL_MIN_WIDTH } from '../constants/ui.js'
 
-import { formatBoolCell } from '../utils/format.js'
+import { formatTableCell } from '../utils/format.js'
 
 defineProps({
   modelValue: { type: Boolean, default: false },
@@ -35,12 +34,5 @@ defineProps({
 
 defineEmits(['update:modelValue'])
 
-function formatCell(value) {
-  const b = formatBoolCell(value)
-  if (b !== undefined) return b
-  const compound = formatCompound(value)
-  if (compound !== undefined) return compound
-  return value
-}
 </script>
 

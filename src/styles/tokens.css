@@ -6,6 +6,7 @@
   --nir-lh-label: 1.35;
   --nir-lh-base: 1.4;
   --nir-lh-cell: 1.45;
+  --nir-lh-relaxed: 1.5;
   --nir-lh-normal: normal;
 
   --nir-gap-3xs: clamp(0.125rem, 0.0625rem + 0.25vw, 0.25rem);

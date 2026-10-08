@@ -1,9 +1,9 @@
 import { ref, computed, watch } from 'vue'
 import { useReport } from './useReport.js'
+import { usePagination } from './usePagination.js'
 import { useReportFiltersStore } from '../stores/reportFilters.js'
 import { REPORT_HIDDEN_COLUMNS, REPORT_ROW_KEYS, REPORT_STRATEGY_SOME_ARRAY } from '../constants/reports.js'
-import { UI_PAGE_SIZE } from '../constants/ui.js'
-import { useDrill, formatReportCell } from '../reports/useDrill.js'
+import { useDrill } from '../reports/useDrill.js'
 import {
   reportItems,
   reportTotals,
@@ -32,28 +32,9 @@ export function useReportPage(kind, options = {}) {
   const items = computed(() => reportItems(data.value))
   const columns = computed(() => buildReportColumns(items.value[0], hidden))
   const totals = computed(() => reportTotals(data.value))
-  const page = ref(1)
-  const pageSize = ref(UI_PAGE_SIZE)
+  const { page, pageSize, resetPage, paginateRows, onPage, onSize } = usePagination()
   const total = computed(() => items.value.length)
   const pagedItems = computed(() => paginateRows(items.value))
-
-  function resetPage() {
-    page.value = 1
-  }
-
-  function paginateRows(rows) {
-    const start = (page.value - 1) * pageSize.value
-    return rows.slice(start, start + pageSize.value)
-  }
-
-  function onPage(next) {
-    page.value = next
-  }
-
-  function onSize(next) {
-    pageSize.value = next
-    resetPage()
-  }
 
   watch(total, resetPage)
 
@@ -114,7 +95,6 @@ export function useReportPage(kind, options = {}) {
     drillColumns,
     onDrill,
     canDrill,
-    formatCell: formatReportCell,
     keyOf,
     labelOf,
     onCell,

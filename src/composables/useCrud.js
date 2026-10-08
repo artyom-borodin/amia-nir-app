@@ -2,7 +2,8 @@ import { ref } from 'vue'
 import { makeCrud } from '../api/crud.js'
 import { parseApiError } from '../api/errors.js'
 import { QUERY_LIMIT, QUERY_OFFSET, QUERY_ORDERING } from '../constants/api.js'
-import { UI_PAGE_SIZE, SORT_DESC, ORDER_DESC_PREFIX } from '../constants/ui.js'
+import { SORT_DESC, ORDER_DESC_PREFIX } from '../constants/ui.js'
+import { usePagination } from './usePagination.js'
 
 export function useCrud(endpoint) {
   const crud = makeCrud(endpoint)
@@ -11,8 +12,7 @@ export function useCrud(endpoint) {
   const loading = ref(false)
   const error = ref('')
   const fieldErrors = ref({})
-  const page = ref(1)
-  const pageSize = ref(UI_PAGE_SIZE)
+  const { page, pageSize, resetPage } = usePagination()
   const query = ref({})
   const sorting = ref({ prop: '', order: '' })
 
@@ -59,10 +59,6 @@ export function useCrud(endpoint) {
     } finally {
       loading.value = false
     }
-  }
-
-  function resetPage() {
-    page.value = 1
   }
 
   function setQuery(next) {

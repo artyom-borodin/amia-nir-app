@@ -14,6 +14,9 @@ export const TABLE_SUMMARY_LABEL_MIN_WIDTH = 240
 export const TABLE_SUMMARY_VALUE_MIN_WIDTH = 140
 export const TABLE_SUMMARY_VALUE_WIDTH = 170
 export const TABLE_DRILL_MIN_WIDTH = 160
+export const COL_DATE_W = 130
+export const COL_COURSE_W = 80
+export const COL_SELECT_W = 170
 export const PAGE_SIZES = [10, 20, 50, 100]
 export const PAGER_COUNT = 5
 
@@ -59,4 +62,6 @@ export const WINDOW_RESIZE_EVT = 'resize'
 
 export const DICT_VALUE_FIELD = 'id'
 export const DICT_LABEL_FIELD = 'name'
+export const DICT_FULL_NAME_FIELD = 'get_full_name'
+export const DICT_SUBDIVISION_FIELD = 'subdivision_name'
 export const FILTER_SEARCH_PROP = 'search'

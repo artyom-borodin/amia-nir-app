@@ -1,11 +1,6 @@
 <template>
   <div class="nir-page">
-    <div class="nir-report-filters">
-      <PeriodFilter v-model="period" @update:modelValue="onChange" />
-      <FilterPanel v-model="filters" :show-actions="false" :show-search="false" collapsible @search="onLoad">
-        <ReportFilters :model-value="filters" :fields="REPORT_FILTER_FIELDS[KIND]" @update:modelValue="filters = $event" />
-      </FilterPanel>
-    </div>
+    <ReportFilterPanel v-model:period="period" v-model:filters="filters" :fields="REPORT_FILTER_FIELDS[KIND]" @update:period="onChange" @search="onLoad" />
     <ErrorAlert :message="error" />
     <ReportActions :loading="loading" :exporting="exporting" @load="onLoad" @reset="onReset" @export="onExport" />
     <el-card v-loading="loading" class="nir-report-card">
@@ -21,8 +16,7 @@
             <el-table-column prop="label" :label="TEXT_METRIC" :min-width="TABLE_SUMMARY_LABEL_MIN_WIDTH" />
             <el-table-column prop="value" :label="TEXT_COUNT" :min-width="TABLE_SUMMARY_VALUE_MIN_WIDTH" :width="TABLE_SUMMARY_VALUE_WIDTH">
               <template #default="scope">
-                <el-link v-if="canDrillSummary(scope.row)" :type="BTN_PRIMARY" @click="onDrill(scope.row)">{{ scope.row.value }}</el-link>
-                <span v-else>{{ scope.row.value }}</span>
+                <ReportCell :value="scope.row.value" :drillable="canDrillSummary(scope.row)" @drill="onDrill(scope.row)" />
               </template>
             </el-table-column>
           </el-table>
@@ -38,17 +32,16 @@
 
 <script setup>
 import { computed } from 'vue'
-import PeriodFilter from '../components/PeriodFilter.vue'
-import FilterPanel from '../components/FilterPanel.vue'
-import ReportFilters from './ReportFilters.vue'
 import { REPORT_FILTER_FIELDS, SUMMARY_METRIC_LABELS } from '../constants/reports.js'
 import ErrorAlert from '../components/ErrorAlert.vue'
 import NirPagination from '../components/NirPagination.vue'
 import DrillDownDrawer from './DrillDownDrawer.vue'
+import ReportFilterPanel from './ReportFilterPanel.vue'
+import ReportCell from './ReportCell.vue'
 import ReportActions from './ReportActions.vue'
 import { useReportPage } from '../composables/useReportPage.js'
 import { TEXT_DRILL_HINT, TEXT_EMPTY, TEXT_REPORT_IDLE, TEXT_METRIC, TEXT_COUNT } from '../constants/texts.js'
-import { TABLE_ATTRS, TABLE_SUMMARY_LABEL_MIN_WIDTH, TABLE_SUMMARY_VALUE_MIN_WIDTH, TABLE_SUMMARY_VALUE_WIDTH, BTN_PRIMARY } from '../constants/ui.js'
+import { TABLE_ATTRS, TABLE_SUMMARY_LABEL_MIN_WIDTH, TABLE_SUMMARY_VALUE_MIN_WIDTH, TABLE_SUMMARY_VALUE_WIDTH } from '../constants/ui.js'
 import { REPORT_KIND_SUMMARY } from '../constants/tables.js'
 import { normalizeSummary, hasSummaryDetails } from './reportHelpers.js'
 

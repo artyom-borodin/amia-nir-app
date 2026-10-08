@@ -1,5 +1,5 @@
 <template>
-  <component :is="current" v-if="current" />
+  <component :is="current.component" v-if="current" :key="props.kind" v-bind="current.props" />
   <div v-else>{{ TEXT_REPORT_NOT_FOUND }}: {{ kind }}</div>
 </template>
 
