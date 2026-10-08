@@ -111,19 +111,15 @@
 }
 
 .nir-table-scroll {
-  overflow-x: auto;
   border-radius: var(--nir-radius-top);
 }
 
 .nir-table {
-  width: 100%;
   min-width: var(--nir-table-min-w);
 }
 
 .nir-table .nir-th {
-  background: var(--nir-color-soft-bg);
   color: var(--nir-color-ink);
-  font-weight: var(--nir-font-weight-semibold);
   line-height: var(--nir-lh-label);
 }
 
@@ -140,20 +136,23 @@
   min-width: var(--nir-table-actions-w);
 }
 
-.nir-table-footer {
-  padding: var(--nir-card-gap);
+:is(.nir-table-footer, .nir-report-footer) {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: var(--nir-gap-2xs);
-  border-top: var(--nir-border-w) solid var(--nir-color-border);
 }
 
-.nir-table-footer .el-pagination {
+:is(.nir-table-footer, .nir-report-footer) .el-pagination {
   display: flex;
   flex-wrap: wrap;
   row-gap: var(--nir-gap-2xs);
   max-width: 100%;
+}
+
+.nir-table-footer {
+  padding: var(--nir-card-gap);
+  border-top: var(--nir-border-w) solid var(--nir-color-border);
 }
 
 .nir-drawer-title {
