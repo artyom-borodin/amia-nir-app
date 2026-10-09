@@ -56,6 +56,14 @@ body {
   font-weight: var(--nir-font-weight-semibold);
 }
 
+:is(.nir-table .nir-th, .nir-report-table th.el-table__cell, .nir-drill-table th.el-table__cell) .cell {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
 :is(.nir-table-scroll, .nir-report-scroll, .nir-drill-scroll) {
   overflow-x: auto;
 }

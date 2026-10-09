@@ -2,7 +2,7 @@
   <el-container class="nir-layout">
     <el-aside v-if="showSidebar" class="nir-aside">
       <div class="nir-aside-head">
-        <div class="nir-aside-title">{{ TEXT_APP_TITLE }}</div>
+        <div class="nir-aside-title">{{ username }}</div>
         <el-button class="nir-aside-toggle" :title="TEXT_COLLAPSE_MENU" @click="onCollapse"><<</el-button>
       </div>
       <div class="nir-menu-scroll">
@@ -19,7 +19,7 @@
         </el-menu>
       </div>
       <div class="nir-aside-foot">
-        <el-button @click="onLogout" v-if="isAuth">{{ TEXT_LOGOUT }} (<span class="nir-user-chip nir-ellipsis">{{ username }}</span>)</el-button>
+        <el-button @click="onLogout" v-if="isAuth">{{ TEXT_LOGOUT }}</el-button>
       </div>
       <div class="nir-resizer" :class="{ 'is-active': hoverResizer || dragResizer }" :title="TEXT_RESIZE_HINT" @pointerdown="onResizeStart" @dblclick="onResizeReset" @mouseenter="hoverResizer = true" @mouseleave="hoverResizer = false" />
     </el-aside>
@@ -42,7 +42,6 @@ import { TABLES, REPORT_KINDS } from './constants/tables.js'
 import { ROUTE_LOGIN, ROUTE_HOME, crudPath, reportPath } from './constants/routes.js'
 import { useSidebarResize } from './composables/useSidebarResize.js'
 import {
-  TEXT_APP_TITLE,
   TEXT_COLLAPSE_MENU,
   TEXT_SHOW_MENU,
   TEXT_HOME,
