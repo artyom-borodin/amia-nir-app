@@ -2,6 +2,7 @@ import { api } from './client.js'
 import {
   API_REPORT_PREFIX,
   API_REPORT_EXPORT_SUFFIX,
+  API_REPORT_DETAILS_SUFFIX,
   REPORT_FILE_DEFAULT,
   REPORT_MIME_XLSX,
   RESPONSE_TYPE_BLOB
@@ -15,6 +16,10 @@ export function reportUrl(kind, forExport) {
   return API_REPORT_PREFIX + kind + '/' + tail
 }
 
+export function reportDetailsExportUrl(kind) {
+  return reportUrl(kind, false) + API_REPORT_DETAILS_SUFFIX + '/' + API_REPORT_EXPORT_SUFFIX + '/'
+}
+
 export async function getReport(kind, params = {}) {
   const res = await api.get(reportUrl(kind, false), { params })
   return res.data
@@ -22,6 +27,14 @@ export async function getReport(kind, params = {}) {
 
 export async function exportReport(kind, params = {}) {
   const res = await api.get(reportUrl(kind, true), {
+    params,
+    responseType: RESPONSE_TYPE_BLOB
+  })
+  return res.data
+}
+
+export async function exportDrillDetails(kind, params = {}) {
+  const res = await api.get(reportDetailsExportUrl(kind), {
     params,
     responseType: RESPONSE_TYPE_BLOB
   })

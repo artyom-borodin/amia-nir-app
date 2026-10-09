@@ -26,8 +26,8 @@ export function useReportPage(kind, options = {}) {
   store.ensure(kind)
   const period = ref({ ...store.byKind[kind].period })
   const filters = ref({ ...store.byKind[kind].filters })
-  const { data, loading, error, exporting, load, exportXlsx } = useReport(kind)
-  const { drawer, drillTitle, drillRows, drillColumns, onDrill } = useDrill(data)
+  const { data, loading, error, exporting, load, exportXlsx, exportDrill } = useReport(kind)
+  const { drawer, drillTitle, drillRows, drillColumns, drillKey, drillCol, onDrill } = useDrill(data)
 
   const items = computed(() => reportItems(data.value))
   const columns = computed(() => buildReportColumns(items.value[0], hidden))
@@ -74,6 +74,11 @@ export function useReportPage(kind, options = {}) {
     await exportXlsx(period.value, filters.value)
   }
 
+  async function onExportDrill() {
+    if (!drillKey.value) return
+    await exportDrill(period.value, filters.value, { key: drillKey.value, col: drillCol.value })
+  }
+
   return {
     period,
     filters,
@@ -102,6 +107,7 @@ export function useReportPage(kind, options = {}) {
     onLoad,
     onReset,
     onExport,
+    onExportDrill,
     onPage,
     onSize
   }
