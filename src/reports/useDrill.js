@@ -31,14 +31,18 @@ export function useDrill(dataRef) {
   const drillTitle = ref('')
   const drillRows = ref([])
   const drillColumns = ref([])
+  const drillKey = ref('')
+  const drillCol = ref('')
 
   function onDrill(row) {
     drillTitle.value = formatDrillTitle(row.label, row.value)
     const details = resolveDrillDetails(dataRef.value, row.key, row.col)
     drillRows.value = details
     drillColumns.value = buildDrillColumns(drillRows.value)
+    drillKey.value = row.key ?? ''
+    drillCol.value = row.col ?? ''
     drawer.value = true
   }
 
-  return { drawer, drillTitle, drillRows, drillColumns, onDrill }
+  return { drawer, drillTitle, drillRows, drillColumns, drillKey, drillCol, onDrill }
 }

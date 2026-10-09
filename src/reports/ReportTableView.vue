@@ -26,7 +26,7 @@
       </div>
       <div v-else class="nir-muted">{{ TEXT_REPORT_IDLE }}</div>
     </el-card>
-    <DrillDownDrawer v-model="drawer" :title="drillTitle" :rows="drillRows" :columns="drillColumns" />
+    <DrillDownDrawer v-model="drawer" :title="drillTitle" :rows="drillRows" :columns="drillColumns" :exporting="exporting" @export="onExportDrill" />
   </div>
 </template>
 
@@ -72,6 +72,7 @@ const {
   onLoad,
   onReset,
   onExport,
+  onExportDrill,
   onPage,
   onSize
 } = useReportPage(props.kind)

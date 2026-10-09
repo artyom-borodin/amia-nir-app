@@ -19,6 +19,7 @@ export const API_TOKEN_REFRESH_URL = API_ROOT + API_PREFIX + '/token/refresh/'
 
 export const API_REPORT_PREFIX = '/reports/nir/'
 export const API_REPORT_EXPORT_SUFFIX = 'export'
+export const API_REPORT_DETAILS_SUFFIX = 'details'
 
 export const API_AUTH_SCHEME = 'Bearer'
 export const API_AUTH_HEADER = AUTH_HEADER_NAME
@@ -49,6 +50,8 @@ export const QUERY_LIMIT = 'limit'
 export const QUERY_OFFSET = 'offset'
 export const QUERY_ORDERING = 'ordering'
 export const QUERY_SEARCH = 'search'
+export const QUERY_DRILL_KEY = 'drill_key'
+export const QUERY_DRILL_COL = 'drill_col'
 export const LOOKUP_SEP = '__'
 export const PK_FIELD = 'id'
 
@@ -63,6 +66,10 @@ export const REPORT_MIME_XLSX = 'application/vnd.openxmlformats-officedocument.s
 
 export function buildReportFilename(kind) {
   return 'report-' + kind + '.xlsx'
+}
+
+export function buildDrillDetailsFilename(kind) {
+  return 'report-' + kind + '-details.xlsx'
 }
 
 export function buildAuthHeader(token) {

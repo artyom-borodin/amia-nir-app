@@ -1,5 +1,8 @@
 <template>
   <el-drawer :model-value="modelValue" :title="title || TEXT_DRILL_TITLE" :size="DRAWER_DRILL_SIZE" @close="$emit('update:modelValue', false)">
+    <div class="nir-actions-bar">
+      <ExportXlsxButton :exporting="exporting" :disabled="!safeRows.length" @export="$emit('export')" />
+    </div>
     <div class="nir-drill-scroll">
       <el-table
         v-if="columns && columns.length"
@@ -26,6 +29,7 @@ import { TEXT_DRILL_TITLE, TEXT_EMPTY } from '../constants/texts.js'
 import { DRAWER_DRILL_SIZE, TABLE_ATTRS, TABLE_DRILL_MIN_WIDTH } from '../constants/ui.js'
 import { usePagination } from '../composables/usePagination.js'
 import NirPagination from '../components/NirPagination.vue'
+import ExportXlsxButton from './ExportXlsxButton.vue'
 
 import { formatTableCell } from '../utils/format.js'
 
@@ -33,10 +37,11 @@ const props = defineProps({
   modelValue: { type: Boolean, default: false },
   title: { type: String, default: '' },
   rows: { type: Array, default: () => [] },
-  columns: { type: Array, default: () => [] }
+  columns: { type: Array, default: () => [] },
+  exporting: { type: Boolean, default: false }
 })
 
-defineEmits(['update:modelValue'])
+defineEmits(['update:modelValue', 'export'])
 
 const { page, pageSize, resetPage, paginateRows, onPage, onSize } = usePagination()
 const safeRows = computed(() => props.rows ?? [])

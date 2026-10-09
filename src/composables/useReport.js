@@ -1,8 +1,8 @@
 import { ref } from 'vue'
-import { getReport, exportReport, downloadBlob } from '../api/reports.js'
+import { getReport, exportReport, exportDrillDetails, downloadBlob } from '../api/reports.js'
 import { parseApiError } from '../api/errors.js'
 import { buildPeriodParams } from '../constants/periods.js'
-import { buildReportFilename, isEmptyValue } from '../constants/api.js'
+import { buildReportFilename, buildDrillDetailsFilename, QUERY_DRILL_KEY, QUERY_DRILL_COL, isEmptyValue } from '../constants/api.js'
 
 function cleanParams(params) {
   const out = { ...params }
@@ -48,12 +48,11 @@ export function useReport(kind) {
     }
   }
 
-  async function exportXlsx(periodState, filters = {}) {
+  async function runExport(task) {
     if (isBusy()) return
     exporting.value = true
     try {
-      const blob = await exportReport(kind, reportParams(periodState, filters))
-      downloadBlob(blob, buildReportFilename(kind))
+      await task()
     } catch (err) {
       setError(err)
     } finally {
@@ -61,5 +60,22 @@ export function useReport(kind) {
     }
   }
 
-  return { data, loading, error, exporting, load, exportXlsx }
+  async function exportXlsx(periodState, filters = {}) {
+    await runExport(async () => {
+      const blob = await exportReport(kind, reportParams(periodState, filters))
+      downloadBlob(blob, buildReportFilename(kind))
+    })
+  }
+
+  async function exportDrill(periodState, filters = {}, drill = {}) {
+    await runExport(async () => {
+      const drillParams = {}
+      if (!isEmptyValue(drill.key)) drillParams[QUERY_DRILL_KEY] = drill.key
+      if (!isEmptyValue(drill.col)) drillParams[QUERY_DRILL_COL] = drill.col
+      const blob = await exportDrillDetails(kind, { ...reportParams(periodState, filters), ...drillParams })
+      downloadBlob(blob, buildDrillDetailsFilename(kind))
+    })
+  }
+
+  return { data, loading, error, exporting, load, exportXlsx, exportDrill }
 }
