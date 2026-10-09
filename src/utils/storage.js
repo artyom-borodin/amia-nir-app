@@ -24,8 +24,8 @@ export function setCollapsedFlag(key, collapsed) {
   localStorage.setItem(key, collapsed ? SIDEBAR_COLLAPSED_ON : SIDEBAR_COLLAPSED_OFF)
 }
 
-export function getWidthValue(key) {
-  return Number(localStorage.getItem(key)) || SIDEBAR_MIN_WIDTH
+export function getWidthValue(key, fallback = SIDEBAR_MIN_WIDTH) {
+  return Number(localStorage.getItem(key)) || fallback
 }
 
 export function getUsername(key) {

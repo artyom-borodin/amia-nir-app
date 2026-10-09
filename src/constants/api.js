@@ -9,6 +9,8 @@ export const STORAGE_REFRESH_KEY = STORAGE_PREFIX + 'refresh'
 export const STORAGE_USERNAME_KEY = STORAGE_PREFIX + 'username'
 export const STORAGE_SIDEBAR_WIDTH_KEY = STORAGE_PREFIX + 'sidebar_width'
 export const STORAGE_SIDEBAR_COLLAPSED_KEY = STORAGE_PREFIX + 'sidebar_collapsed'
+export const STORAGE_DRILL_WIDTH_KEY = STORAGE_PREFIX + 'drill_width'
+export const STORAGE_FORM_WIDTH_KEY = STORAGE_PREFIX + 'form_width'
 
 export const STORAGE_FLAG_TRUE = '1'
 export const STORAGE_FLAG_FALSE = '0'

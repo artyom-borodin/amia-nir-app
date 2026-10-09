@@ -71,8 +71,8 @@
   width: var(--nir-resizer-w);
   cursor: ew-resize;
   touch-action: none;
-  background: var(--nir-color-transparent);
-  opacity: 1;
+  background: var(--nir-color-resizer-active);
+  opacity: var(--nir-resizer-idle-opacity);
   transition: background-color var(--el-transition-duration-fast, var(--nir-transition-fast));
 }
 
@@ -80,6 +80,12 @@
 .nir-resizer.is-active {
   background: var(--nir-color-resizer-active);
   opacity: var(--nir-resizer-opacity);
+}
+
+.nir-resizer.nir-drawer-resizer {
+  right: auto;
+  left: 0;
+  z-index: var(--nir-z-resizer);
 }
 
 .nir-content {
