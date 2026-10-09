@@ -1,5 +1,6 @@
 <template>
-  <el-drawer :model-value="modelValue" :size="size" :close-on-click-modal="closeOnClickModal" @close="$emit(UPDATE_MODEL_EVENT, false)">
+  <el-drawer :model-value="modelValue" :size="drawerSize || size" :class="{ 'is-dragging': dragResizer }" :close-on-click-modal="closeOnClickModal" @close="$emit(UPDATE_MODEL_EVENT, false)">
+    <div class="nir-resizer nir-drawer-resizer" :class="{ 'is-active': hoverResizer || dragResizer }" :title="TEXT_RESIZE_HINT" @pointerdown="onResizeStart" @dblclick="onResizeReset" @mouseenter="hoverResizer = true" @mouseleave="hoverResizer = false" />
     <template #title>
       <span class="nir-drawer-title">{{ title }}</span>
     </template>
@@ -12,9 +13,11 @@
 </template>
 
 <script setup>
-import { TEXT_CANCEL, TEXT_SAVE, TEXT_DEFAULT_RECORD } from '../constants/texts.js'
+import { TEXT_CANCEL, TEXT_SAVE, TEXT_DEFAULT_RECORD, TEXT_RESIZE_HINT } from '../constants/texts.js'
 import { DRAWER_FORM_SIZE, BTN_PRIMARY } from '../constants/ui.js'
 import { UPDATE_MODEL_EVENT, EMIT_SAVE } from '../constants/events.js'
+import { STORAGE_FORM_WIDTH_KEY } from '../constants/api.js'
+import { useDrawerResize } from '../composables/useDrawerResize.js'
 
 defineProps({
   modelValue: { type: Boolean, default: false },
@@ -25,4 +28,6 @@ defineProps({
 })
 
 defineEmits([UPDATE_MODEL_EVENT, EMIT_SAVE])
+
+const { drawerSize, hoverResizer, dragResizer, onResizeStart, onResizeReset } = useDrawerResize(STORAGE_FORM_WIDTH_KEY)
 </script>

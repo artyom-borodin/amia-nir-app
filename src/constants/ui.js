@@ -36,6 +36,8 @@ export function cssVar(name) {
 
 export const DRAWER_FORM_SIZE = 'var(--nir-drawer-form-size)'
 export const DRAWER_DRILL_SIZE = 'var(--nir-drawer-drill-size)'
+export const DRAWER_MIN_WIDTH = 320
+export const DRAWER_MAX_WIDTH_RATIO = 0.9
 
 export const TABLE_LAYOUT_AUTO = 'auto'
 export const TABLE_SORT_CUSTOM = 'custom'

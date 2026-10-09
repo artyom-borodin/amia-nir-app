@@ -71,6 +71,7 @@
   --nir-sidebar-foot-gap: var(--nir-gap-sm);
   --nir-resizer-w: clamp(0.375rem, 0.25rem + 0.5vw, 0.5rem);
   --nir-resizer-opacity: 0.45;
+  --nir-resizer-idle-opacity: 0.25;
   --nir-toolbar-pad: var(--nir-gap-sm) var(--nir-main-pad) 0;
 
   --nir-dash-gap: var(--nir-gap-2xs);
