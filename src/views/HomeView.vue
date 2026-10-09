@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ TEXT_HOME }}</h2>
+    <h2>{{ TEXT_APP_TITLE }}</h2>
     <div class="nir-dash-grid">
       <el-card :header="TEXT_TABLES">
         <div class="nir-dash-list">
@@ -33,7 +33,7 @@ import {
   UI_SIZE_SMALL,
   BTN_INFO
 } from '../constants/ui.js'
-import { TEXT_HOME, TEXT_TABLES, TEXT_REPORTS } from '../constants/texts.js'
+import { TEXT_APP_TITLE, TEXT_TABLES, TEXT_REPORTS } from '../constants/texts.js'
 import { getTableCount } from '../api/dashboard.js'
 
 const counts = ref({})

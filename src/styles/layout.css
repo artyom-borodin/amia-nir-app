@@ -63,12 +63,6 @@
   gap: var(--nir-gap-2xs);
 }
 
-.nir-user-chip {
-  display: inline-block;
-  max-width: var(--nir-user-chip-max);
-  vertical-align: bottom;
-}
-
 .nir-resizer {
   position: absolute;
   top: 0;
