@@ -14,7 +14,7 @@
       >
         <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="TABLE_DRILL_MIN_WIDTH">
           <template #default="scope">
-            {{ formatTableCell(scope.row[c.prop]) }}
+            <span class="nir-cell">{{ formatTableCell(scope.row[c.prop]) }}</span>
           </template>
         </el-table-column>
       </el-table>
