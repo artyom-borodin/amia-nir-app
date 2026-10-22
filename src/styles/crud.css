@@ -121,7 +121,9 @@
 }
 
 .nir-cell {
-  display: inline-block;
+  display: block;
+  max-height: var(--nir-cell-max-h);
+  overflow-y: auto;
   overflow-wrap: anywhere;
 }
 

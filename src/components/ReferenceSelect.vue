@@ -2,6 +2,7 @@
   <div class="nir-ref">
     <el-select
       :model-value="modelValue"
+      :multiple="multiple"
       filterable
       remote
       clearable
@@ -40,7 +41,8 @@ import { UI_SIZE_SMALL, DICT_VALUE_FIELD, DICT_LABEL_FIELD } from '../constants/
 import { UPDATE_MODEL_EVENT } from '../constants/events.js'
 
 const props = defineProps({
-  modelValue: { type: [String, Number, null], default: null },
+  modelValue: { type: [String, Number, Array, null], default: null },
+  multiple: { type: Boolean, default: false },
   endpoint: { type: String, required: true },
   valueField: { type: String, default: DICT_VALUE_FIELD },
   labelField: { type: String, default: DICT_LABEL_FIELD },

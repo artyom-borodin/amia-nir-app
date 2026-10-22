@@ -1,7 +1,7 @@
 import { COURSE, YES_NO_OPTIONS, UNKNOWN_LABEL_PREFIX, LEARNER_CATEGORIES } from '../constants/choices.js'
 import { TEXT_LEARNER_REQUIRED, TEXT_TITLE_PLACEHOLDER, TEXT_CITY, TEXT_START_DATE, TEXT_END_DATE, TEXT_MSG_DATE_RANGE, TEXT_FOUNDER, TEXT_ADD_FOUNDER, TEXT_MSG_INTEGER, TEXT_ORG_PLACEHOLDER, TEXT_MSG_START_DATE_REQUIRED, TEXT_MSG_END_DATE_REQUIRED, TEXT_MSG_FOUNDER_REQUIRED, TEXT_MSG_CITY_REQUIRED, requiredTitleMsg } from '../constants/texts.js'
 import { requiredBlur, requiredChange } from '../constants/validation.js'
-import { LABEL_START_DATE_FROM, LABEL_END_DATE_TO, LABEL_CADET, LABEL_STUDENT, LABEL_FPK_STUDENT, LABEL_SUPERVISOR, LABEL_COURSE, LABEL_PROBLEM_GROUP, LABEL_CATEGORY, LABEL_TITLE } from '../constants/labels.js'
+import { LABEL_START_DATE_FROM, LABEL_END_DATE_TO, LABEL_CADET, LABEL_STUDENT, LABEL_FPK_STUDENT, LABEL_CADETS, LABEL_STUDENTS, LABEL_FPK_STUDENTS, LABEL_SUPERVISOR, LABEL_COURSE, LABEL_PROBLEM_GROUP, LABEL_CATEGORY, LABEL_TITLE } from '../constants/labels.js'
 import { TABLE_ID_WIDTH, TABLE_ID_PROP } from '../constants/ui.js'
 import { LOOKUP_SEP, QUERY_SEARCH, PK_FIELD, isEmptyValue } from '../constants/api.js'
 import { FIELD_TYPES, FIELD_TYPE_TEXT, FIELD_TYPE_REF, FIELD_TYPE_SELECT, FIELD_TYPE_DATE } from '../constants/fieldTypes.js'
@@ -43,6 +43,16 @@ export function validateLearner(form) {
   const picked = LEARNER_KEYS.filter((k) => !isEmptyValue(form?.[k]))
   if (picked.length === 1) return ''
   return TEXT_LEARNER_REQUIRED
+}
+export const GROUP_MEMBER_DEFS = [
+  { prop: 'cadets', label: LABEL_CADETS, ref: ENDPOINTS.CADET },
+  { prop: 'students', label: LABEL_STUDENTS, ref: ENDPOINTS.STUDENT },
+  { prop: 'fpk_students', label: LABEL_FPK_STUDENTS, ref: ENDPOINTS.FPK_STUDENT }
+]
+export const GROUP_MEMBER_FIELDS = GROUP_MEMBER_DEFS.map((d) => ({ ...d, type: FIELD_TYPE_REF, multiple: true, required: false }))
+export const GROUP_MEMBER_FILTERS = GROUP_MEMBER_DEFS.map((d) => ({ ...d, type: FIELD_TYPE_REF }))
+export function emptyGroupMembers() {
+  return { cadets: [], students: [], fpk_students: [] }
 }
 export function validateEventDates(form) {
   const start = form?.start_date
