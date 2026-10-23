@@ -1,11 +1,11 @@
 <template>
   <el-card class="nir-filter-card" :shadow="UI_CARD_SHADOW">
-
     <el-form label-position="top" class="nir-filter-form" @submit.prevent="onSearch">
       <div ref="gridRef" class="nir-filter-grid" :class="{ 'is-collapsed': collapsible && collapsed }" @keydown.enter="onGridEnter">
         <el-form-item v-if="showSearch" :label="TEXT_SEARCH_ALL">
           <el-input
             v-model="search"
+            :prefix-icon="Search"
             :placeholder="TEXT_ALL"
             clearable
             @clear="onSearch"
@@ -13,9 +13,9 @@
         </el-form-item>
         <slot />
         <div v-if="showActions || (collapsible && hasExtra)" class="nir-filter-actions">
-          <el-button v-if="showActions" :type="BTN_PRIMARY" @click="onSearch">{{ TEXT_FIND }}</el-button>
-          <el-button v-if="showActions" @click="onReset">{{ TEXT_RESET }}</el-button>
-          <el-button v-if="collapsible && hasExtra" link :type="BTN_PRIMARY" @click="collapsed = !collapsed">
+          <el-button v-if="showActions" :type="BTN_PRIMARY" :icon="Search" @click="onSearch">{{ TEXT_FIND }}</el-button>
+          <el-button v-if="showActions" :icon="RefreshLeft" @click="onReset">{{ TEXT_RESET }}</el-button>
+          <el-button v-if="collapsible && hasExtra" link :type="BTN_PRIMARY" :icon="Filter" @click="collapsed = !collapsed">
             {{ collapsed ? TEXT_SHOW_FILTERS : TEXT_HIDE_FILTERS }}
           </el-button>
         </div>
@@ -26,6 +26,7 @@
 
 <script setup>
 import { computed, nextTick, onMounted, onUpdated, ref, watch } from 'vue'
+import { Search, RefreshLeft, Filter } from '@element-plus/icons-vue'
 import { VISIBLE_FILTERS, UI_CARD_SHADOW, BTN_PRIMARY, FILTER_SEARCH_PROP } from '../constants/ui.js'
 
 import { UPDATE_MODEL_EVENT, EMIT_SEARCH, EMIT_RESET } from '../constants/events.js'
@@ -83,4 +84,3 @@ function onReset() {
   emit(EMIT_RESET)
 }
 </script>
-

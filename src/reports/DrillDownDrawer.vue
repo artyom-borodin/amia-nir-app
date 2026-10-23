@@ -14,7 +14,16 @@
       >
         <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="TABLE_DRILL_MIN_WIDTH">
           <template #default="scope">
-            <span class="nir-cell">{{ formatTableCell(scope.row[c.prop]) }}</span>
+            <el-tag
+              v-if="isTagColumn(c.prop, scope.row[c.prop])"
+              :size="UI_SIZE_SMALL"
+              :type="resolveCellTagType(c.prop, scope.row[c.prop])"
+              :effect="TAG_EFFECT_LIGHT"
+              class="nir-cell-tag"
+            >
+              {{ formatTableCell(scope.row[c.prop]) }}
+            </el-tag>
+            <span v-else class="nir-cell">{{ formatTableCell(scope.row[c.prop]) }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -27,14 +36,13 @@
 <script setup>
 import { computed, watch } from 'vue'
 import { TEXT_DRILL_TITLE, TEXT_EMPTY, TEXT_RESIZE_HINT } from '../constants/texts.js'
-import { DRAWER_DRILL_SIZE, TABLE_ATTRS, TABLE_DRILL_MIN_WIDTH } from '../constants/ui.js'
+import { DRAWER_DRILL_SIZE, TABLE_ATTRS, TABLE_DRILL_MIN_WIDTH, UI_SIZE_SMALL, TAG_EFFECT_LIGHT } from '../constants/ui.js'
 import { STORAGE_DRILL_WIDTH_KEY } from '../constants/api.js'
 import { usePagination } from '../composables/usePagination.js'
 import { useDrawerResize } from '../composables/useDrawerResize.js'
 import NirPagination from '../components/NirPagination.vue'
 import ExportXlsxButton from './ExportXlsxButton.vue'
-
-import { formatTableCell } from '../utils/format.js'
+import { formatTableCell, isTagColumn, resolveCellTagType } from '../utils/format.js'
 
 const props = defineProps({
   modelValue: { type: Boolean, default: false },

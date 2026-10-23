@@ -1,6 +1,15 @@
 <template>
-  <div>
-    <h2>{{ label }}</h2>
+  <div class="nir-crud">
+    <div class="nir-page-header">
+      <div class="nir-page-titles">
+        <div class="nir-breadcrumbs">
+          <router-link :to="ROUTE_HOME" class="nir-breadcrumb-link">{{ TEXT_HOME }}</router-link>
+          <span class="nir-breadcrumb-sep">/</span>
+          <span class="nir-breadcrumb-group">{{ TEXT_REPORTS }}</span>
+        </div>
+        <h2 class="nir-crud-title">{{ label }}</h2>
+      </div>
+    </div>
     <component :is="currentView" v-if="currentView" :kind="kind" />
     <div v-else>{{ TEXT_REPORT_NOT_FOUND }}: {{ kind }}</div>
   </div>
@@ -8,7 +17,8 @@
 
 <script setup>
 import { computed } from 'vue'
-import { TEXT_REPORT_NOT_FOUND } from '../constants/texts.js'
+import { ROUTE_HOME } from '../constants/routes.js'
+import { TEXT_REPORT_NOT_FOUND, TEXT_HOME, TEXT_REPORTS } from '../constants/texts.js'
 import { getReportLabel, REPORT_KIND_SUMMARY } from '../constants/tables.js'
 import SummaryView from '../reports/SummaryView.vue'
 import GenericReportView from '../reports/GenericReportView.vue'

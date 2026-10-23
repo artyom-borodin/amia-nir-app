@@ -21,7 +21,17 @@
           :sortable="TABLE_SORT_CUSTOM"
         >
           <template #default="scope">
-            <span class="nir-cell">{{ formatTableCell(scope.row[c.prop]) }}</span>
+            <span v-if="c.prop === TABLE_ID_PROP" class="nir-id-badge">#{{ scope.row[c.prop] }}</span>
+            <el-tag
+              v-else-if="isTagColumn(c.prop, scope.row[c.prop])"
+              :size="UI_SIZE_SMALL"
+              :type="resolveCellTagType(c.prop, scope.row[c.prop])"
+              :effect="TAG_EFFECT_LIGHT"
+              class="nir-cell-tag"
+            >
+              {{ formatTableCell(scope.row[c.prop]) }}
+            </el-tag>
+            <span v-else class="nir-cell">{{ formatTableCell(scope.row[c.prop]) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -29,12 +39,13 @@
           :label="TEXT_ACTIONS"
           :min-width="TABLE_ACTIONS_WIDTH"
           :width="TABLE_ACTIONS_WIDTH"
-          :fixed="TABLE_FIXED_RIGHT"
+          :fixed="actionsFixed"
         >
           <template #default="scope">
             <div class="nir-actions">
-              <el-button :size="UI_SIZE_SMALL" @click="$emit('edit', scope.row)">{{ TEXT_EDIT }}</el-button>
-              <el-button :size="UI_SIZE_SMALL" :type="BTN_DANGER" @click="$emit('remove', scope.row)">{{ TEXT_DELETE }}</el-button>
+              <el-button link :type="BTN_PRIMARY" :size="UI_SIZE_SMALL" :icon="EditPen" class="nir-action-link" @click="$emit('edit', scope.row)">{{ TEXT_EDIT }}</el-button>
+              <span class="nir-action-sep" aria-hidden="true" />
+              <el-button link :type="BTN_DANGER" :size="UI_SIZE_SMALL" :icon="Delete" class="nir-action-link" @click="$emit('remove', scope.row)">{{ TEXT_DELETE }}</el-button>
             </div>
           </template>
         </el-table-column>
@@ -45,7 +56,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
+import { EditPen, Delete } from '@element-plus/icons-vue'
 import {
   UI_PAGE_SIZE,
   TABLE_ID_WIDTH,
@@ -54,14 +66,18 @@ import {
   TABLE_ACTIONS_WIDTH,
   UI_CARD_SHADOW,
   UI_SIZE_SMALL,
+  BTN_PRIMARY,
   BTN_DANGER,
+  TAG_EFFECT_LIGHT,
   TABLE_SORT_CUSTOM,
   TABLE_FIXED_RIGHT,
   TABLE_ID_PROP,
-  TABLE_ATTRS
+  TABLE_ATTRS,
+  WINDOW_RESIZE_EVT
 } from '../constants/ui.js'
 import { TEXT_EMPTY, TEXT_ACTIONS, TEXT_EDIT, TEXT_DELETE } from '../constants/texts.js'
-import { formatTableCell } from '../utils/format.js'
+import { formatTableCell, isTagColumn, resolveCellTagType } from '../utils/format.js'
+import { isMobileViewport } from '../utils/storage.js'
 import NirPagination from './NirPagination.vue'
 
 const props = defineProps({
@@ -76,6 +92,16 @@ const props = defineProps({
 
 defineEmits(['edit', 'remove', 'page-change', 'size-change', 'sort-change'])
 
+const isMobile = ref(isMobileViewport())
+const actionsFixed = computed(() => (isMobile.value ? false : TABLE_FIXED_RIGHT))
+
+function onWindowResize() {
+  isMobile.value = isMobileViewport()
+}
+
+onMounted(() => window.addEventListener(WINDOW_RESIZE_EVT, onWindowResize))
+onBeforeUnmount(() => window.removeEventListener(WINDOW_RESIZE_EVT, onWindowResize))
+
 const normalizedColumns = computed(() =>
   (props.columns || []).map((c) => {
     if (c.prop === TABLE_ID_PROP) return { ...c, width: TABLE_ID_WIDTH, minWidth: TABLE_ID_WIDTH, fixed: false }
@@ -89,4 +115,3 @@ const normalizedColumns = computed(() =>
 )
 
 </script>
-

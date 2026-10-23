@@ -3,6 +3,23 @@ import { TEXT_YES, TEXT_NO } from './texts.js'
 
 export const RESULT_NO_CATEGORY = 'Без категории'
 
+export const SUCCESS_CHOICE_VALUES = Object.freeze([
+  'Диплом 1 степени',
+  'Первое место',
+  'Статья ВАК',
+  'Международная',
+  'Международный'
+])
+
+export const WARNING_CHOICE_VALUES = Object.freeze([
+  'Диплом 2 степени',
+  'Диплом 3 степени',
+  'Второе место',
+  'Третье место',
+  'Республиканская',
+  'Республиканский'
+])
+
 export const COURSE = [
   { value: '1', label: '1' },
   { value: '2', label: '2' },

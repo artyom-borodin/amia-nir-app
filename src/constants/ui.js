@@ -1,14 +1,17 @@
+import { TABLE_GROUP_RESULTS, TABLE_GROUP_DICTS, MENU_GROUP_REPORTS } from './tables.js'
+
 export const UI_PAGE_SIZE = 20
 export const UI_DICT_LIMIT = 50
 export const UI_DICT_CACHE_LIMIT = 1000
 export const UI_SEARCH_DEBOUNCE_MS = 250
 export const UI_BLOB_REVOKE_TIMEOUT_MS = 1000
 export const UI_DASH_COUNT_BATCH = 4
+export const UI_MOBILE_BP = 768
 
-export const TABLE_ID_WIDTH = 64
+export const TABLE_ID_WIDTH = 72
 export const TABLE_MIN_WIDTH = 150
 export const TABLE_DEFAULT_MIN_WIDTH = 180
-export const TABLE_ACTIONS_WIDTH = 196
+export const TABLE_ACTIONS_WIDTH = 200
 export const TABLE_MAX_HEIGHT = 'var(--nir-table-max-h, var(--nir-table-max-h-fallback))'
 export const TABLE_SUMMARY_LABEL_MIN_WIDTH = 240
 export const TABLE_SUMMARY_VALUE_MIN_WIDTH = 140
@@ -57,6 +60,71 @@ export const UI_SIZE_SMALL = 'small'
 export const BTN_PRIMARY = 'primary'
 export const BTN_DANGER = 'danger'
 export const BTN_INFO = 'info'
+export const BTN_SUCCESS = 'success'
+export const BTN_WARNING = 'warning'
+
+export const TAG_EFFECT_LIGHT = 'light'
+export const TAG_EFFECT_PLAIN = 'plain'
+
+export const MENU_OPENED_DEFAULT = Object.freeze([
+  TABLE_GROUP_RESULTS,
+  MENU_GROUP_REPORTS,
+  TABLE_GROUP_DICTS
+])
+
+export const CHART_COLOR_PALETTE = Object.freeze([
+  '#1b4f9c',
+  '#0d7490',
+  '#157347',
+  '#b45309',
+  '#5b4b8a',
+  '#b91c1c'
+])
+export const CHART_LINE_WIDTH = 2.5
+export const CHART_SYMBOL_SIZE = 7
+export const CHART_BAR_MAX_WIDTH = 36
+export const CHART_AREA_OPACITY = 0.08
+export const CHART_GRID_PAD = Object.freeze({
+  top: 56,
+  right: 24,
+  bottom: 28,
+  left: 40,
+  containLabel: true
+})
+
+export const BADGE_SUCCESS_PROPS = Object.freeze([
+  'diploma_1',
+  'gifted_db',
+  'president_fund'
+])
+export const BADGE_WARNING_PROPS = Object.freeze([
+  'diploma_2',
+  'diploma_3'
+])
+export const BADGE_INFO_PROPS = Object.freeze([
+  'get_course',
+  'course',
+  'academic_year',
+  'year'
+])
+export const BADGE_TAG_PROPS = Object.freeze([
+  ...BADGE_INFO_PROPS,
+  'get_pub_type',
+  'get_work_type',
+  'get_level',
+  'get_result_category',
+  'get_result',
+  'get_activity_type',
+  'pub_type',
+  'work_type',
+  'result_category',
+  'result',
+  'activity_type',
+  'conference_level',
+  'contest_level',
+  'category',
+  'learner_category'
+])
 
 export const POINTER_MOVE_EVT = 'pointermove'
 export const POINTER_UP_EVT = 'pointerup'

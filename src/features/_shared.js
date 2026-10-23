@@ -200,6 +200,10 @@ export function buildFilterQuery(filters, filterDefs) {
   return q
 }
 
+export function countActiveFilters(filters, filterDefs) {
+  return Object.keys(buildFilterQuery(filters, filterDefs)).length
+}
+
 export { PK_FIELD, LABEL_SEPARATOR }
 
 export function makeNameSchema({ label, entityWord }) {
