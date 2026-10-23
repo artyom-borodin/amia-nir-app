@@ -37,6 +37,7 @@ import { useDictionarySelect } from '../composables/useDictionarySelect.js'
 import { TEXT_ALL, TEXT_ADD_HINT } from '../constants/texts.js'
 import { NEW_TAB_TARGET } from '../constants/formats.js'
 import { UI_SIZE_SMALL, DICT_VALUE_FIELD, DICT_LABEL_FIELD } from '../constants/ui.js'
+import { isEmptyValue } from '../constants/api.js'
 
 import { UPDATE_MODEL_EVENT } from '../constants/events.js'
 
@@ -48,13 +49,24 @@ const props = defineProps({
   labelField: { type: String, default: DICT_LABEL_FIELD },
   placeholder: { type: String, default: TEXT_ALL },
   addRoute: { type: String, default: '' },
-  addLabel: { type: String, default: '' }
+  addLabel: { type: String, default: '' },
+  queryParams: { type: Object, default: undefined }
 })
 
-defineEmits([UPDATE_MODEL_EVENT])
+const emit = defineEmits([UPDATE_MODEL_EVENT])
 
 const router = useRouter()
-const { options, loading, search, searchDebounced } = useDictionarySelect(props.endpoint, props.valueField, props.labelField)
+const { options, loading, search, searchDebounced } = useDictionarySelect(
+  props.endpoint,
+  props.valueField,
+  props.labelField,
+  () => props.queryParams,
+  (list) => {
+    if (!isEmptyValue(props.modelValue) && !list.some((o) => o.value === props.modelValue)) {
+      emit(UPDATE_MODEL_EVENT, null)
+    }
+  }
+)
 
 const addButtonLabel = computed(() => (props.addLabel ? '+ ' + props.addLabel : '+ Новый'))
 const addHint = TEXT_ADD_HINT

@@ -39,9 +39,16 @@ export const LEARNER_FILTERS = LEARNER_DEFS.map((d) => ({ ...d, type: FIELD_TYPE
 export function emptyLearner() {
   return { cadet: null, student: null, fpk_student: null }
 }
-export function validateLearner(form) {
+export function pickLearnerKey(form) {
   const picked = LEARNER_KEYS.filter((k) => !isEmptyValue(form?.[k]))
-  if (picked.length === 1) return ''
+  return picked.length === 1 ? picked[0] : ''
+}
+export function getLearnerQuery(form) {
+  const key = pickLearnerKey(form)
+  return key ? { [key]: form[key] } : null
+}
+export function validateLearner(form) {
+  if (pickLearnerKey(form)) return ''
   return TEXT_LEARNER_REQUIRED
 }
 export const GROUP_MEMBER_DEFS = [
@@ -49,10 +56,17 @@ export const GROUP_MEMBER_DEFS = [
   { prop: 'students', label: LABEL_STUDENTS, ref: ENDPOINTS.STUDENT },
   { prop: 'fpk_students', label: LABEL_FPK_STUDENTS, ref: ENDPOINTS.FPK_STUDENT }
 ]
+export const GROUP_MEMBER_KEYS = GROUP_MEMBER_DEFS.map((d) => d.prop)
 export const GROUP_MEMBER_FIELDS = GROUP_MEMBER_DEFS.map((d) => ({ ...d, type: FIELD_TYPE_REF, multiple: true, required: false }))
 export const GROUP_MEMBER_FILTERS = GROUP_MEMBER_DEFS.map((d) => ({ ...d, type: FIELD_TYPE_REF }))
 export function emptyGroupMembers() {
   return { cadets: [], students: [], fpk_students: [] }
+}
+export function getGroupMemberQuery(form) {
+  const key = pickLearnerKey(form)
+  if (!key) return null
+  const groupKey = GROUP_MEMBER_KEYS[LEARNER_KEYS.indexOf(key)]
+  return { [groupKey]: form[key] }
 }
 export function validateEventDates(form) {
   const start = form?.start_date
@@ -65,14 +79,14 @@ export function validateEventDates(form) {
 export const PARTICIPANT_FIELDS = {
   supervisor: { prop: 'supervisor', label: LABEL_SUPERVISOR, type: FIELD_TYPE_REF, required: true, ref: ENDPOINTS.PPS_DEPTS },
   course: { prop: 'course', label: LABEL_COURSE, type: FIELD_TYPE_SELECT, required: true, options: COURSE },
-  problem_group: { prop: 'problem_group', label: LABEL_PROBLEM_GROUP, type: FIELD_TYPE_REF, required: false, ref: ENDPOINTS.PROBLEM_GROUPS }
+  problem_group: { prop: 'problem_group', label: LABEL_PROBLEM_GROUP, type: FIELD_TYPE_REF, required: false, ref: ENDPOINTS.PROBLEM_GROUPS, queryFn: getGroupMemberQuery }
 }
 
 export const PARTICIPANT_FILTERS = {
   supervisor: { prop: 'supervisor', label: LABEL_SUPERVISOR, type: FIELD_TYPE_REF, ref: ENDPOINTS.PPS_DEPTS },
   course: { prop: 'course', label: LABEL_COURSE, type: FIELD_TYPE_SELECT, options: COURSE },
   category: { prop: 'category', label: LABEL_CATEGORY, type: FIELD_TYPE_SELECT, options: LEARNER_CATEGORIES },
-  problem_group: { prop: 'problem_group', label: LABEL_PROBLEM_GROUP, type: FIELD_TYPE_REF, ref: ENDPOINTS.PROBLEM_GROUPS }
+  problem_group: { prop: 'problem_group', label: LABEL_PROBLEM_GROUP, type: FIELD_TYPE_REF, ref: ENDPOINTS.PROBLEM_GROUPS, queryFn: getGroupMemberQuery }
 }
 
 export function courseField({ required = true } = {}) {

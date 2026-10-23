@@ -8,7 +8,7 @@
           <el-option v-for="o in f.options" :key="o.value" :value="o.value" :label="o.label" />
         </el-select>
         <el-date-picker v-else-if="f.type === FIELD_TYPES.DATE" v-model="filters[f.prop]" type="date" :value-format="DATE_VALUE_FORMAT" :placeholder="TEXT_DATE_PLACEHOLDER" clearable />
-        <ReferenceSelect v-else-if="f.type === FIELD_TYPES.REF" v-model="filters[f.prop]" :endpoint="getEndpoint(f.ref)" :placeholder="TEXT_ALL" />
+        <ReferenceSelect v-else-if="f.type === FIELD_TYPES.REF" v-model="filters[f.prop]" :endpoint="getEndpoint(f.ref)" :query-params="f.queryFn ? f.queryFn(filters) : undefined" :placeholder="TEXT_ALL" />
       </el-form-item>
     </FilterPanel>
     <ErrorAlert :message="error" :fields="fieldErrors" />
