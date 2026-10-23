@@ -1,15 +1,15 @@
 <template>
   <div class="nir-login-page">
-    <el-card class="nir-login-card">
+    <el-card class="nir-login-card" :shadow="UI_CARD_SHADOW">
       <h2 class="nir-login-title">{{ TEXT_LOGIN_TITLE }}</h2>
       <p class="nir-login-subtitle">{{ TEXT_APP_TITLE }}</p>
       <ErrorAlert :message="error" :fields="fieldErrors" />
       <el-form :model="form" class="nir-login-form" label-position="top" @submit.prevent="onLogin">
         <el-form-item :label="TEXT_LOGIN">
-          <el-input v-model="form.username" autocomplete="username" autofocus />
+          <el-input v-model="form.username" :prefix-icon="User" autocomplete="username" autofocus />
         </el-form-item>
         <el-form-item :label="TEXT_PASSWORD">
-          <el-input v-model="form.password" type="password" autocomplete="current-password" show-password />
+          <el-input v-model="form.password" :prefix-icon="Lock" type="password" autocomplete="current-password" show-password />
         </el-form-item>
         <el-form-item class="nir-login-submit-item">
           <el-button :type="BTN_PRIMARY" :loading="loading" native-type="submit" class="nir-login-submit">{{ TEXT_SIGN_IN }}</el-button>
@@ -22,11 +22,12 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { User, Lock } from '@element-plus/icons-vue'
 import { useAuthStore } from '../stores/auth.js'
 import { parseApiError } from '../api/errors.js'
 import { LOGIN_ERROR_TEXT } from '../constants/api.js'
 import { ROUTE_HOME } from '../constants/routes.js'
-import { BTN_PRIMARY } from '../constants/ui.js'
+import { BTN_PRIMARY, UI_CARD_SHADOW } from '../constants/ui.js'
 import { TEXT_LOGIN_TITLE, TEXT_LOGIN, TEXT_PASSWORD, TEXT_SIGN_IN, TEXT_APP_TITLE } from '../constants/texts.js'
 import ErrorAlert from '../components/ErrorAlert.vue'
 

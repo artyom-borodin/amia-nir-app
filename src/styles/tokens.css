@@ -1,125 +1,210 @@
 :root {
-  --nir-font-stack: arial, "Helvetica Neue", helvetica, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --el-color-primary: #1b4f9c;
+  --el-color-primary-light-3: #2d62b3;
+  --el-color-primary-light-5: #5683c7;
+  --el-color-primary-light-7: #94b2df;
+  --el-color-primary-light-8: #bdd1ee;
+  --el-color-primary-light-9: #eef3fa;
+  --el-color-primary-dark-2: #143c78;
+
+  --el-color-success: #157347;
+  --el-color-success-light-3: #288b5c;
+  --el-color-success-light-5: #52a67d;
+  --el-color-success-light-7: #8ec7ab;
+  --el-color-success-light-8: #b5dcc8;
+  --el-color-success-light-9: #eaf5ef;
+  --el-color-success-dark-2: #0f5635;
+
+  --el-color-warning: #b45309;
+  --el-color-warning-light-3: #c76b22;
+  --el-color-warning-light-5: #da8f52;
+  --el-color-warning-light-7: #ebb98f;
+  --el-color-warning-light-8: #f3d2b6;
+  --el-color-warning-light-9: #fbf2ea;
+  --el-color-warning-dark-2: #8a3f07;
+
+  --el-color-danger: #b91c1c;
+  --el-color-danger-light-3: #c93b3b;
+  --el-color-danger-light-5: #db6666;
+  --el-color-danger-light-7: #ea9e9e;
+  --el-color-danger-light-8: #f2bfbf;
+  --el-color-danger-light-9: #fbeeee;
+  --el-color-danger-dark-2: #8e1515;
+
+  --el-color-info: #4b5563;
+  --el-color-info-light-3: #6b7280;
+  --el-color-info-light-5: #9ca3af;
+  --el-color-info-light-7: #cbd5e1;
+  --el-color-info-light-8: #e2e8f0;
+  --el-color-info-light-9: #f3f5f8;
+  --el-color-info-dark-2: #374151;
+
+  --el-border-radius-base: 0.375rem;
+  --el-border-radius-small: 0.25rem;
+  --el-border-color: #d5dce6;
+  --el-border-color-light: #e2e7ef;
+  --el-border-color-lighter: #eef1f6;
+  --el-fill-color-lighter: #f8f9fb;
+  --el-text-color-primary: #142235;
+  --el-text-color-regular: #3e4c5e;
+  --el-text-color-secondary: #606f82;
+  --el-text-color-placeholder: #8c9bae;
+
+  --nir-font-stack: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --nir-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --nir-font-size-xs: clamp(0.71875rem, 0.7rem + 0.08vw, 0.75rem);
+  --nir-font-size-sm: clamp(0.78125rem, 0.75rem + 0.1vw, 0.8125rem);
+  --nir-font-size-base: clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);
+  --nir-font-size-md: clamp(0.875rem, 0.84rem + 0.15vw, 0.9375rem);
+  --nir-font-size-lg: clamp(1rem, 0.92rem + 0.35vw, 1.25rem);
+  --nir-font-weight-medium: 500;
   --nir-font-weight-semibold: 600;
   --nir-font-weight-bold: 700;
-  --nir-lh-tight: 1.3;
+  --nir-lh-none: 1;
+  --nir-lh-tight: 1.25;
   --nir-lh-label: 1.35;
-  --nir-lh-base: 1.4;
+  --nir-lh-base: 1.45;
   --nir-lh-cell: 1.45;
-  --nir-lh-relaxed: 1.5;
+  --nir-lh-relaxed: 1.55;
   --nir-lh-normal: normal;
 
   --nir-gap-3xs: clamp(0.125rem, 0.0625rem + 0.25vw, 0.25rem);
   --nir-gap-2xs: clamp(0.25rem, 0.125rem + 0.5vw, 0.5rem);
   --nir-gap-xs: clamp(0.375rem, 0.25rem + 0.5vw, 0.625rem);
   --nir-gap-sm: clamp(0.5rem, 0.375rem + 0.5vw, 0.75rem);
-  --nir-gap-md: clamp(0.75rem, 0.5rem + 1.5vw, 1.25rem);
-  --nir-gap-lg: clamp(1rem, 0.5rem + 2vw, 2rem);
+  --nir-gap-md: clamp(0.875rem, 0.5rem + 1.5vw, 1.25rem);
+  --nir-gap-lg: clamp(1.25rem, 0.75rem + 2vw, 2rem);
 
-  --nir-main-pad: clamp(0.75rem, 0.5rem + 1.5vw, 1.25rem);
-  --nir-card-pad-y: clamp(0.75rem, 0.625rem + 0.5vw, 0.875rem);
-  --nir-card-pad-x: clamp(0.875rem, 0.75rem + 0.5vw, 1rem);
+  --nir-main-pad: clamp(0.625rem, 0.375rem + 1.5vw, 1.75rem);
+  --nir-card-pad-y: clamp(0.625rem, 0.5rem + 0.5vw, 1rem);
+  --nir-card-pad-x: clamp(0.75rem, 0.5rem + 0.75vw, 1.125rem);
   --nir-card-gap: var(--nir-card-pad-y) var(--nir-card-pad-x);
 
-  --nir-radius-card: clamp(0.5rem, 0.375rem + 0.5vw, 0.625rem);
-  --nir-radius-block: clamp(0.375rem, 0.25rem + 0.5vw, 0.5rem);
-  --nir-radius-chip: clamp(0.25rem, 0.1875rem + 0.25vw, 0.375rem);
+  --nir-radius-card: clamp(0.375rem, 0.3125rem + 0.25vw, 0.5rem);
+  --nir-radius-block: clamp(0.3125rem, 0.25rem + 0.2vw, 0.375rem);
+  --nir-radius-chip: clamp(0.21875rem, 0.1875rem + 0.1vw, 0.25rem);
   --nir-radius-top: var(--nir-radius-card) var(--nir-radius-card) 0 0;
   --nir-radius-bottom: 0 0 var(--nir-radius-card) var(--nir-radius-card);
 
-  --nir-color-sidebar-bg: #f2f4f7;
-  --nir-color-soft-bg: #f5f7fa;
+  --nir-color-app-bg: #f3f5f8;
+  --nir-color-sidebar-bg: #111c2d;
+  --nir-color-sidebar-surface: #1a2940;
+  --nir-color-sidebar-hover: rgba(255, 255, 255, 0.06);
+  --nir-color-sidebar-active: rgba(255, 255, 255, 0.11);
+  --nir-color-sidebar-border: rgba(255, 255, 255, 0.08);
+  --nir-color-sidebar-text: #cfd8e3;
+  --nir-color-sidebar-text-active: #ffffff;
+  --nir-color-sidebar-muted: #8496ae;
+  --nir-color-sidebar-accent: #ffffff;
+
+  --nir-color-soft-bg: #f3f5f8;
+  --nir-color-table-head-bg: #f8f9fb;
   --nir-color-card-bg: #ffffff;
-  --nir-color-ink: #303133;
-  --nir-color-hint: #666666;
-  --nir-color-muted: #999999;
-  --nir-color-faint: #909399;
-  --nir-color-border: #e4e7ed;
+  --nir-color-ink: #142235;
+  --nir-color-body: #3e4c5e;
+  --nir-color-hint: #3e4c5e;
+  --nir-color-muted: #606f82;
+  --nir-color-faint: #8c9bae;
+  --nir-color-border: #dde3ec;
+  --nir-color-border-subtle: #eef1f6;
+  --nir-color-border-strong: #c5cfdc;
   --nir-color-transparent: transparent;
   --nir-color-resizer-active: var(--el-color-primary);
-  --nir-scrollbar-track: #e9edf2;
-  --nir-scrollbar-thumb: #a7b0be;
-  --nir-scrollbar-thumb-hover: #7e8899;
-  --nir-scrollbar-size: 0.75rem;
-  --nir-scrollbar-opacity: 0.7;
+
+  --nir-color-accent-bg: color-mix(in srgb, #ffffff, var(--el-color-primary) 9%);
+  --nir-color-accent-border: color-mix(in srgb, #ffffff, var(--el-color-primary) 24%);
+  --nir-color-accent-text: var(--el-color-primary);
+
+  --nir-hero-text: #ffffff;
+
+  --nir-scrollbar-track: #f1f5f9;
+  --nir-scrollbar-thumb: #cbd5e1;
+  --nir-scrollbar-thumb-hover: #94a3b8;
+  --nir-scrollbar-size: 0.5rem;
+  --nir-scrollbar-opacity: 0.75;
   --nir-scrollbar-hover-opacity: 1;
   --nir-border-w: 0.0625rem;
-  --nir-shadow-card: var(--el-box-shadow-light);
+  --nir-shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.03);
+  --nir-shadow-card: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --nir-shadow-hover: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
 
   --nir-focus-ring-w: 0.125rem;
-  --nir-transition-fast: 0.2s;
-  --nir-transition-normal: 0.3s ease;
-  --nir-transition-slow: 0.5s ease;
+  --nir-transition-fast: 0.16s cubic-bezier(0.4, 0, 0.2, 1);
 
   --nir-z-resizer: 10;
-  --nir-z-drawer: 1000;
-  --nir-z-tooltip: 2000;
-
-  --nir-bp-sm: 640px;
-  --nir-bp-md: 1024px;
-  --nir-bp-lg: 1440px;
 
   --nir-app-h: 100dvh;
   --nir-app-h-fallback: 100vh;
-  --nir-sidebar-w: min(15.625rem, 80vw);
+  --nir-sidebar-w: clamp(13rem, 11rem + 6vw, 18.5rem);
   --nir-sidebar-custom-w: var(--nir-sidebar-w);
-  --nir-sidebar-min: min(12rem, 60vw);
-  --nir-sidebar-max: min(30rem, 90vw);
-  --nir-sidebar-pad: var(--nir-gap-xs);
+  --nir-sidebar-min: min(12.5rem, 52vw);
+  --nir-sidebar-max: min(30rem, 78vw);
+  --nir-sidebar-pad: var(--nir-gap-sm);
   --nir-sidebar-head-gap: var(--nir-gap-xs);
-  --nir-sidebar-title-pad: var(--nir-gap-2xs) var(--nir-gap-3xs);
-  --nir-sidebar-foot-gap: var(--nir-gap-sm);
-  --nir-resizer-w: clamp(0.375rem, 0.25rem + 0.5vw, 0.5rem);
-  --nir-resizer-opacity: 0.45;
-  --nir-resizer-idle-opacity: 0.25;
+  --nir-sidebar-foot-gap: var(--nir-gap-xs);
+  --nir-resizer-w: clamp(0.25rem, 0.2rem + 0.3vw, 0.375rem);
+  --nir-resizer-opacity: 0.85;
+  --nir-resizer-idle-opacity: 0;
   --nir-toolbar-pad: var(--nir-gap-sm) var(--nir-main-pad) 0;
 
-  --nir-dash-gap: var(--nir-gap-2xs);
-  --nir-dash-col: min(22rem, 100%);
-  --nir-dash-row-pad: var(--nir-gap-xs) var(--nir-gap-sm);
-  --nir-dash-count-w: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  --nir-icon-box-sm: clamp(1.625rem, 1.5rem + 0.25vw, 1.875rem);
+  --nir-menu-item-h: clamp(2.125rem, 1.95rem + 0.3vw, 2.375rem);
+  --nir-badge-h: clamp(1.1875rem, 1.125rem + 0.1vw, 1.25rem);
+  --nir-badge-pad-x: clamp(0.375rem, 0.3125rem + 0.1vw, 0.4375rem);
+  --nir-badge-min-w: clamp(1.625rem, 1.5rem + 0.2vw, 1.75rem);
+  --nir-action-sep-h: clamp(0.6875rem, 0.625rem + 0.1vw, 0.75rem);
+  --nir-empty-icon-size: clamp(1.75rem, 1.5rem + 0.75vw, 2.25rem);
+
+  --nir-dash-col: min(clamp(16rem, 12rem + 12vw, 28rem), 100%);
+  --nir-dash-report-col: min(clamp(15rem, 12rem + 8vw, 21rem), 100%);
+  --nir-kpi-col: min(clamp(9.75rem, 7rem + 4.5vw, 13.5rem), 100%);
+  --nir-dash-row-pad: var(--nir-gap-2xs) var(--nir-gap-xs);
+  --nir-dash-count-w: clamp(2rem, 1.5rem + 1vw, 2.5rem);
+  --nir-dash-arrow-shift: 0.125rem;
+  --nir-kpi-value-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.75rem);
 
   --nir-login-page-pad: var(--nir-gap-lg);
   --nir-login-page-offset: clamp(2.5rem, 1.5rem + 4vw, 4rem);
-  --nir-login-glow-size: clamp(20rem, 30rem + 20vw, 44rem);
-  --nir-login-glow-pos: 50% 0%;
-  --nir-login-glow-stop: 70%;
-  --nir-login-card-w: clamp(18rem, 90vw, 22.5rem);
-  --nir-login-card-pad: clamp(1.25rem, 0.75rem + 2vw, 2rem);
-  --nir-login-title-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
-  --nir-login-subtitle-size: clamp(0.75rem, 0.7rem + 0.4vw, 0.875rem);
+  --nir-login-card-w: min(clamp(18rem, 15rem + 10vw, 24rem), 100%);
+  --nir-login-card-pad: clamp(1.125rem, 0.75rem + 2vw, 2.25rem);
+  --nir-login-title-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --nir-login-subtitle-size: var(--nir-font-size-sm);
   --nir-login-subtitle-pad: var(--nir-gap-2xs) 0 var(--nir-gap-md);
 
-  --nir-drawer-form-size: min(32.5rem, 100vw);
-  --nir-drawer-drill-size: min(40rem, 100vw);
-  --nir-drawer-title-size: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);
-  --nir-form-subtitle-size: clamp(0.8125rem, 0.75rem + 0.3vw, 0.9375rem);
+  --nir-drawer-form-size: min(clamp(20rem, 16rem + 20vw, 36rem), 100vw);
+  --nir-drawer-drill-size: min(clamp(22rem, 18rem + 28vw, 48rem), 100vw);
+  --nir-drawer-title-size: var(--nir-font-size-lg);
+  --nir-form-subtitle-size: var(--nir-font-size-md);
   --nir-form-field-gap: var(--nir-gap-sm);
-  --nir-form-hint-size: clamp(0.6875rem, 0.625rem + 0.25vw, 0.75rem);
+  --nir-form-hint-size: var(--nir-font-size-xs);
   --nir-form-inner-gap: var(--nir-gap-xs);
   --nir-form-mode-w: clamp(5.5rem, 4rem + 6vw, 6.875rem);
 
-  --nir-filter-col: min(14.375rem, 100%);
-  --nir-period-col: min(12.5rem, 100%);
+  --nir-filter-col: min(clamp(11.5rem, 9.5rem + 5vw, 15.5rem), 100%);
+  --nir-period-col: min(clamp(10.5rem, 9rem + 4vw, 13.5rem), 100%);
   --nir-period-narrow-max: min(13.75rem, 100%);
-  --nir-label-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
-  --nir-label-min-h: clamp(1.75rem, 1.5rem + 1vw, 2rem);
+  --nir-label-size: var(--nir-font-size-xs);
+  --nir-th-font-size: var(--nir-font-size-xs);
+  --nir-th-letter-spacing: 0.02em;
+  --nir-label-min-h: clamp(1.125rem, 1rem + 0.3vw, 1.375rem);
   --nir-ref-select-min: min(10rem, 100%);
 
-  --nir-table-min-w: clamp(24rem, 18rem + 24vw, 40rem);
-  --nir-table-actions-w: clamp(11.5rem, 10rem + 6vw, 13rem);
-  --nir-table-max-h-fallback: 60vh;
-  --nir-table-max-h: 60dvh;
+  --nir-table-min-w: clamp(22rem, 16rem + 24vw, 40rem);
+  --nir-table-actions-w: clamp(9.75rem, 8.75rem + 2vw, 11.5rem);
+  --nir-table-col-max-w: clamp(16rem, 12rem + 14vw, 28rem);
+  --nir-table-max-h-fallback: 62vh;
+  --nir-table-max-h: 62dvh;
   --nir-cell-max-h: clamp(3.5rem, 3rem + 2vh, 4.5rem);
 
   --nir-report-table-min-w: clamp(22rem, 16rem + 24vw, 35rem);
   --nir-report-table-min-w-sm: clamp(18rem, 14rem + 20vw, 26.25rem);
   --nir-drill-table-min-w: var(--nir-report-table-min-w);
-  --nir-report-title-size: clamp(1.125rem, 1rem + 0.8vw, 1.375rem);
-  --nir-totals-title-size: clamp(0.75rem, 0.7rem + 0.3vw, 0.8125rem);
-  --nir-totals-value-size: clamp(0.8125rem, 0.75rem + 0.3vw, 0.875rem);
+  --nir-report-title-size: var(--nir-font-size-lg);
+  --nir-totals-title-size: var(--nir-font-size-xs);
+  --nir-totals-value-size: var(--nir-font-size-base);
   --nir-totals-pad: var(--nir-gap-xs) var(--nir-gap-sm);
-  --nir-totals-item-pad: var(--nir-gap-3xs) var(--nir-gap-xs);
-  --nir-chart-h: clamp(16rem, 12rem + 20vw, 24rem);
+  --nir-totals-item-pad: var(--nir-gap-2xs) var(--nir-gap-xs);
+  --nir-chart-h: clamp(18rem, 14rem + 18vw, 25rem);
+  --nir-empty-state-pad: clamp(2rem, 1.5rem + 2vw, 3.5rem);
   --nir-error-list-indent: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);
 }

@@ -3,7 +3,7 @@
     <ReportFilterPanel v-model:period="period" v-model:filters="filters" :fields="REPORT_FILTER_FIELDS[props.kind]" @update:period="onChange" @search="onLoad" />
     <ErrorAlert :message="error" />
     <ReportActions :loading="loading" :exporting="exporting" @load="onLoad" @reset="onReset" @export="onExport" />
-    <el-card v-loading="loading" class="nir-report-card">
+    <el-card v-loading="loading" class="nir-report-card" :shadow="UI_CARD_SHADOW">
       <div v-if="data">
         <div class="nir-hint nir-hint-top">{{ TEXT_DRILL_HINT }}</div>
         <div class="nir-report-scroll">
@@ -13,24 +13,28 @@
             :data="pagedItems"
             class="nir-report-table"
           >
-          <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="TABLE_MIN_WIDTH">
-            <template #default="scope">
-              <ReportCell :value="scope.row[c.prop]" :drillable="canDrill(scope.row, c.prop, scope.$index)" :show-course-tags="showCourseTags && c.prop === 'by_course'" @drill="onCell(scope.row, c, scope.$index)" />
-            </template>
-          </el-table-column>
-        </el-table>
-          </div>
+            <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="TABLE_MIN_WIDTH">
+              <template #default="scope">
+                <ReportCell :value="scope.row[c.prop]" :drillable="canDrill(scope.row, c.prop, scope.$index)" :show-course-tags="showCourseTags && c.prop === 'by_course'" @drill="onCell(scope.row, c, scope.$index)" />
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
         <NirPagination :page="page" :page-size="pageSize" :total="total" @page-change="onPage" @size-change="onSize" />
         <el-empty v-if="!items.length" :description="TEXT_EMPTY" />
         <ReportTotals :totals="totals" />
       </div>
-      <div v-else class="nir-muted">{{ TEXT_REPORT_IDLE }}</div>
+      <div v-else class="nir-report-empty-state">
+        <el-icon class="nir-report-empty-icon"><component :is="getReportIcon(props.kind)" /></el-icon>
+        <div class="nir-muted">{{ TEXT_REPORT_IDLE }}</div>
+      </div>
     </el-card>
     <DrillDownDrawer v-model="drawer" :title="drillTitle" :rows="drillRows" :columns="drillColumns" :exporting="exporting" @export="onExportDrill" />
   </div>
 </template>
 
 <script setup>
+import { getReportIcon } from '../constants/icons.js'
 import ErrorAlert from '../components/ErrorAlert.vue'
 import NirPagination from '../components/NirPagination.vue'
 import DrillDownDrawer from './DrillDownDrawer.vue'
@@ -41,7 +45,7 @@ import ReportActions from './ReportActions.vue'
 import ReportTotals from './ReportTotals.vue'
 import { useReportPage } from '../composables/useReportPage.js'
 import { TEXT_DRILL_HINT, TEXT_EMPTY, TEXT_REPORT_IDLE } from '../constants/texts.js'
-import { TABLE_MIN_WIDTH, TABLE_ATTRS } from '../constants/ui.js'
+import { TABLE_MIN_WIDTH, TABLE_ATTRS, UI_CARD_SHADOW } from '../constants/ui.js'
 
 const props = defineProps({
   kind: { type: String, required: true },

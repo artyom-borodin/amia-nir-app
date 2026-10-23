@@ -1,3 +1,5 @@
+import { KV_JOINER } from './formats.js'
+
 export const TEXT_EMPTY = 'Нет данных'
 export const TEXT_ACTIONS = 'Действия'
 export const TEXT_EDIT = 'Изменить'
@@ -50,8 +52,13 @@ export const TEXT_STUDY_YEAR_PLACEHOLDER = '2025/2026'
 export const TEXT_LEARNER_REQUIRED =
   'Выберите обучающегося: курсанта, студента или слушателя ФПК / магистранта (ровно одного)'
 
-export const TEXT_TABLES = 'Таблицы'
-export const TEXT_REPORTS = 'Отчёты'
+export const TEXT_RESULTS_GROUP = 'Научные результаты'
+export const TEXT_DICTS_GROUP = 'Справочники и структура'
+export const TEXT_REPORTS = 'Отчёты и аналитика'
+export const TEXT_QUICK_CREATE = 'Добавить'
+export const TEXT_RECORDS_COUNT = 'Записей'
+export const TEXT_ACTIVE_FILTERS = 'Фильтры'
+export const TEXT_OPEN_SECTION = 'Открыть'
 
 export const TEXT_LOGIN_TITLE = 'Вход'
 export const TEXT_LOGIN = 'Логин'
@@ -68,6 +75,12 @@ export const TEXT_CITY = 'Город проведения'
 export const TEXT_GENERATE = 'Сформировать'
 export const TEXT_EXPORT_XLSX = 'Экспорт в Excel'
 export const TEXT_COURSE_WORD = 'курс'
+
+export function formatCourseTagLabel(course, count) {
+  const isNum = /^\d+$/.test(String(course))
+  const label = isNum ? course + ' ' + TEXT_COURSE_WORD : String(course)
+  return label + KV_JOINER + count
+}
 
 export const TEXT_APP_TITLE = 'База данных учёта научно-исследовательской работы обучающихся'
 export const TEXT_MENU = 'Меню'

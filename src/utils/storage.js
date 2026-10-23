@@ -1,8 +1,12 @@
 import { STORAGE_FLAG_TRUE, STORAGE_FLAG_FALSE } from '../constants/api.js'
-import { SIDEBAR_MIN_WIDTH } from '../constants/ui.js'
+import { SIDEBAR_MIN_WIDTH, UI_MOBILE_BP } from '../constants/ui.js'
 
 export const SIDEBAR_COLLAPSED_ON = STORAGE_FLAG_TRUE
 export const SIDEBAR_COLLAPSED_OFF = STORAGE_FLAG_FALSE
+
+export function isMobileViewport() {
+  return typeof window !== 'undefined' && window.innerWidth < UI_MOBILE_BP
+}
 
 export function readStorage(key, fallback = '') {
   return localStorage.getItem(key) ?? fallback
@@ -17,7 +21,9 @@ export function removeStorage(key) {
 }
 
 export function getCollapsedFlag(key) {
-  return localStorage.getItem(key) === SIDEBAR_COLLAPSED_ON
+  const raw = localStorage.getItem(key)
+  if (raw === null) return isMobileViewport()
+  return raw === SIDEBAR_COLLAPSED_ON
 }
 
 export function setCollapsedFlag(key, collapsed) {

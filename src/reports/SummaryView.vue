@@ -3,7 +3,7 @@
     <ReportFilterPanel v-model:period="period" v-model:filters="filters" :fields="REPORT_FILTER_FIELDS[KIND]" @update:period="onChange" @search="onLoad" />
     <ErrorAlert :message="error" />
     <ReportActions :loading="loading" :exporting="exporting" @load="onLoad" @reset="onReset" @export="onExport" />
-    <el-card v-loading="loading" class="nir-report-card">
+    <el-card v-loading="loading" class="nir-report-card" :shadow="UI_CARD_SHADOW">
       <div v-if="data">
         <div class="nir-hint nir-hint-top">{{ TEXT_DRILL_HINT }}</div>
         <div class="nir-report-scroll">
@@ -24,7 +24,10 @@
         <NirPagination :page="page" :page-size="pageSize" :total="summaryTotal" @page-change="onPage" @size-change="onSize" />
         <el-empty v-if="!summaryRows.length" :description="TEXT_EMPTY" />
       </div>
-      <div v-else class="nir-muted">{{ TEXT_REPORT_IDLE }}</div>
+      <div v-else class="nir-report-empty-state">
+        <el-icon class="nir-report-empty-icon"><component :is="getReportIcon(KIND)" /></el-icon>
+        <div class="nir-muted">{{ TEXT_REPORT_IDLE }}</div>
+      </div>
     </el-card>
     <DrillDownDrawer v-model="drawer" :title="drillTitle" :rows="drillRows" :columns="drillColumns" :exporting="exporting" @export="onExportDrill" />
   </div>
@@ -32,6 +35,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { getReportIcon } from '../constants/icons.js'
 import { REPORT_FILTER_FIELDS, SUMMARY_METRIC_LABELS } from '../constants/reports.js'
 import ErrorAlert from '../components/ErrorAlert.vue'
 import NirPagination from '../components/NirPagination.vue'
@@ -41,7 +45,7 @@ import ReportCell from './ReportCell.vue'
 import ReportActions from './ReportActions.vue'
 import { useReportPage } from '../composables/useReportPage.js'
 import { TEXT_DRILL_HINT, TEXT_EMPTY, TEXT_REPORT_IDLE, TEXT_METRIC, TEXT_COUNT } from '../constants/texts.js'
-import { TABLE_ATTRS, TABLE_SUMMARY_LABEL_MIN_WIDTH, TABLE_SUMMARY_VALUE_MIN_WIDTH, TABLE_SUMMARY_VALUE_WIDTH } from '../constants/ui.js'
+import { TABLE_ATTRS, TABLE_SUMMARY_LABEL_MIN_WIDTH, TABLE_SUMMARY_VALUE_MIN_WIDTH, TABLE_SUMMARY_VALUE_WIDTH, UI_CARD_SHADOW } from '../constants/ui.js'
 import { REPORT_KIND_SUMMARY } from '../constants/tables.js'
 import { normalizeSummary, hasSummaryDetails } from './reportHelpers.js'
 
@@ -79,4 +83,3 @@ function canDrillSummary(row) {
   return hasSummaryDetails(data.value, row.key)
 }
 </script>
-

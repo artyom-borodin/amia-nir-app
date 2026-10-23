@@ -20,7 +20,7 @@ export function useEcharts(chartRef, dataRef, itemsRef, chartOption) {
     if (!chart) {
       chart = echarts.init(chartRef.value)
     }
-    chart.setOption(chartOption.value)
+    chart.setOption(chartOption.value, true)
   }
 
   function onResize() {
