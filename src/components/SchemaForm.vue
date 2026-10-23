@@ -18,7 +18,7 @@
         <el-select v-else-if="f.type === FIELD_TYPES.SELECT" v-model="local[f.prop]" class="nir-field-full" clearable filterable :placeholder="f.placeholder || TEXT_CHOOSE">
           <el-option v-for="o in f.options" :key="o.value" :value="o.value" :label="o.label" />
         </el-select>
-        <ReferenceSelect v-else-if="f.type === FIELD_TYPES.REF" v-model="local[f.prop]" :endpoint="getEndpoint(f.ref)" :multiple="f.multiple" :add-route="f.addRoute || ''" :add-label="f.addLabel || ''" />
+        <ReferenceSelect v-else-if="f.type === FIELD_TYPES.REF" v-model="local[f.prop]" :endpoint="getEndpoint(f.ref)" :multiple="f.multiple" :query-params="f.queryFn ? f.queryFn(local) : undefined" :add-route="f.addRoute || ''" :add-label="f.addLabel || ''" />
         <el-checkbox v-else-if="f.type === FIELD_TYPES.BOOL" v-model="local[f.prop]" />
         <el-input v-else-if="f.type === FIELD_TYPES.TEXTAREA" v-model="local[f.prop]" type="textarea" :placeholder="f.placeholder" />
         <el-input v-else v-model="local[f.prop]" />

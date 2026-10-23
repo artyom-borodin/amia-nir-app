@@ -6,7 +6,7 @@ import { REPORT_COLUMN_LABELS } from '../../constants/reports.js'
 import { TEXT_MSG_COURSE_REQUIRED, TEXT_MSG_SUPERVISOR_REQUIRED, requiredTitleMsg } from '../../constants/texts.js'
 import { COL_COURSE_W, COL_DATE_W, COL_SELECT_W } from '../../constants/ui.js'
 import { requiredBlur, requiredChange } from '../../constants/validation.js'
-import { ID_COLUMN, LEARNER_FIELDS, LEARNER_FILTERS, PARTICIPANT_FIELDS, PARTICIPANT_FILTERS, emptyLearner, LOOKUP_ICONTAINS } from '../_shared.js'
+import { ID_COLUMN, LEARNER_FIELDS, LEARNER_FILTERS, PARTICIPANT_FIELDS, PARTICIPANT_FILTERS, emptyLearner, getLearnerQuery, LOOKUP_ICONTAINS } from '../_shared.js'
 export const FIELDS = [
   ...LEARNER_FIELDS,
   PARTICIPANT_FIELDS.course,
@@ -16,7 +16,7 @@ export const FIELDS = [
   { prop: 'output_data', label: REPORT_COLUMN_LABELS.output_data, type: FIELD_TYPES.TEXTAREA, required: false },
   { prop: 'has_electronic', label: REPORT_COLUMN_LABELS.has_electronic, type: FIELD_TYPES.BOOL, required: false },
   { prop: 'has_print', label: REPORT_COLUMN_LABELS.has_print, type: FIELD_TYPES.BOOL, required: false },
-  { prop: 'conference_link', label: LABEL_CONFERENCE_LINK, type: FIELD_TYPES.REF, required: false, ref: ENDPOINTS.CONFERENCE_PARTS },
+  { prop: 'conference_link', label: LABEL_CONFERENCE_LINK, type: FIELD_TYPES.REF, required: false, ref: ENDPOINTS.CONFERENCE_PARTS, queryFn: getLearnerQuery },
   PARTICIPANT_FIELDS.problem_group
 ]
 export const COLUMNS = [
@@ -43,7 +43,7 @@ export const FILTERS = [
   { prop: 'output_data', label: REPORT_COLUMN_LABELS.output_data, type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
   { prop: 'has_electronic', label: REPORT_COLUMN_LABELS.has_electronic, type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
   { prop: 'has_print', label: REPORT_COLUMN_LABELS.has_print, type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
-  { prop: 'conference_link', label: LABEL_CONFERENCE_LINK, type: FIELD_TYPES.REF, ref: ENDPOINTS.CONFERENCE_PARTS },
+  { prop: 'conference_link', label: LABEL_CONFERENCE_LINK, type: FIELD_TYPES.REF, ref: ENDPOINTS.CONFERENCE_PARTS, queryFn: getLearnerQuery },
   PARTICIPANT_FILTERS.problem_group
 ]
 export const RULES = {

@@ -1,5 +1,5 @@
-import { ref, onUnmounted } from 'vue'
-import { useDictionariesStore } from '../stores/dictionaries.js'
+import { ref, watch, onUnmounted } from 'vue'
+import { useDictionariesStore, buildCacheKey } from '../stores/dictionaries.js'
 import { UI_DICT_LIMIT, UI_SEARCH_DEBOUNCE_MS, DICT_VALUE_FIELD, DICT_LABEL_FIELD } from '../constants/ui.js'
 import { LABEL_SEPARATOR, FIO_SEPARATOR } from '../constants/choices.js'
 import { TITLE_SEPARATOR, LIST_JOINER } from '../constants/formats.js'
@@ -78,7 +78,13 @@ export const SEARCH_PARAM = {
   employee: DEFAULT_SEARCH_PARAM
 }
 
-export function useDictionarySelect(endpoint, valueField = DEFAULT_ID_FIELD, labelField = DEFAULT_LABEL_FIELD) {
+export function useDictionarySelect(
+  endpoint,
+  valueField = DEFAULT_ID_FIELD,
+  labelField = DEFAULT_LABEL_FIELD,
+  paramsGetter = null,
+  onParamsChange = null
+) {
   const store = useDictionariesStore()
   const options = ref([])
   const loading = ref(false)
@@ -89,9 +95,14 @@ export function useDictionarySelect(endpoint, valueField = DEFAULT_ID_FIELD, lab
   })
 
   async function search(text = '') {
+    const extra = paramsGetter ? paramsGetter() : undefined
+    if (extra === null) {
+      options.value = []
+      return []
+    }
     loading.value = true
     try {
-      const params = { limit: UI_DICT_LIMIT }
+      const params = { limit: UI_DICT_LIMIT, ...(extra || {}) }
       if (text) {
         params[SEARCH_PARAM[endpoint] ?? DEFAULT_SEARCH_QUERY_PARAM] = text
       }
@@ -101,6 +112,7 @@ export function useDictionarySelect(endpoint, valueField = DEFAULT_ID_FIELD, lab
         label: pickLabel(row, labelField),
         raw: row
       }))
+      return options.value
     } finally {
       loading.value = false
     }
@@ -109,6 +121,19 @@ export function useDictionarySelect(endpoint, valueField = DEFAULT_ID_FIELD, lab
   function searchDebounced(text = '') {
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => search(text), UI_SEARCH_DEBOUNCE_MS)
+  }
+
+  if (paramsGetter) {
+    watch(
+      () => {
+        const extra = paramsGetter()
+        return extra ? buildCacheKey(endpoint, extra) : extra
+      },
+      async () => {
+        const list = await search('')
+        if (onParamsChange) onParamsChange(list)
+      }
+    )
   }
 
   return { options, loading, search, searchDebounced }
