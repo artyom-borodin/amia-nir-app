@@ -197,6 +197,7 @@
 
   --nir-focus-ring-w: 0.125rem;
   --nir-transition-fast: 0.16s cubic-bezier(0.4, 0, 0.2, 1);
+  --nir-transition-panel: 0.26s cubic-bezier(0.22, 1, 0.36, 1);
 
   --nir-z-resizer: 10;
 
@@ -206,6 +207,7 @@
   --nir-sidebar-custom-w: var(--nir-sidebar-w);
   --nir-sidebar-min: min(12.5rem, 52vw);
   --nir-sidebar-max: min(30rem, 78vw);
+  --nir-sidebar-actual-w: clamp(var(--nir-sidebar-min), var(--nir-sidebar-custom-w), var(--nir-sidebar-max));
   --nir-sidebar-pad: var(--nir-gap-sm);
   --nir-sidebar-head-gap: var(--nir-gap-xs);
   --nir-sidebar-foot-gap: var(--nir-gap-xs);

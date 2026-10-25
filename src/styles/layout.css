@@ -20,7 +20,29 @@
   padding: var(--nir-sidebar-pad);
   padding-right: calc(var(--nir-sidebar-pad) + var(--nir-resizer-w));
   flex: 0 0 auto;
-  width: clamp(var(--nir-sidebar-min), var(--nir-sidebar-custom-w), var(--nir-sidebar-max));
+  width: var(--nir-sidebar-actual-w);
+  margin-left: 0;
+  transition:
+    margin-left var(--nir-transition-panel),
+    width var(--nir-transition-panel),
+    opacity var(--nir-transition-panel),
+    box-shadow var(--nir-transition-panel),
+    border-color var(--nir-transition-panel),
+    visibility var(--nir-transition-panel);
+}
+
+.el-aside.nir-aside.is-collapsed {
+  margin-left: calc(-1 * var(--nir-sidebar-actual-w));
+  border-right-color: var(--nir-color-transparent);
+  box-shadow: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+:is(.el-aside.nir-aside, .el-drawer).is-dragging {
+  transition: none;
+  user-select: none;
 }
 
 .nir-aside-head {

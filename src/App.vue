@@ -1,6 +1,11 @@
 <template>
   <el-container class="nir-layout">
-    <el-aside v-if="showSidebar" class="nir-aside">
+    <el-aside
+      v-if="isAuth"
+      class="nir-aside"
+      :class="{ 'is-collapsed': collapsed, 'is-dragging': dragResizer }"
+      :aria-hidden="collapsed"
+    >
       <div class="nir-aside-head">
         <span class="nir-aside-label">{{ TEXT_MENU }}</span>
         <el-button class="nir-aside-toggle" text :title="TEXT_COLLAPSE_MENU" @click="onCollapse">
@@ -153,7 +158,6 @@ const auth = useAuthStore()
 const isAuth = computed(() => auth.isAuth)
 const username = computed(() => auth.username)
 const activeMenu = computed(() => route.path)
-const showSidebar = computed(() => isAuth.value && !collapsed.value)
 
 function onLogout() {
   auth.logout()
