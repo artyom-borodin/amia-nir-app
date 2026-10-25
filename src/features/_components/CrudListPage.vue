@@ -13,13 +13,8 @@
     </FilterPanel>
     <ErrorAlert :message="error" :fields="fieldErrors" />
     <div class="nir-toolbar">
-      <div class="nir-toolbar-meta">
-        <span class="nir-toolbar-count-label">{{ TEXT_RECORDS_COUNT }}:</span>
-        <el-tag :size="UI_SIZE_SMALL" :type="BTN_INFO" :effect="TAG_EFFECT_PLAIN" class="nir-toolbar-count-badge">
-          {{ formattedTotal }}
-        </el-tag>
+      <div v-if="activeFilterCount > 0" class="nir-toolbar-meta">
         <el-tag
-          v-if="activeFilterCount > 0"
           :size="UI_SIZE_SMALL"
           :type="BTN_PRIMARY"
           :effect="TAG_EFFECT_LIGHT"
@@ -66,10 +61,8 @@ import { DATE_VALUE_FORMAT } from '../../constants/formats.js'
 import { FIELD_TYPES } from '../../constants/fieldTypes.js'
 import {
   BTN_PRIMARY,
-  BTN_INFO,
   UI_SIZE_SMALL,
-  TAG_EFFECT_LIGHT,
-  TAG_EFFECT_PLAIN
+  TAG_EFFECT_LIGHT
 } from '../../constants/ui.js'
 import {
   TEXT_ALL,
@@ -77,10 +70,8 @@ import {
   TEXT_CREATE_RECORD,
   TEXT_EDIT_RECORD,
   TEXT_ADD_RECORD,
-  TEXT_RECORDS_COUNT,
   TEXT_ACTIVE_FILTERS
 } from '../../constants/texts.js'
-import { formatLocaleNumber } from '../../utils/format.js'
 import { countActiveFilters } from '../_shared.js'
 import { useCrudPage } from '../../composables/useCrudPage.js'
 import CrudFormView from './CrudFormView.vue'
@@ -130,6 +121,5 @@ const {
   normalizeFn: props.normalize
 })
 
-const formattedTotal = computed(() => formatLocaleNumber(total.value))
 const activeFilterCount = computed(() => countActiveFilters(filters.value, props.filterDefs))
 </script>

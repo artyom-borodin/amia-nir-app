@@ -1,7 +1,6 @@
 import { TEXT_YES, TEXT_NO } from '../constants/texts.js'
 import { LIST_JOINER, KV_JOINER } from '../constants/formats.js'
 import {
-  DASH_LOCALE,
   BTN_PRIMARY,
   BTN_SUCCESS,
   BTN_WARNING,
@@ -16,10 +15,6 @@ import {
   SUCCESS_CHOICE_VALUES,
   WARNING_CHOICE_VALUES
 } from '../constants/choices.js'
-
-export function formatLocaleNumber(value) {
-  return Number(value || 0).toLocaleString(DASH_LOCALE)
-}
 
 export function formatBoolCell(value) {
   if (value === true) return TEXT_YES

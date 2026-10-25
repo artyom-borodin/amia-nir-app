@@ -44,12 +44,6 @@ export const TABLE_SECTIONS = [
   { key: TABLE_GROUP_RESULTS, title: TEXT_RESULTS_GROUP, tables: RESULT_TABLES },
   { key: TABLE_GROUP_DICTS, title: TEXT_DICTS_GROUP, tables: DICT_TABLES }
 ]
-export const KPI_TABLE_KEYS = [
-  TABLE_KEYS.PUBLICATIONS,
-  TABLE_KEYS.CONFERENCE_PARTS,
-  TABLE_KEYS.CONTEST_PARTS,
-  TABLE_KEYS.IMPL_ACTS
-]
 
 export const TABLE_MAP = Object.fromEntries(TABLES.map((t) => [t.key, t]))
 

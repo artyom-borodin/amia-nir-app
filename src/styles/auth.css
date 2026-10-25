@@ -5,15 +5,20 @@
   width: 100%;
   box-sizing: border-box;
   padding: var(--nir-login-page-pad);
-  min-height: calc(var(--nir-app-h-fallback) - var(--nir-login-page-offset));
-  min-height: calc(var(--nir-app-h) - var(--nir-login-page-offset));
+  min-height: var(--nir-app-h-fallback);
+  min-height: var(--nir-app-h);
+  background-color: var(--nir-color-sidebar-bg);
+  background-image: var(--nir-login-bg-gradient);
 }
 
 .nir-login-card {
   width: var(--nir-login-card-w);
   box-sizing: border-box;
-  box-shadow: var(--nir-shadow-card);
-  border: var(--nir-border-w) solid var(--nir-color-border);
+  background: var(--nir-login-card-bg);
+  backdrop-filter: var(--nir-blur-login);
+  -webkit-backdrop-filter: var(--nir-blur-login);
+  box-shadow: var(--nir-shadow-login);
+  border: var(--nir-border-w) solid var(--nir-login-card-border);
   --el-card-padding: var(--nir-login-card-pad);
 }
 
@@ -52,5 +57,4 @@
 
 .nir-login-submit {
   width: 100%;
-  font-weight: var(--nir-font-weight-semibold);
 }

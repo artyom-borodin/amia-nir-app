@@ -1,10 +1,11 @@
 <template>
-  <el-button :icon="Download" :loading="exporting" :disabled="disabled || exporting" @click="$emit('export')">{{ TEXT_EXPORT_XLSX }}</el-button>
+  <el-button :type="BTN_SUCCESS" :icon="Download" :loading="exporting" :disabled="disabled || exporting" @click="$emit('export')">{{ TEXT_EXPORT_XLSX }}</el-button>
 </template>
 
 <script setup>
 import { Download } from '@element-plus/icons-vue'
 import { TEXT_EXPORT_XLSX } from '../constants/texts.js'
+import { BTN_SUCCESS } from '../constants/ui.js'
 
 defineProps({
   exporting: { type: Boolean, default: false },

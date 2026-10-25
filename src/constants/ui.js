@@ -5,7 +5,6 @@ export const UI_DICT_LIMIT = 50
 export const UI_DICT_CACHE_LIMIT = 1000
 export const UI_SEARCH_DEBOUNCE_MS = 250
 export const UI_BLOB_REVOKE_TIMEOUT_MS = 1000
-export const UI_DASH_COUNT_BATCH = 4
 export const UI_MOBILE_BP = 768
 
 export const TABLE_ID_WIDTH = 72
@@ -26,10 +25,6 @@ export const PAGER_COUNT = 5
 export const VISIBLE_FILTERS = 5
 export const SORT_DESC = 'descending'
 export const ORDER_DESC_PREFIX = '-'
-
-export const DASH_COUNT_RETRIES = 2
-export const DASH_COUNT_PROBE = Object.freeze({ limit: 1, offset: 0 })
-export const DASH_LOCALE = 'ru-RU'
 
 export const SIDEBAR_MIN_WIDTH = 0
 export const SIDEBAR_WIDTH_VAR = '--nir-sidebar-custom-w'
@@ -64,7 +59,6 @@ export const BTN_SUCCESS = 'success'
 export const BTN_WARNING = 'warning'
 
 export const TAG_EFFECT_LIGHT = 'light'
-export const TAG_EFFECT_PLAIN = 'plain'
 
 export const MENU_OPENED_DEFAULT = Object.freeze([
   TABLE_GROUP_RESULTS,

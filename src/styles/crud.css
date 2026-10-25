@@ -137,7 +137,8 @@
   justify-content: flex-start;
   min-height: var(--nir-label-min-h);
   flex-wrap: wrap;
-  padding-top: var(--nir-gap-3xs);
+  margin-top: var(--nir-gap-3xs);
+  padding-top: var(--nir-gap-sm);
   border-top: var(--nir-border-w) solid var(--nir-color-border);
 }
 
@@ -256,11 +257,7 @@
 
 .nir-form {
   --el-form-item-margin-bottom: var(--nir-form-field-gap);
-}
-
-.nir-form .el-form-item__label {
-  font-weight: var(--nir-font-weight-semibold);
-  color: var(--nir-color-ink);
+  padding-bottom: var(--nir-gap-sm);
 }
 
 .nir-form .el-input,
@@ -322,7 +319,11 @@
 }
 
 .el-select-dropdown__item:has(> .nir-ref-option):nth-child(even):not(.hover):not(.selected) {
-  background: var(--el-fill-color-light);
+  background: var(--nir-color-zebra-bg);
+}
+
+.el-select-dropdown__item:is(.hover, :hover) {
+  background-color: var(--nir-color-row-hover);
 }
 
 .nir-ref-option {

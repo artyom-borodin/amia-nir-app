@@ -2,7 +2,6 @@
   height: var(--nir-app-h-fallback);
   height: var(--nir-app-h);
   overflow: hidden;
-  background-color: var(--nir-color-app-bg);
 }
 
 .el-aside.nir-aside {
@@ -13,9 +12,11 @@
   overflow: hidden;
   box-sizing: border-box;
   position: relative;
-  background: var(--nir-color-sidebar-bg);
+  background-color: var(--nir-color-sidebar-bg);
+  background-image: var(--nir-sidebar-gradient);
   color: var(--nir-color-sidebar-text);
   border-right: var(--nir-border-w) solid var(--nir-color-sidebar-border);
+  box-shadow: var(--nir-shadow-sidebar);
   padding: var(--nir-sidebar-pad);
   padding-right: calc(var(--nir-sidebar-pad) + var(--nir-resizer-w));
   flex: 0 0 auto;
@@ -35,8 +36,8 @@
 
 .nir-aside-label {
   font-size: var(--nir-label-size);
-  font-weight: var(--nir-font-weight-semibold);
-  color: var(--nir-color-sidebar-muted);
+  font-weight: var(--nir-font-weight-bold);
+  color: var(--nir-color-sidebar-text-active);
   text-transform: uppercase;
   letter-spacing: var(--nir-th-letter-spacing);
 }
@@ -44,14 +45,18 @@
 :is(.nir-aside-toggle, .nir-logout-btn).el-button.is-text {
   flex: 0 0 auto;
   color: var(--nir-color-sidebar-muted);
+  border-radius: var(--nir-radius-chip);
   transition: color var(--nir-transition-fast), background-color var(--nir-transition-fast);
 }
 
-:is(.nir-aside-toggle, .nir-logout-btn).el-button.is-text:not(.is-disabled):hover,
-:is(.nir-aside-toggle, .nir-logout-btn).el-button.is-text:not(.is-disabled):focus-visible,
-:is(.nir-aside-toggle, .nir-logout-btn).el-button.is-text:not(.is-disabled):active {
+.nir-aside-toggle.el-button.is-text:not(.is-disabled):is(:hover, :focus-visible, :active) {
   color: var(--nir-color-sidebar-text-active);
   background-color: var(--nir-color-sidebar-hover);
+}
+
+.nir-logout-btn.el-button.is-text:not(.is-disabled):is(:hover, :focus-visible, :active) {
+  color: var(--nir-color-logout-hover-text);
+  background-color: var(--nir-color-logout-hover-bg);
 }
 
 .nir-menu-scroll {
@@ -111,8 +116,20 @@
 
 .nir-nav-menu .el-menu-item.is-active {
   background: var(--nir-color-sidebar-active);
+  box-shadow: var(--nir-shadow-menu-active);
   color: var(--nir-color-sidebar-text-active);
   font-weight: var(--nir-font-weight-semibold);
+}
+
+.nir-nav-menu .el-menu-item.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: var(--nir-gap-2xs);
+  bottom: var(--nir-gap-2xs);
+  width: var(--nir-sidebar-indicator-w);
+  border-radius: var(--nir-radius-pill);
+  background: var(--nir-color-sidebar-accent);
 }
 
 .nir-nav-menu .el-menu-item.is-active .el-icon {
@@ -122,8 +139,10 @@
 .nir-aside-foot {
   flex: 0 0 auto;
   margin-top: var(--nir-sidebar-foot-gap);
-  padding-top: var(--nir-gap-sm);
-  border-top: var(--nir-border-w) solid var(--nir-color-sidebar-border);
+  padding: var(--nir-gap-xs);
+  border-radius: var(--nir-radius-block);
+  background: var(--nir-color-sidebar-user-bg);
+  border: var(--nir-border-w) solid var(--nir-color-sidebar-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -196,4 +215,8 @@
 
 .nir-main {
   padding: var(--nir-main-pad);
+}
+
+.nir-main:has(> .nir-login-page) {
+  padding: 0;
 }
