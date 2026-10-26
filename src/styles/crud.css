@@ -261,6 +261,15 @@
   padding-bottom: var(--nir-gap-sm);
 }
 
+.nir-form .el-form-item:has(.el-checkbox) .el-form-item__label {
+  margin-bottom: var(--nir-gap-3xs);
+  line-height: var(--nir-lh-tight);
+}
+
+.nir-form .el-form-item:has(.el-checkbox) .el-form-item__content {
+  line-height: var(--nir-lh-none);
+}
+
 .nir-form .el-input,
 .nir-form .el-select,
 .nir-form .el-date-editor,
