@@ -8,23 +8,21 @@
           <el-option v-for="o in f.options" :key="o.value" :value="o.value" :label="o.label" />
         </el-select>
         <el-date-picker v-else-if="f.type === FIELD_TYPES.DATE" v-model="filters[f.prop]" type="date" :value-format="DATE_VALUE_FORMAT" :placeholder="TEXT_DATE_PLACEHOLDER" clearable />
-        <ReferenceSelect v-else-if="f.type === FIELD_TYPES.REF" v-model="filters[f.prop]" :endpoint="getEndpoint(f.ref)" :query-params="f.queryFn ? f.queryFn(filters) : undefined" :placeholder="TEXT_ALL" />
+        <ReferenceSelect v-else-if="f.type === FIELD_TYPES.REF" :model-value="filters[f.prop]" :endpoint="getEndpoint(f.ref)" :query-params="f.queryFn ? f.queryFn(filters) : undefined" :placeholder="TEXT_ALL" @update:modelValue="onFilterRefChange(f.prop, $event)" />
       </el-form-item>
     </FilterPanel>
     <ErrorAlert :message="error" :fields="fieldErrors" />
     <div class="nir-toolbar">
-      <div v-if="activeFilterCount > 0" class="nir-toolbar-meta">
-        <el-tag
-          :size="UI_SIZE_SMALL"
-          :type="BTN_PRIMARY"
-          :effect="TAG_EFFECT_LIGHT"
-          closable
-          @close="onReset"
-        >
-          {{ TEXT_ACTIVE_FILTERS }}: {{ activeFilterCount }}
-        </el-tag>
-      </div>
+      <ActiveFilterTags :filters="filters" :filter-defs="filterDefs" @remove="onRemoveFilter" @clear="onReset" />
       <div class="nir-toolbar-actions">
+        <el-button
+          v-if="selectedRows.length > 0"
+          :type="BTN_DANGER"
+          :icon="Delete"
+          @click="onRemoveSelected"
+        >
+          {{ TEXT_DELETE_SELECTED }} ({{ selectedRows.length }})
+        </el-button>
         <el-button :type="BTN_PRIMARY" :icon="Plus" @click="onCreate">{{ TEXT_CREATE_RECORD }}</el-button>
       </div>
     </div>
@@ -37,6 +35,7 @@
       :page-size="pageSize"
       @edit="onEdit"
       @remove="onRemove"
+      @selection-change="onSelectionChange"
       @page-change="onPage"
       @size-change="onSize"
       @sort-change="onSortChange"
@@ -49,31 +48,27 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, Delete } from '@element-plus/icons-vue'
 import DataTable from '../../components/DataTable.vue'
 import FilterPanel from '../../components/FilterPanel.vue'
 import FormDrawer from '../../components/FormDrawer.vue'
 import ErrorAlert from '../../components/ErrorAlert.vue'
 import ReferenceSelect from '../../components/ReferenceSelect.vue'
+import ActiveFilterTags from '../../components/ActiveFilterTags.vue'
 import { getEndpoint } from '../../constants/tables.js'
 import { DATE_VALUE_FORMAT } from '../../constants/formats.js'
 import { FIELD_TYPES } from '../../constants/fieldTypes.js'
-import {
-  BTN_PRIMARY,
-  UI_SIZE_SMALL,
-  TAG_EFFECT_LIGHT
-} from '../../constants/ui.js'
+import { BTN_PRIMARY, BTN_DANGER } from '../../constants/ui.js'
 import {
   TEXT_ALL,
   TEXT_DATE_PLACEHOLDER,
   TEXT_CREATE_RECORD,
+  TEXT_DELETE_SELECTED,
   TEXT_EDIT_RECORD,
-  TEXT_ADD_RECORD,
-  TEXT_ACTIVE_FILTERS
+  TEXT_ADD_RECORD
 } from '../../constants/texts.js'
-import { countActiveFilters } from '../_shared.js'
 import { useCrudPage } from '../../composables/useCrudPage.js'
+import { applyLearnerExclusive } from '../_shared.js'
 import CrudFormView from './CrudFormView.vue'
 
 const props = defineProps({
@@ -98,6 +93,7 @@ const {
   page,
   pageSize,
   filters,
+  selectedRows,
   drawer,
   editId,
   form,
@@ -107,9 +103,12 @@ const {
   formViewRef,
   onSearch,
   onReset,
+  onRemoveFilter,
   onCreate,
   onEdit,
   onRemove,
+  onSelectionChange,
+  onRemoveSelected,
   onPage,
   onSize,
   onSave,
@@ -121,5 +120,7 @@ const {
   normalizeFn: props.normalize
 })
 
-const activeFilterCount = computed(() => countActiveFilters(filters.value, props.filterDefs))
+function onFilterRefChange(prop, val) {
+  applyLearnerExclusive(filters.value, prop, val, '')
+}
 </script>

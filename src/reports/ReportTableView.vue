@@ -15,14 +15,22 @@
           >
             <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="TABLE_MIN_WIDTH">
               <template #default="scope">
-                <ReportCell :value="scope.row[c.prop]" :drillable="canDrill(scope.row, c.prop, scope.$index)" :show-course-tags="showCourseTags && c.prop === 'by_course'" @drill="onCell(scope.row, c, scope.$index)" />
+                <ReportCell
+                  :row="scope.row"
+                  :prop="c.prop"
+                  :value="scope.row[c.prop]"
+                  :drillable="canDrill(scope.row, c.prop, scope.$index)"
+                  :show-course-tags="showCourseTags && c.prop === REPORT_BY_COURSE_PROP"
+                  @drill="onCell(scope.row, c, scope.$index)"
+                  @drill-course="(course, count) => onCourseCell(scope.row, scope.$index, course, count)"
+                />
               </template>
             </el-table-column>
           </el-table>
         </div>
         <NirPagination :page="page" :page-size="pageSize" :total="total" @page-change="onPage" @size-change="onSize" />
         <el-empty v-if="!items.length" :description="TEXT_EMPTY" />
-        <ReportTotals :totals="totals" />
+        <ReportTotals :totals="totals" @drill="onTotalCell" />
       </div>
       <div v-else class="nir-report-empty-state">
         <el-icon class="nir-report-empty-icon"><component :is="getReportIcon(props.kind)" /></el-icon>
@@ -40,7 +48,7 @@ import NirPagination from '../components/NirPagination.vue'
 import DrillDownDrawer from './DrillDownDrawer.vue'
 import ReportFilterPanel from './ReportFilterPanel.vue'
 import ReportCell from './ReportCell.vue'
-import { REPORT_FILTER_FIELDS } from '../constants/reports.js'
+import { REPORT_FILTER_FIELDS, REPORT_BY_COURSE_PROP } from '../constants/reports.js'
 import ReportActions from './ReportActions.vue'
 import ReportTotals from './ReportTotals.vue'
 import { useReportPage } from '../composables/useReportPage.js'
@@ -72,6 +80,8 @@ const {
   drillColumns,
   canDrill,
   onCell,
+  onCourseCell,
+  onTotalCell,
   onChange,
   onLoad,
   onReset,

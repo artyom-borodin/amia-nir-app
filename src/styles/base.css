@@ -245,6 +245,10 @@ body {
   box-shadow: var(--nir-shadow-input-focus);
 }
 
+:is(.el-input__wrapper, .el-select__wrapper, .el-input__inner, .el-select__input, .el-textarea__inner):is(:focus, :focus-visible) {
+  outline: none;
+}
+
 .el-checkbox {
   --el-checkbox-input-width: var(--nir-checkbox-size);
   --el-checkbox-input-height: var(--nir-checkbox-size);

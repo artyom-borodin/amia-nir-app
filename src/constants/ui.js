@@ -1,13 +1,12 @@
 import { TABLE_GROUP_RESULTS, TABLE_GROUP_DICTS, MENU_GROUP_REPORTS } from './tables.js'
 
 export const UI_PAGE_SIZE = 20
-export const UI_DICT_LIMIT = 50
-export const UI_DICT_CACHE_LIMIT = 1000
-export const UI_SEARCH_DEBOUNCE_MS = 250
+export const UI_DICT_CACHE_LIMIT = 2000
 export const UI_BLOB_REVOKE_TIMEOUT_MS = 1000
 export const UI_MOBILE_BP = 768
 
 export const TABLE_ID_WIDTH = 72
+export const TABLE_SELECTION_WIDTH = 46
 export const TABLE_MIN_WIDTH = 150
 export const TABLE_DEFAULT_MIN_WIDTH = 180
 export const TABLE_ACTIONS_WIDTH = 200
@@ -45,6 +44,10 @@ export const PAGINATION_LAYOUT = 'total, sizes, prev, pager, next'
 
 export function onTableCellMouseEnter(_row, column, cell) {
   if (!column || !column.property || column.property === TABLE_ID_PROP || !cell) return
+  if (cell.querySelector('.nir-cell-card-trigger')) {
+    cell.removeAttribute('title')
+    return
+  }
   const text = cell.textContent ? cell.textContent.trim() : ''
   if (text) cell.title = text
 }
@@ -68,8 +71,33 @@ export const BTN_WARNING = 'warning'
 
 export const CONFIRM_BOX_CLASS = 'nir-confirm-box'
 export const CONFIRM_DANGER_BTN_CLASS = 'el-button--danger'
+export const REF_POPPER_CLASS = 'nir-ref-popper'
+export const ENTITY_POPOVER_CLASS = 'nir-entity-popover'
+export const POPOVER_TRIGGER_HOVER = 'hover'
+export const POPOVER_WIDTH = 'var(--nir-ref-popper-w)'
+export const POPOVER_SHOW_AFTER_MS = 200
+export const POPOVER_HIDE_AFTER_MS = 80
+export const POPOVER_PLACEMENT = 'top-start'
+export const MULTI_CARD_PREVIEW_LIMIT = 2
+export const SHORT_META_LIMIT = 3
+
+export const ENTITY_POPOVER_ATTRS = Object.freeze({
+  trigger: POPOVER_TRIGGER_HOVER,
+  width: POPOVER_WIDTH,
+  placement: POPOVER_PLACEMENT,
+  showAfter: POPOVER_SHOW_AFTER_MS,
+  hideAfter: POPOVER_HIDE_AFTER_MS,
+  popperClass: ENTITY_POPOVER_CLASS
+})
 
 export const TAG_EFFECT_LIGHT = 'light'
+export const REF_OPTION_BADGE_CLASS = 'nir-ref-option-badge'
+
+export const CARD_TAG_ATTRS = Object.freeze({
+  size: UI_SIZE_SMALL,
+  effect: TAG_EFFECT_LIGHT,
+  class: REF_OPTION_BADGE_CLASS
+})
 
 export const MENU_OPENED_DEFAULT = Object.freeze([
   TABLE_GROUP_RESULTS,

@@ -47,7 +47,7 @@ import { useReportPage } from '../composables/useReportPage.js'
 import { TEXT_DRILL_HINT, TEXT_EMPTY, TEXT_REPORT_IDLE, TEXT_METRIC, TEXT_COUNT } from '../constants/texts.js'
 import { TABLE_ATTRS, TABLE_SUMMARY_LABEL_MIN_WIDTH, TABLE_SUMMARY_VALUE_MIN_WIDTH, TABLE_SUMMARY_VALUE_WIDTH, UI_CARD_SHADOW } from '../constants/ui.js'
 import { REPORT_KIND_SUMMARY } from '../constants/tables.js'
-import { normalizeSummary, hasSummaryDetails } from './reportHelpers.js'
+import { normalizeSummary, hasSummaryDetails, isPositiveNumber } from './reportHelpers.js'
 
 const KIND = REPORT_KIND_SUMMARY
 const {
@@ -79,7 +79,7 @@ const summaryTotal = computed(() => summaryRows.value.length)
 const pagedSummary = computed(() => paginateRows(summaryRows.value))
 
 function canDrillSummary(row) {
-  if (typeof row.value !== 'number' || row.value === 0) return false
+  if (!isPositiveNumber(row.value)) return false
   return hasSummaryDetails(data.value, row.key)
 }
 </script>

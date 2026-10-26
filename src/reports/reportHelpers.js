@@ -2,16 +2,22 @@ import {
   REPORT_COLUMN_LABELS,
   REPORT_ROW_KEYS,
   REPORT_STRATEGY_SOME_ARRAY,
-  REPORT_STRATEGY_KEYS_LENGTH
+  REPORT_STRATEGY_KEYS_LENGTH,
+  REPORT_BY_COURSE_PROP,
+  TOTALS_DRILL_KEY,
+  TECHNICAL_KEYS,
+  TECHNICAL_ID_SUFFIX
 } from '../constants/reports.js'
 import { REPORT_KIND_FACULTY } from '../constants/tables.js'
-import { formatRowFallback } from '../constants/texts.js'
+import { formatRowFallback, TEXT_TOTALS } from '../constants/texts.js'
 import { KV_JOINER, TITLE_SEPARATOR } from '../constants/formats.js'
+
+export { TOTALS_DRILL_KEY }
 
 export function isTechnicalKey(key) {
   if (!key) return true
-  if (['id','key','raw','learner','learner_key'].includes(key)) return true
-  return key.endsWith('_id')
+  if (TECHNICAL_KEYS.includes(key)) return true
+  return key.endsWith(TECHNICAL_ID_SUFFIX)
 }
 
 export function labelFor(key) {
@@ -94,9 +100,12 @@ export function hasReportDetails(data, key, prop, objectStrategy = REPORT_STRATE
   return hasDetails(data, key, prop, { objectStrategy })
 }
 
+export function isPositiveNumber(v) {
+  return typeof v === 'number' && v > 0
+}
+
 export function canDrillCell(row, prop, idx, ctx) {
-  const v = row[prop]
-  if (typeof v !== 'number' || v === 0) return false
+  if (!isPositiveNumber(row[prop])) return false
   if (isTechnicalKey(prop) || ctx.hidden.includes(prop)) return false
   if (ctx.extraGuard && !ctx.extraGuard(prop)) return false
   return hasReportDetails(ctx.data, ctx.keyOf(row, idx), prop, ctx.objectStrategy)
@@ -114,6 +123,28 @@ export function buildDrillPayload(row, col, idx, { keyOf, labelOf }) {
     value: row[col.prop],
     col: col.prop
   }
+}
+
+export function buildCourseDrillPayload(row, idx, course, count, { keyOf, labelOf }, courseLabel) {
+  return {
+    key: keyOf(row, idx),
+    label: labelOf(row, idx) + TITLE_SEPARATOR + courseLabel,
+    value: count,
+    col: REPORT_BY_COURSE_PROP + ':' + course
+  }
+}
+
+export function buildTotalDrillPayload(entry) {
+  return {
+    key: TOTALS_DRILL_KEY,
+    label: TEXT_TOTALS + TITLE_SEPARATOR + entry.label,
+    value: entry.value,
+    col: entry.key
+  }
+}
+
+export function isDrillableTotal(entry) {
+  return Boolean(entry && isPositiveNumber(entry.value))
 }
 
 export function normalizeSummary(data, metricLabels) {
@@ -142,6 +173,14 @@ export function hasSummaryDetails(data, key) {
   return hasDetails(data, key, undefined, { missing: true, objectStrategy: REPORT_STRATEGY_KEYS_LENGTH })
 }
 
+export function isPlainObject(v) {
+  return v != null && typeof v === 'object' && !Array.isArray(v)
+}
+
 export function isCourseMap(v) {
-  return v != null && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length > 0
+  return isPlainObject(v) && Object.keys(v).length > 0
+}
+
+export function isEmptyCourseMap(v) {
+  return isPlainObject(v) && Object.keys(v).length === 0
 }

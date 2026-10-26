@@ -71,13 +71,6 @@ export const ACTIVITY_KIND = [
   { value: 'Учебный процесс', label: 'Учебный процесс' },
   { value: 'Практическая деятельность', label: 'Практическая деятельность' }
 ]
-export const LEARNER_CATEGORIES = [
-  { value: 'Курсант', label: 'Курсант' },
-  { value: 'Студент', label: 'Студент' },
-  { value: 'Магистрант', label: 'Магистрант' },
-  { value: 'Выпускник магистратуры', label: 'Выпускник магистратуры' },
-  { value: 'Выпускник академии', label: 'Выпускник академии' }
-]
 
 export const YES_NO_OPTIONS = [
   { value: 'true', label: TEXT_YES },
@@ -87,3 +80,22 @@ export const YES_NO_OPTIONS = [
 export const LABEL_SEPARATOR = TITLE_SEPARATOR
 export const FIO_SEPARATOR = ' '
 export const UNKNOWN_LABEL_PREFIX = 'ID '
+
+export const LEARNER_KIND_CADET = 'cadet'
+export const LEARNER_KIND_STUDENT = 'student'
+export const LEARNER_KIND_FPK = 'fpk_student'
+
+export const FPK_MAG_CHOICE_MAGISTRACY = 2
+export const TEXT_MAGISTRACY = 'Магистратура'
+export const STATUS_GRADUATED_SUFFIX = 'выпустился'
+
+export const LEARNER_STATUS_LABELS = Object.freeze({
+  magistrant: 'Магистрант',
+  magistrantGraduated: 'Магистрант - выпустился',
+  listener: 'Слушатель',
+  listenerGraduated: 'Слушатель - выпустился',
+  student: 'Студент',
+  studentGraduated: 'Студент - выпустился',
+  cadet: 'Курсант - обучается',
+  cadetGraduated: 'Курсант - выпустился'
+})

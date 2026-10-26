@@ -1,5 +1,45 @@
-import { LABEL_CIRCLE, LABEL_COURSE, LABEL_DEPARTMENT, LABEL_LEARNER, LABEL_ORGANIZATION, LABEL_PPS, LABEL_SUPERVISOR, LABEL_TITLE, LABEL_WORK_TITLE, LABEL_WORK_TYPE, LABEL_CATEGORY, LABEL_GROUP, LABEL_FACULTY, LABEL_MEMBERS, LABEL_MEMBERS_FIO, LABEL_REPORTS, LABEL_PUB_TYPE, LABEL_CERTIFICATE } from './labels.js'
+import {
+  LABEL_CIRCLE,
+  LABEL_COURSE,
+  LABEL_DEPARTMENT,
+  LABEL_LEARNER,
+  LABEL_ORGANIZATION,
+  LABEL_PPS,
+  LABEL_SUPERVISOR,
+  LABEL_TITLE,
+  LABEL_WORK_TITLE,
+  LABEL_WORK_TYPE,
+  LABEL_CATEGORY,
+  LABEL_GROUP,
+  LABEL_FACULTY,
+  LABEL_MEMBERS,
+  LABEL_MEMBERS_FIO,
+  LABEL_REPORTS,
+  LABEL_PUB_TYPE,
+  LABEL_CERTIFICATE,
+  LABEL_CADET,
+  LABEL_STUDENT,
+  LABEL_FPK_STUDENT,
+  LABEL_PROBLEM_GROUP,
+  LABEL_EVENT_LEVEL,
+  LABEL_EVENT_FOUNDER,
+  LABEL_DIPLOMA
+} from './labels.js'
 import { TEXT_CITY, TEXT_COUNT, TEXT_END_DATE, TEXT_FOUNDER, TEXT_METRIC, TEXT_START_DATE } from './texts.js'
+import {
+  COURSE,
+  CONF_LEVEL,
+  CONTEST_LEVEL,
+  WORK_KIND,
+  PUB_KIND,
+  CONTEST_RESULT,
+  EXHIBITION_RESULT,
+  ACTIVITY_KIND,
+  YES_NO_OPTIONS
+} from './choices.js'
+import { FIELD_TYPES } from './fieldTypes.js'
+import { DICT_LABEL_FIELD, DICT_FULL_NAME_FIELD, DICT_SUBDIVISION_FIELD } from './ui.js'
+import { DIPLOMA_OPTIONS } from './diploma.js'
 
 export const SUMMARY_METRIC_LABELS = {
   students: 'Обучающиеся',
@@ -152,7 +192,6 @@ const BASE_REPORT_FILTERS = [
   'subdivision',
   'circle',
   'problem_group',
-  'category',
   'course',
   'level',
   'founder',
@@ -189,7 +228,7 @@ export const REPORT_FILTER_FIELDS = {
   'by-category': dropReportFilters(MIN_REPORT_DROP),
   'by-founder': dropReportFilters(COMMON_REPORT_DROP),
   dynamics: dropReportFilters(MIN_REPORT_DROP),
-  'by-status': ['cadet', 'student', 'fpk_student', 'subdivision', 'category', 'gifted_db', 'president_fund']
+  'by-status': ['cadet', 'student', 'fpk_student', 'subdivision', 'gifted_db', 'president_fund']
 }
 
 export const REPORT_ROW_KEYS = {
@@ -206,5 +245,82 @@ export const REPORT_ROW_KEYS = {
 
 export const REPORT_STRATEGY_SOME_ARRAY = 'some-array'
 export const REPORT_STRATEGY_KEYS_LENGTH = 'keys-length'
+
+export const REPORT_BY_COURSE_PROP = 'by_course'
+export const TABLE_MEMBERS_COUNT_PROP = 'members_count'
+export const REPORT_DIPLOMA_KEY = 'diploma'
+export const TOTALS_DRILL_KEY = '__totals__'
+export const TECHNICAL_ID_SUFFIX = '_id'
+export const TECHNICAL_IDS_SUFFIX = '_ids'
+
+export const TECHNICAL_KEYS = Object.freeze([
+  'id',
+  'key',
+  'raw',
+  'learner',
+  'learner_key',
+  'members_fio',
+  'cadets_ids',
+  'students_ids',
+  'fpk_students_ids'
+])
+
+export const DRILL_ROW_KIND_RULES = Object.freeze([
+  { field: 'report_title', kind: 'conf' },
+  { field: 'pub_type', kind: 'pub' },
+  { field: 'result_date', kind: 'cont' },
+  { field: 'act_date', kind: 'act' },
+  { field: 'exhibition_title', kind: 'exhib' },
+  { field: 'academic_year', kind: 'stat' },
+  { field: 'group_name', kind: 'grp' },
+  { field: 'reports_count', kind: 'rep' }
+])
+export const DRILL_ROW_DEFAULT_KIND = 'item'
+export const DEDUP_PREFIX_LEARNER = 'learner:'
+export const DEDUP_PREFIX_PPS = 'pps:'
+export const DEDUP_PREFIX_ROW = 'row:'
+
+export const REPORT_EVENT_LEVELS = [...CONF_LEVEL, ...CONTEST_LEVEL]
+
+export const REPORT_FILTER_DEFS = [
+  { key: 'cadet', label: LABEL_CADET, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.cadet, labelField: DICT_FULL_NAME_FIELD },
+  { key: 'student', label: LABEL_STUDENT, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.student, labelField: DICT_FULL_NAME_FIELD },
+  { key: 'fpk_student', label: LABEL_FPK_STUDENT, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.fpk_student, labelField: DICT_FULL_NAME_FIELD },
+  { key: 'pps', label: LABEL_PPS, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.pps, labelField: DICT_FULL_NAME_FIELD },
+  { key: 'department', label: LABEL_DEPARTMENT, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.department, labelField: DICT_SUBDIVISION_FIELD },
+  { key: 'subdivision', label: REPORT_COLUMN_LABELS.faculty, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.subdivision, labelField: DICT_SUBDIVISION_FIELD },
+  { key: 'circle', label: LABEL_CIRCLE, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.circle, labelField: DICT_LABEL_FIELD },
+  { key: 'problem_group', label: LABEL_PROBLEM_GROUP, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.problem_group, labelField: DICT_LABEL_FIELD },
+  { key: 'course', label: LABEL_COURSE, type: FIELD_TYPES.SELECT, options: COURSE },
+  { key: 'level', label: LABEL_EVENT_LEVEL, type: FIELD_TYPES.SELECT, options: REPORT_EVENT_LEVELS },
+  { key: 'founder', label: LABEL_EVENT_FOUNDER, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.founder, labelField: DICT_LABEL_FIELD },
+  { key: 'city', label: TEXT_CITY, type: FIELD_TYPES.TEXT },
+  { key: 'work_type', label: LABEL_WORK_TYPE, type: FIELD_TYPES.SELECT, options: WORK_KIND },
+  { key: 'pub_type', label: LABEL_PUB_TYPE, type: FIELD_TYPES.SELECT, options: PUB_KIND },
+  { key: 'title', label: REPORT_COLUMN_LABELS.title, type: FIELD_TYPES.TEXT },
+  { key: 'has_electronic', label: REPORT_COLUMN_LABELS.has_electronic, type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
+  { key: 'has_print', label: REPORT_COLUMN_LABELS.has_print, type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
+  { key: 'result_category', label: REPORT_COLUMN_LABELS.result_category, type: FIELD_TYPES.SELECT, options: CONTEST_RESULT },
+  { key: 'result', label: REPORT_COLUMN_LABELS.result, type: FIELD_TYPES.SELECT, options: EXHIBITION_RESULT },
+  { key: 'activity_type', label: REPORT_COLUMN_LABELS.activity_type, type: FIELD_TYPES.SELECT, options: ACTIVITY_KIND },
+  { key: 'organization', label: LABEL_ORGANIZATION, type: FIELD_TYPES.REF, endpoint: REPORT_FILTER_ENDPOINTS.organization, labelField: DICT_LABEL_FIELD },
+  { key: 'has_certificate', label: LABEL_CERTIFICATE, type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
+  { key: 'gifted_db', label: REPORT_COLUMN_LABELS.gifted_db, type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS },
+  { key: 'president_fund', label: REPORT_COLUMN_LABELS.president_fund, type: FIELD_TYPES.SELECT, options: YES_NO_OPTIONS }
+]
+
+export const REPORT_DIPLOMA_FILTER_DEF = Object.freeze({
+  key: REPORT_DIPLOMA_KEY,
+  label: LABEL_DIPLOMA,
+  type: FIELD_TYPES.SELECT,
+  options: DIPLOMA_OPTIONS
+})
+
+export function resolveReportFilterDefs(fields, includeDiploma = false) {
+  const base = fields ? REPORT_FILTER_DEFS.filter((f) => fields.includes(f.key)) : REPORT_FILTER_DEFS
+  if (!includeDiploma) return base
+  const showDiploma = !fields || fields.includes(REPORT_DIPLOMA_KEY)
+  return showDiploma ? [...base, REPORT_DIPLOMA_FILTER_DEF] : base
+}
 
 export { DIPLOMA_FILTER_ANY, DIPLOMA_FILTER_NONE, DIPLOMA_FILTER_D1, DIPLOMA_FILTER_D2, DIPLOMA_FILTER_D3, DIPLOMA_TRUE, DIPLOMA_FALSE, DIPLOMA_EMPTY, encodeDiploma, isOn, decodeDiploma, DIPLOMA_OPTIONS } from './diploma.js'

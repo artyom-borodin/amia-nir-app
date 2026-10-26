@@ -60,7 +60,7 @@
     box-shadow var(--nir-transition-fast);
 }
 
-.nir-drill-pill:hover {
+:is(.nir-drill-pill:hover, .nir-totals-item.is-clickable:hover .nir-totals-value.nir-drill-pill) {
   background: var(--nir-primary-gradient);
   border-color: var(--el-color-primary);
   color: var(--nir-hero-text);
@@ -75,6 +75,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--nir-gap-3xs);
+}
+
+.nir-course-drill-pill {
+  gap: var(--nir-inline-gap);
+  padding: 0 var(--nir-gap-2xs);
+}
+
+.nir-course-pill-label {
+  font-weight: var(--nir-font-weight-medium);
+  opacity: var(--nir-resizer-opacity);
+}
+
+.nir-course-pill-val {
+  font-weight: var(--nir-font-weight-bold);
 }
 
 .nir-totals {
@@ -117,6 +131,10 @@
   min-width: 0;
   box-shadow: var(--nir-shadow-xs);
   transition: border-color var(--nir-transition-fast), box-shadow var(--nir-transition-fast);
+}
+
+.nir-totals-item.is-clickable {
+  cursor: pointer;
 }
 
 .nir-totals-item:hover {

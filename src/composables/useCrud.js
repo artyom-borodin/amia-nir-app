@@ -61,6 +61,25 @@ export function useCrud(endpoint) {
     }
   }
 
+  async function removeMany(ids) {
+    if (!Array.isArray(ids) || !ids.length) return { deleted: 0, failed: 0 }
+    loading.value = true
+    error.value = ''
+    try {
+      const settled = await Promise.allSettled(ids.map((id) => crud.remove(id)))
+      const failedItems = settled.filter((r) => r.status === 'rejected')
+      const deleted = settled.length - failedItems.length
+      if (failedItems.length > 0) {
+        const parsed = parseApiError(failedItems[0].reason)
+        error.value = parsed.message
+      }
+      await fetch()
+      return { deleted, failed: failedItems.length }
+    } finally {
+      loading.value = false
+    }
+  }
+
   function setQuery(next) {
     query.value = { ...next }
     resetPage()
@@ -78,5 +97,5 @@ export function useCrud(endpoint) {
     await fetch()
   }
 
-  return { rows, total, loading, error, fieldErrors, page, pageSize, query, sorting, fetch, remove, setQuery, setSorting, onSortChange, crud }
+  return { rows, total, loading, error, fieldErrors, page, pageSize, query, sorting, fetch, remove, removeMany, setQuery, setSorting, onSortChange, crud }
 }

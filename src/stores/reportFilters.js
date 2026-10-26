@@ -27,7 +27,6 @@ export const FILTER_FIELD_NAMES = [
   'result',
   'activity_type',
   'organization',
-  'category',
   'diploma_any',
   'diploma_1',
   'diploma_2',
@@ -38,7 +37,7 @@ export const FILTER_FIELD_NAMES = [
   'search'
 ]
 
-function defaultFilters() {
+export function defaultFilters() {
   return Object.fromEntries(FILTER_FIELD_NAMES.map((k) => [k, EMPTY_FILTER_VALUE]))
 }
 

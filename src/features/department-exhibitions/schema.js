@@ -31,7 +31,6 @@ export const FILTERS = [
   ...dateRangeFilters('date', REPORT_COLUMN_LABELS.date),
   { prop: 'department', label: LABEL_DEPARTMENT, type: FIELD_TYPES.REF, ref: ENDPOINTS.SUBDIVISION },
   ...LEARNER_FILTERS,
-  PARTICIPANT_FILTERS.category,
   PARTICIPANT_FILTERS.course,
   { prop: 'work_title', label: LABEL_WORK_TITLE, type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },
   { prop: 'result', label: REPORT_COLUMN_LABELS.result, type: FIELD_TYPES.SELECT, options: EXHIBITION_RESULT }

@@ -4,12 +4,20 @@
       <el-table
         v-bind="TABLE_ATTRS"
         :data="rows"
+        :row-key="TABLE_ID_PROP"
         v-loading="loading"
         :empty-text="TEXT_EMPTY"
         header-cell-class-name="nir-th"
         class="nir-table"
-        @sort-change="$emit('sort-change', $event)"
+        @sort-change="$emit(EMIT_SORT_CHANGE, $event)"
+        @selection-change="$emit(EMIT_SELECTION_CHANGE, $event)"
       >
+        <el-table-column
+          v-if="showActions"
+          type="selection"
+          :width="TABLE_SELECTION_WIDTH"
+          align="center"
+        />
         <el-table-column
           v-for="c in normalizedColumns"
           :key="c.prop"
@@ -21,18 +29,7 @@
           :sortable="TABLE_SORT_CUSTOM"
         >
           <template #default="scope">
-            <span v-if="c.prop === TABLE_ID_PROP" class="nir-id-badge">#{{ scope.row[c.prop] }}</span>
-            <el-tag
-              v-else-if="isTagColumn(c.prop, scope.row[c.prop])"
-              :size="UI_SIZE_SMALL"
-              :type="resolveCellTagType(c.prop, scope.row[c.prop])"
-              :effect="TAG_EFFECT_LIGHT"
-              :title="formatTableCell(scope.row[c.prop])"
-              class="nir-cell-tag"
-            >
-              {{ formatTableCell(scope.row[c.prop]) }}
-            </el-tag>
-            <span v-else class="nir-cell" :title="formatTableCell(scope.row[c.prop])">{{ formatTableCell(scope.row[c.prop]) }}</span>
+            <TableCell :row="scope.row" :prop="c.prop" />
           </template>
         </el-table-column>
         <el-table-column
@@ -44,15 +41,15 @@
         >
           <template #default="scope">
             <div class="nir-actions">
-              <el-button link :type="BTN_PRIMARY" :size="UI_SIZE_SMALL" :icon="EditPen" class="nir-action-link" @click="$emit('edit', scope.row)">{{ TEXT_EDIT }}</el-button>
+              <el-button link :type="BTN_PRIMARY" :size="UI_SIZE_SMALL" :icon="EditPen" class="nir-action-link" @click="$emit(EMIT_EDIT, scope.row)">{{ TEXT_EDIT }}</el-button>
               <span class="nir-action-sep" aria-hidden="true" />
-              <el-button link :type="BTN_DANGER" :size="UI_SIZE_SMALL" :icon="Delete" class="nir-action-link" @click="$emit('remove', scope.row)">{{ TEXT_DELETE }}</el-button>
+              <el-button link :type="BTN_DANGER" :size="UI_SIZE_SMALL" :icon="Delete" class="nir-action-link" @click="$emit(EMIT_REMOVE, scope.row)">{{ TEXT_DELETE }}</el-button>
             </div>
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <NirPagination :page="page" :page-size="pageSize" :total="total" footer-class="nir-table-footer" @page-change="$emit('page-change', $event)" @size-change="$emit('size-change', $event)" />
+    <NirPagination :page="page" :page-size="pageSize" :total="total" footer-class="nir-table-footer" @page-change="$emit(EMIT_PAGE_CHANGE, $event)" @size-change="$emit(EMIT_SIZE_CHANGE, $event)" />
   </el-card>
 </template>
 
@@ -62,6 +59,7 @@ import { EditPen, Delete } from '@element-plus/icons-vue'
 import {
   UI_PAGE_SIZE,
   TABLE_ID_WIDTH,
+  TABLE_SELECTION_WIDTH,
   TABLE_MIN_WIDTH,
   TABLE_DEFAULT_MIN_WIDTH,
   TABLE_ACTIONS_WIDTH,
@@ -69,7 +67,6 @@ import {
   UI_SIZE_SMALL,
   BTN_PRIMARY,
   BTN_DANGER,
-  TAG_EFFECT_LIGHT,
   TABLE_SORT_CUSTOM,
   TABLE_FIXED_RIGHT,
   TABLE_ID_PROP,
@@ -77,9 +74,17 @@ import {
   WINDOW_RESIZE_EVT
 } from '../constants/ui.js'
 import { TEXT_EMPTY, TEXT_ACTIONS, TEXT_EDIT, TEXT_DELETE } from '../constants/texts.js'
-import { formatTableCell, isTagColumn, resolveCellTagType } from '../utils/format.js'
+import {
+  EMIT_EDIT,
+  EMIT_REMOVE,
+  EMIT_PAGE_CHANGE,
+  EMIT_SIZE_CHANGE,
+  EMIT_SORT_CHANGE,
+  EMIT_SELECTION_CHANGE
+} from '../constants/events.js'
 import { isMobileViewport } from '../utils/storage.js'
 import NirPagination from './NirPagination.vue'
+import TableCell from './TableCell.vue'
 
 const props = defineProps({
   rows: { type: Array, default: () => [] },
@@ -91,7 +96,14 @@ const props = defineProps({
   showActions: { type: Boolean, default: true }
 })
 
-defineEmits(['edit', 'remove', 'page-change', 'size-change', 'sort-change'])
+defineEmits([
+  EMIT_EDIT,
+  EMIT_REMOVE,
+  EMIT_PAGE_CHANGE,
+  EMIT_SIZE_CHANGE,
+  EMIT_SORT_CHANGE,
+  EMIT_SELECTION_CHANGE
+])
 
 const isMobile = ref(isMobileViewport())
 const actionsFixed = computed(() => (isMobile.value ? false : TABLE_FIXED_RIGHT))
@@ -114,5 +126,4 @@ const normalizedColumns = computed(() =>
     return { ...c, width: undefined, minWidth: TABLE_DEFAULT_MIN_WIDTH }
   })
 )
-
 </script>

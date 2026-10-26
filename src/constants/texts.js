@@ -1,5 +1,3 @@
-import { KV_JOINER } from './formats.js'
-
 export const TEXT_EMPTY = 'Нет данных'
 export const TEXT_ACTIONS = 'Действия'
 export const TEXT_EDIT = 'Изменить'
@@ -73,11 +71,23 @@ export const TEXT_CITY = 'Город проведения'
 export const TEXT_GENERATE = 'Сформировать'
 export const TEXT_EXPORT_XLSX = 'Экспорт в Excel'
 export const TEXT_COURSE_WORD = 'курс'
+export const TEXT_GROUP_SHORT = 'Гр.'
+export const TEXT_RECORD_BOOK_SHORT = 'Зачётка №'
+export const TEXT_BIRTH_SHORT = 'Рожд.'
+export const TEXT_NEW_ITEM = '+ Новый'
+export const TEXT_GROUP_MEMBERS_TITLE = 'Состав группы'
+export const TEXT_SUPERVISOR_PREFIX = 'Руководитель'
+export const TEXT_MEMBERS_COUNT_LABEL = 'Участников:'
+export const TEXT_FOUNDER_LABEL = 'Учредитель:'
+export const TEXT_MORE_PREFIX = '+ ещё '
 
-export function formatCourseTagLabel(course, count) {
+export function formatCourseLabel(course) {
   const isNum = /^\d+$/.test(String(course))
-  const label = isNum ? course + ' ' + TEXT_COURSE_WORD : String(course)
-  return label + KV_JOINER + count
+  return isNum ? course + ' ' + TEXT_COURSE_WORD : String(course)
+}
+
+export function formatMoreCount(count) {
+  return TEXT_MORE_PREFIX + count
 }
 
 export const TEXT_APP_TITLE = 'База данных учёта научно-исследовательской работы обучающихся'
@@ -99,6 +109,13 @@ export function formatDeleteConfirm(label) {
   return TEXT_DELETE + ' ' + label + '?'
 }
 
+export function formatBulkDeleteConfirm(count) {
+  return 'Удалить выбранные записи (' + count + ' шт.)?'
+}
+
+export const TEXT_DELETE_SELECTED = 'Удалить выбранные'
+export const TEXT_DELETED_COUNT = 'Удалено записей: '
+
 export const TEXT_TITLE_PLACEHOLDER = 'Полное название'
 export const TEXT_ORG_PLACEHOLDER = 'Название организации'
 export const TEXT_CIRCLE_PLACEHOLDER = 'Название научного сообщества (кружка)'
@@ -114,6 +131,7 @@ export const TEXT_ADD_CONTEST = 'Добавить конкурс'
 
 export const TEXT_MSG_COURSE_REQUIRED = 'Выберите курс на момент участия'
 export const TEXT_MSG_SUPERVISOR_REQUIRED = 'Выберите научного руководителя (ППС кафедры)'
+export const TEXT_MSG_RESPONSIBLE_REQUIRED = 'Выберите ответственного (ППС кафедры)'
 export const TEXT_MSG_DEPARTMENT_REQUIRED = 'Выберите кафедру'
 export const TEXT_MSG_START_DATE_REQUIRED = 'Укажите дату начала'
 export const TEXT_MSG_END_DATE_REQUIRED = 'Укажите дату окончания'
@@ -129,3 +147,20 @@ export function requiredTitleMsg(entity) {
 export const TEXT_MSG_INTEGER = 'Введите целое число от '
 
 export const TEXT_YEAR_CALENDAR = 'Год (календарный)'
+
+export const TEXT_SELECT_LEARNER_FIRST = 'Сначала выберите обучающегося'
+export const TEXT_SELECT_LEARNER_HINT =
+  'Укажите курсанта, студента или слушателя ФПК / магистранта, чтобы увидеть доступные варианты'
+export const TEXT_NO_LEARNER_CONFERENCES = 'У обучающегося нет участий в конференциях'
+export const TEXT_NO_LEARNER_CONFERENCES_HINT =
+  'У выбранного обучающегося пока нет зарегистрированных докладов на конференциях'
+export const TEXT_NO_LEARNER_GROUPS = 'Обучающийся не состоит в проблемных группах'
+export const TEXT_NO_LEARNER_GROUPS_HINT =
+  'Выбранный обучающийся не включён ни в одну проблемную группу (секцию)'
+export const TEXT_NO_SEARCH_RESULTS = 'Ничего не найдено'
+export const TEXT_NO_SEARCH_RESULTS_HINT = 'Попробуйте изменить поисковый запрос'
+export const TEXT_MULTI_SEARCH_PLACEHOLDER = 'Поиск и добавление (ФИО, группа, зачётка, факультет)...'
+export const TEXT_SELECTED_COUNT = 'Выбрано'
+export const TEXT_FOUND_COUNT = 'Найдено'
+export const TEXT_ADD_FOUND = 'Добавить найденных'
+export const TEXT_CLEAR_ALL = 'Очистить все'

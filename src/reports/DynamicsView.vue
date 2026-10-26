@@ -16,14 +16,20 @@
           >
             <el-table-column v-for="c in columns" :key="c.prop" :prop="c.prop" :label="c.label" :min-width="TABLE_MIN_WIDTH">
               <template #default="scope">
-                <ReportCell :value="scope.row[c.prop]" :drillable="canDrill(scope.row, c.prop, scope.$index)" @drill="onCell(scope.row, c, scope.$index)" />
+                <ReportCell
+                  :row="scope.row"
+                  :prop="c.prop"
+                  :value="scope.row[c.prop]"
+                  :drillable="canDrill(scope.row, c.prop, scope.$index)"
+                  @drill="onCell(scope.row, c, scope.$index)"
+                />
               </template>
             </el-table-column>
           </el-table>
         </div>
         <NirPagination :page="page" :page-size="pageSize" :total="total" @page-change="onPage" @size-change="onSize" />
         <el-empty v-if="!items.length" :description="TEXT_EMPTY" />
-        <ReportTotals :totals="totals" />
+        <ReportTotals :totals="totals" @drill="onTotalCell" />
       </div>
       <div v-else class="nir-report-empty-state">
         <el-icon class="nir-report-empty-icon"><component :is="getReportIcon(KIND)" /></el-icon>
@@ -82,6 +88,7 @@ const {
   drillColumns,
   canDrill,
   onCell,
+  onTotalCell,
   onChange,
   onLoad,
   onReset,

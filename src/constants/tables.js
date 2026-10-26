@@ -34,8 +34,7 @@ export const TABLES = [
   { key: TABLE_KEYS.CONFERENCE_INFOS, title: 'Конференции (справочник)', endpoint: 'nir-conference-infos', group: TABLE_GROUP_DICTS },
   { key: TABLE_KEYS.CONTEST_INFOS, title: 'Конкурсы (справочник)', endpoint: 'nir-contest-infos', group: TABLE_GROUP_DICTS },
   { key: TABLE_KEYS.FOUNDERS, title: 'Учредители конкурсов и конференций', endpoint: 'nir-founders', group: TABLE_GROUP_DICTS },
-  { key: TABLE_KEYS.IMPLEMENTATION_ORGANIZATIONS, title: 'Организации, внедрившие разработку', endpoint: 'nir-implementation-organizations', group: TABLE_GROUP_DICTS },
-  { key: TABLE_KEYS.PPS_DEPTS, title: 'ППС кафедры', endpoint: 'nir-pps-departments', group: TABLE_GROUP_DICTS }
+  { key: TABLE_KEYS.IMPLEMENTATION_ORGANIZATIONS, title: 'Организации, внедрившие разработку', endpoint: 'nir-implementation-organizations', group: TABLE_GROUP_DICTS }
 ]
 
 export const RESULT_TABLES = TABLES.filter((t) => t.group === TABLE_GROUP_RESULTS)

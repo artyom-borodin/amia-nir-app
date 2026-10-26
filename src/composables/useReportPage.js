@@ -10,8 +10,12 @@ import {
   buildReportColumns,
   createRowKeys,
   makeCanDrill,
-  buildDrillPayload
+  buildDrillPayload,
+  buildCourseDrillPayload,
+  buildTotalDrillPayload,
+  isDrillableTotal
 } from '../reports/reportHelpers.js'
+import { formatCourseLabel } from '../constants/texts.js'
 
 export function useReportPage(kind, options = {}) {
   const hidden = options.hiddenColumns ?? REPORT_HIDDEN_COLUMNS[kind] ?? []
@@ -49,6 +53,15 @@ export function useReportPage(kind, options = {}) {
 
   function onCell(row, col, idx) {
     onDrill(buildDrillPayload(row, col, idx, { keyOf, labelOf }))
+  }
+
+  function onCourseCell(row, idx, course, count) {
+    onDrill(buildCourseDrillPayload(row, idx, course, count, { keyOf, labelOf }, formatCourseLabel(course)))
+  }
+
+  function onTotalCell(entry) {
+    if (!isDrillableTotal(entry)) return
+    onDrill(buildTotalDrillPayload(entry))
   }
 
   function onChange() {
@@ -103,6 +116,8 @@ export function useReportPage(kind, options = {}) {
     keyOf,
     labelOf,
     onCell,
+    onCourseCell,
+    onTotalCell,
     onChange,
     onLoad,
     onReset,

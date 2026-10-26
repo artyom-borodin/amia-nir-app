@@ -12,7 +12,6 @@ export const ENDPOINTS = {
   EXHIBITIONS: 'department-exhibitions',
   STATUSES: 'student-statuses',
   CIRCLE_REPORTS: 'circle-reports',
-  PPS_DEPTS: 'pps-departments',
   SUBDIVISION: 'subdivision',
   EMPLOYEE: 'employee',
   CADET: 'cadet',
@@ -33,6 +32,5 @@ export const TABLE_KEYS = {
   IMPL_ACTS: 'implementation-acts',
   EXHIBITIONS: 'department-exhibitions',
   STATUSES: 'student-statuses',
-  CIRCLE_REPORTS: 'circle-reports',
-  PPS_DEPTS: 'pps-departments'
+  CIRCLE_REPORTS: 'circle-reports'
 }

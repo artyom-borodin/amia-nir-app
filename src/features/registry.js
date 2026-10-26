@@ -15,7 +15,6 @@ import { COLUMNS as ActsColumns, FILTERS as ActsFilters, FIELDS as ActsFields, R
 import { COLUMNS as ExhibColumns, FILTERS as ExhibFilters, FIELDS as ExhibFields, RULES as ExhibRules, emptyForm as emptyExhibForm } from './department-exhibitions/schema.js'
 import { COLUMNS as StatusesColumns, FILTERS as StatusesFilters, FIELDS as StatusesFields, RULES as StatusesRules, emptyForm as emptyStatusesForm } from './student-statuses/schema.js'
 import { COLUMNS as CircleReportsColumns, FILTERS as CircleReportsFilters, FIELDS as CircleReportsFields, RULES as CircleReportsRules, emptyForm as emptyCircleReportsForm } from './circle-reports/schema.js'
-import { COLUMNS as PpsDepsColumns, FILTERS as PpsDepsFilters, FIELDS as PpsDepsFields, RULES as PpsDepsRules, emptyForm as emptyPpsDepsForm } from './pps-departments/schema.js'
 
 function formProps(tableKey, fields, rules, eventPreview = null) {
   return { fields, rules, tableKey, eventPreview }
@@ -167,16 +166,6 @@ export const CRUD_LIST_MAP = {
       filterDefs: CircleReportsFilters,
       emptyForm: emptyCircleReportsForm,
       formProps: formProps(TABLE_KEYS.CIRCLE_REPORTS, CircleReportsFields, CircleReportsRules)
-    }
-  },
-  [TABLE_KEYS.PPS_DEPTS]: {
-    component: CrudListPage,
-    props: {
-      crudKey: TABLE_KEYS.PPS_DEPTS,
-      columns: PpsDepsColumns,
-      filterDefs: PpsDepsFilters,
-      emptyForm: emptyPpsDepsForm,
-      formProps: formProps(TABLE_KEYS.PPS_DEPTS, PpsDepsFields, PpsDepsRules)
     }
   }
 }

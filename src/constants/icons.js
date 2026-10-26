@@ -12,7 +12,6 @@ import {
   Flag,
   OfficeBuilding,
   Suitcase,
-  Postcard,
   PieChart,
   TrendCharts,
   User,
@@ -61,8 +60,7 @@ export const TABLE_ICONS = Object.freeze({
   [TABLE_KEYS.CONFERENCE_INFOS]: Calendar,
   [TABLE_KEYS.CONTEST_INFOS]: Flag,
   [TABLE_KEYS.FOUNDERS]: OfficeBuilding,
-  [TABLE_KEYS.IMPLEMENTATION_ORGANIZATIONS]: Suitcase,
-  [TABLE_KEYS.PPS_DEPTS]: Postcard
+  [TABLE_KEYS.IMPLEMENTATION_ORGANIZATIONS]: Suitcase
 })
 
 export const REPORT_ICONS = Object.freeze({

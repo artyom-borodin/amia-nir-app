@@ -39,7 +39,6 @@ export const COLUMNS = [
 ]
 export const FILTERS = [
   ...LEARNER_FILTERS,
-  PARTICIPANT_FILTERS.category,
   PARTICIPANT_FILTERS.course,
   PARTICIPANT_FILTERS.supervisor,
   { prop: 'conference', label: LABEL_CONFERENCE, type: FIELD_TYPES.REF, ref: ENDPOINTS.CONFERENCE_INFOS },

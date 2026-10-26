@@ -1,7 +1,7 @@
 import { PUB_KIND, YES_NO_OPTIONS } from '../../constants/choices.js'
 import { ENDPOINTS } from '../../constants/endpoints.js'
 import { FIELD_TYPES } from '../../constants/fieldTypes.js'
-import { LABEL_LEARNER, LABEL_PROBLEM_GROUP, LABEL_PUB_TYPE, LABEL_CONFERENCE_LINK, LABEL_CONFERENCE, LABEL_SUPERVISOR, LABEL_COURSE } from '../../constants/labels.js'
+import { LABEL_LEARNER, LABEL_PROBLEM_GROUP, LABEL_PUB_TYPE, LABEL_CONFERENCE_LINK, LABEL_SUPERVISOR, LABEL_COURSE } from '../../constants/labels.js'
 import { REPORT_COLUMN_LABELS } from '../../constants/reports.js'
 import { TEXT_MSG_COURSE_REQUIRED, TEXT_MSG_SUPERVISOR_REQUIRED, requiredTitleMsg } from '../../constants/texts.js'
 import { COL_COURSE_W, COL_DATE_W, COL_SELECT_W } from '../../constants/ui.js'
@@ -30,12 +30,10 @@ export const COLUMNS = [
   { prop: 'has_electronic', label: REPORT_COLUMN_LABELS.has_electronic, width: COL_DATE_W },
   { prop: 'has_print', label: REPORT_COLUMN_LABELS.has_print, width: COL_DATE_W },
   { prop: 'conference_title', label: REPORT_COLUMN_LABELS.conference_title },
-  { prop: 'report_title', label: REPORT_COLUMN_LABELS.report_title },
   { prop: 'problem_group_name', label: LABEL_PROBLEM_GROUP }
 ]
 export const FILTERS = [
   ...LEARNER_FILTERS,
-  PARTICIPANT_FILTERS.category,
   PARTICIPANT_FILTERS.course,
   PARTICIPANT_FILTERS.supervisor,
   { prop: 'title', label: REPORT_COLUMN_LABELS.title, type: FIELD_TYPES.TEXT, lookup: LOOKUP_ICONTAINS },

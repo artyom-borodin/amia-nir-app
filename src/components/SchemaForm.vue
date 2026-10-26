@@ -18,7 +18,7 @@
         <el-select v-else-if="f.type === FIELD_TYPES.SELECT" v-model="local[f.prop]" class="nir-field-full" clearable filterable :placeholder="f.placeholder || TEXT_CHOOSE">
           <el-option v-for="o in f.options" :key="o.value" :value="o.value" :label="o.label" />
         </el-select>
-        <ReferenceSelect v-else-if="f.type === FIELD_TYPES.REF" v-model="local[f.prop]" :endpoint="getEndpoint(f.ref)" :multiple="f.multiple" :query-params="f.queryFn ? f.queryFn(local) : undefined" :add-route="f.addRoute || ''" :add-label="f.addLabel || ''" />
+        <ReferenceSelect v-else-if="f.type === FIELD_TYPES.REF" :model-value="local[f.prop]" :endpoint="getEndpoint(f.ref)" :multiple="f.multiple" :query-params="f.queryFn ? f.queryFn(local) : undefined" :placeholder="TEXT_CHOOSE" :add-route="f.addRoute || ''" :add-label="f.addLabel || ''" @update:modelValue="onRefChange(f.prop, $event)" />
         <el-checkbox v-else-if="f.type === FIELD_TYPES.BOOL" v-model="local[f.prop]" />
         <el-input v-else-if="f.type === FIELD_TYPES.TEXTAREA" v-model="local[f.prop]" type="textarea" :placeholder="f.placeholder" />
         <el-input v-else v-model="local[f.prop]" />
@@ -39,7 +39,7 @@
 <script setup>
 import { ref } from 'vue'
 import { getEndpoint } from '../constants/tables.js'
-import { isRequired } from '../features/_shared.js'
+import { isRequired, applyLearnerExclusive } from '../features/_shared.js'
 import {
   DATE_VALUE_FORMAT,
   MONTH_VALUE_FORMAT
@@ -70,6 +70,10 @@ const { eventInfo } = useEventInfo(
   props.eventPreview?.endpoint,
   props.eventPreview ? () => local.value[props.eventPreview.watchProp] : null
 )
+
+function onRefChange(prop, val) {
+  applyLearnerExclusive(local.value, prop, val, null)
+}
 
 async function validate() {
   return validateForm(formRef)

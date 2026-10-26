@@ -1,11 +1,18 @@
-import { COURSE, YES_NO_OPTIONS, UNKNOWN_LABEL_PREFIX, LEARNER_CATEGORIES } from '../constants/choices.js'
-import { TEXT_LEARNER_REQUIRED, TEXT_TITLE_PLACEHOLDER, TEXT_CITY, TEXT_START_DATE, TEXT_END_DATE, TEXT_MSG_DATE_RANGE, TEXT_FOUNDER, TEXT_ADD_FOUNDER, TEXT_MSG_INTEGER, TEXT_ORG_PLACEHOLDER, TEXT_MSG_START_DATE_REQUIRED, TEXT_MSG_END_DATE_REQUIRED, TEXT_MSG_FOUNDER_REQUIRED, TEXT_MSG_CITY_REQUIRED, requiredTitleMsg } from '../constants/texts.js'
+import {
+  COURSE,
+  YES_NO_OPTIONS,
+  UNKNOWN_LABEL_PREFIX,
+  LABEL_SEPARATOR,
+  LEARNER_KIND_CADET,
+  LEARNER_KIND_STUDENT,
+  LEARNER_KIND_FPK
+} from '../constants/choices.js'
+import { TEXT_LEARNER_REQUIRED, TEXT_TITLE_PLACEHOLDER, TEXT_CITY, TEXT_START_DATE, TEXT_END_DATE, TEXT_MSG_DATE_RANGE, TEXT_FOUNDER, TEXT_ADD_FOUNDER, TEXT_MSG_INTEGER, TEXT_ORG_PLACEHOLDER, TEXT_MSG_START_DATE_REQUIRED, TEXT_MSG_END_DATE_REQUIRED, TEXT_MSG_FOUNDER_REQUIRED, TEXT_MSG_CITY_REQUIRED, TEXT_SEARCH_ALL, requiredTitleMsg } from '../constants/texts.js'
 import { requiredBlur, requiredChange } from '../constants/validation.js'
-import { LABEL_START_DATE_FROM, LABEL_END_DATE_TO, LABEL_CADET, LABEL_STUDENT, LABEL_FPK_STUDENT, LABEL_CADETS, LABEL_STUDENTS, LABEL_FPK_STUDENTS, LABEL_SUPERVISOR, LABEL_COURSE, LABEL_PROBLEM_GROUP, LABEL_CATEGORY, LABEL_TITLE } from '../constants/labels.js'
+import { LABEL_START_DATE_FROM, LABEL_END_DATE_TO, LABEL_CADET, LABEL_STUDENT, LABEL_FPK_STUDENT, LABEL_CADETS, LABEL_STUDENTS, LABEL_FPK_STUDENTS, LABEL_SUPERVISOR, LABEL_COURSE, LABEL_PROBLEM_GROUP, LABEL_TITLE } from '../constants/labels.js'
 import { TABLE_ID_WIDTH, TABLE_ID_PROP } from '../constants/ui.js'
 import { LOOKUP_SEP, QUERY_SEARCH, PK_FIELD, isEmptyValue } from '../constants/api.js'
 import { FIELD_TYPES, FIELD_TYPE_TEXT, FIELD_TYPE_REF, FIELD_TYPE_SELECT, FIELD_TYPE_DATE } from '../constants/fieldTypes.js'
-import { LABEL_SEPARATOR } from '../constants/choices.js'
 import { crudCreatePath } from '../constants/routes.js'
 import { ENDPOINTS } from '../constants/endpoints.js'
 
@@ -29,19 +36,31 @@ export const MONTH_AS_DATE_RE = /^\d{4}-\d{2}-01$/
 export const DAY_SUFFIX = '-01'
 
 export const LEARNER_DEFS = [
-  { prop: 'cadet', label: LABEL_CADET, ref: ENDPOINTS.CADET },
-  { prop: 'student', label: LABEL_STUDENT, ref: ENDPOINTS.STUDENT },
-  { prop: 'fpk_student', label: LABEL_FPK_STUDENT, ref: ENDPOINTS.FPK_STUDENT }
+  { prop: LEARNER_KIND_CADET, label: LABEL_CADET, listProp: 'cadets', listLabel: LABEL_CADETS, ref: ENDPOINTS.CADET },
+  { prop: LEARNER_KIND_STUDENT, label: LABEL_STUDENT, listProp: 'students', listLabel: LABEL_STUDENTS, ref: ENDPOINTS.STUDENT },
+  { prop: LEARNER_KIND_FPK, label: LABEL_FPK_STUDENT, listProp: 'fpk_students', listLabel: LABEL_FPK_STUDENTS, ref: ENDPOINTS.FPK_STUDENT }
 ]
 export const LEARNER_KEYS = LEARNER_DEFS.map((d) => d.prop)
-export const LEARNER_FIELDS = LEARNER_DEFS.map((d) => ({ ...d, type: FIELD_TYPE_REF, required: false }))
-export const LEARNER_FILTERS = LEARNER_DEFS.map((d) => ({ ...d, type: FIELD_TYPE_REF }))
+export const LEARNER_FIELDS = LEARNER_DEFS.map(({ prop, label, ref }) => ({ prop, label, ref, type: FIELD_TYPE_REF, required: false }))
+export const LEARNER_FILTERS = LEARNER_DEFS.map(({ prop, label, ref }) => ({ prop, label, ref, type: FIELD_TYPE_REF }))
 export function emptyLearner() {
   return { cadet: null, student: null, fpk_student: null }
 }
 export function pickLearnerKey(form) {
   const picked = LEARNER_KEYS.filter((k) => !isEmptyValue(form?.[k]))
   return picked.length === 1 ? picked[0] : ''
+}
+export function applyLearnerExclusive(target, prop, value, emptyVal = null) {
+  if (!target) return
+  const nextVal = isEmptyValue(value) ? emptyVal : value
+  target[prop] = nextVal
+  if (LEARNER_KEYS.includes(prop) && !isEmptyValue(nextVal)) {
+    for (const k of LEARNER_KEYS) {
+      if (k !== prop && k in target && !isEmptyValue(target[k])) {
+        target[k] = emptyVal
+      }
+    }
+  }
 }
 export function getLearnerQuery(form) {
   const key = pickLearnerKey(form)
@@ -51,11 +70,7 @@ export function validateLearner(form) {
   if (pickLearnerKey(form)) return ''
   return TEXT_LEARNER_REQUIRED
 }
-export const GROUP_MEMBER_DEFS = [
-  { prop: 'cadets', label: LABEL_CADETS, ref: ENDPOINTS.CADET },
-  { prop: 'students', label: LABEL_STUDENTS, ref: ENDPOINTS.STUDENT },
-  { prop: 'fpk_students', label: LABEL_FPK_STUDENTS, ref: ENDPOINTS.FPK_STUDENT }
-]
+export const GROUP_MEMBER_DEFS = LEARNER_DEFS.map(({ listProp: prop, listLabel: label, ref }) => ({ prop, label, ref }))
 export const GROUP_MEMBER_KEYS = GROUP_MEMBER_DEFS.map((d) => d.prop)
 export const GROUP_MEMBER_FIELDS = GROUP_MEMBER_DEFS.map((d) => ({ ...d, type: FIELD_TYPE_REF, multiple: true, required: false }))
 export const GROUP_MEMBER_FILTERS = GROUP_MEMBER_DEFS.map((d) => ({ ...d, type: FIELD_TYPE_REF }))
@@ -77,15 +92,14 @@ export function validateEventDates(form) {
   return ''
 }
 export const PARTICIPANT_FIELDS = {
-  supervisor: { prop: 'supervisor', label: LABEL_SUPERVISOR, type: FIELD_TYPE_REF, required: true, ref: ENDPOINTS.PPS_DEPTS },
+  supervisor: { prop: 'supervisor', label: LABEL_SUPERVISOR, type: FIELD_TYPE_REF, required: true, ref: ENDPOINTS.EMPLOYEE },
   course: { prop: 'course', label: LABEL_COURSE, type: FIELD_TYPE_SELECT, required: true, options: COURSE },
   problem_group: { prop: 'problem_group', label: LABEL_PROBLEM_GROUP, type: FIELD_TYPE_REF, required: false, ref: ENDPOINTS.PROBLEM_GROUPS, queryFn: getGroupMemberQuery }
 }
 
 export const PARTICIPANT_FILTERS = {
-  supervisor: { prop: 'supervisor', label: LABEL_SUPERVISOR, type: FIELD_TYPE_REF, ref: ENDPOINTS.PPS_DEPTS },
+  supervisor: { prop: 'supervisor', label: LABEL_SUPERVISOR, type: FIELD_TYPE_REF, ref: ENDPOINTS.EMPLOYEE },
   course: { prop: 'course', label: LABEL_COURSE, type: FIELD_TYPE_SELECT, options: COURSE },
-  category: { prop: 'category', label: LABEL_CATEGORY, type: FIELD_TYPE_SELECT, options: LEARNER_CATEGORIES },
   problem_group: { prop: 'problem_group', label: LABEL_PROBLEM_GROUP, type: FIELD_TYPE_REF, ref: ENDPOINTS.PROBLEM_GROUPS, queryFn: getGroupMemberQuery }
 }
 
@@ -200,8 +214,42 @@ export function buildFilterQuery(filters, filterDefs) {
   return q
 }
 
-export function countActiveFilters(filters, filterDefs) {
-  return Object.keys(buildFilterQuery(filters, filterDefs)).length
+export function buildActiveFilterItems(filters, filterDefs, store) {
+  const items = []
+  const src = filters || {}
+  if (!isEmptyValue(src[QUERY_SEARCH])) {
+    items.push({
+      key: QUERY_SEARCH,
+      label: TEXT_SEARCH_ALL,
+      valueText: String(src[QUERY_SEARCH]),
+      card: null
+    })
+  }
+  for (const f of filterDefs || []) {
+    const prop = f.prop || f.key
+    if (!prop) continue
+    const v = src[prop]
+    if (isEmptyValue(v)) continue
+    let valueText = String(v)
+    let card = null
+    if (f.type === FIELD_TYPES.SELECT && Array.isArray(f.options)) {
+      const found = f.options.find((o) => String(o.value) === String(v))
+      if (found) valueText = found.label
+    } else if (f.type === FIELD_TYPES.REF && (f.ref || f.endpoint)) {
+      const resolvedCard = store?.getCard(f.ref || f.endpoint, v)
+      if (resolvedCard) {
+        valueText = resolvedCard.title || String(v)
+        if (resolvedCard.rich) card = resolvedCard
+      }
+    }
+    items.push({
+      key: prop,
+      label: f.label || prop,
+      valueText,
+      card
+    })
+  }
+  return items
 }
 
 export { PK_FIELD, LABEL_SEPARATOR }

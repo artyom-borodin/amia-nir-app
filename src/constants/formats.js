@@ -8,3 +8,8 @@ export const INPUTMODE_NUMERIC = 'numeric'
 export const LIST_JOINER = ', '
 export const KV_JOINER = ': '
 export const TITLE_SEPARATOR = ' - '
+export const DOT_JOINER = ' · '
+
+export function withParens(base, detail) {
+  return detail ? base + ' (' + detail + ')' : base
+}
