@@ -127,6 +127,8 @@
   --nir-primary-gradient-hover: linear-gradient(180deg, #3b82f6 0%, #1d56ad 100%);
   --nir-success-gradient: linear-gradient(180deg, #198754 0%, #136a3f 100%);
   --nir-success-gradient-hover: linear-gradient(180deg, #209d63 0%, #157347 100%);
+  --nir-danger-gradient: linear-gradient(180deg, #dc2626 0%, #b91c1c 100%);
+  --nir-danger-gradient-hover: linear-gradient(180deg, #ef4444 0%, #c93b3b 100%);
   --nir-table-head-gradient: linear-gradient(180deg, #f9fbfe 0%, #f1f5fb 100%);
   --nir-section-icon-bg: linear-gradient(135deg, rgba(27, 79, 156, 0.12) 0%, rgba(14, 165, 233, 0.08) 100%);
 
@@ -187,6 +189,15 @@
   --nir-shadow-btn-success-hover:
     0 4px 12px -2px rgba(21, 115, 71, 0.4),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.32);
+  --nir-shadow-btn-danger:
+    0 2px 6px -1px rgba(185, 28, 28, 0.32),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+  --nir-shadow-btn-danger-hover:
+    0 4px 12px -2px rgba(185, 28, 28, 0.42),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.32);
+  --nir-shadow-modal:
+    0 20px 44px -10px rgba(15, 29, 51, 0.24),
+    0 4px 12px -2px rgba(15, 29, 51, 0.08);
   --nir-shadow-sidebar: 4px 0 20px -4px rgba(8, 15, 30, 0.22);
   --nir-shadow-menu-active:
     0 2px 8px -2px rgba(8, 15, 30, 0.35),
@@ -266,9 +277,17 @@
   --nir-drill-table-min-w: var(--nir-report-table-min-w);
   --nir-report-title-size: var(--nir-font-size-lg);
   --nir-totals-title-size: var(--nir-font-size-xs);
-  --nir-totals-value-size: var(--nir-font-size-xs);
-  --nir-totals-pad: var(--nir-gap-xs) var(--nir-gap-sm);
-  --nir-totals-item-pad: var(--nir-gap-2xs) var(--nir-gap-xs);
+  --nir-totals-value-size: var(--nir-font-size-sm);
+  --nir-totals-col: min(clamp(14rem, 11rem + 6vw, 19rem), 100%);
+  --nir-totals-head-pad: var(--nir-gap-xs) var(--nir-gap-sm);
+  --nir-totals-pad: var(--nir-gap-sm);
+  --nir-totals-item-pad: var(--nir-gap-xs) var(--nir-gap-sm);
+  --nir-totals-val-min-w: clamp(2rem, 1.75rem + 0.3vw, 2.375rem);
+  --nir-totals-val-h: clamp(1.5rem, 1.375rem + 0.2vw, 1.6875rem);
+  --nir-confirm-box-w: min(clamp(20rem, 18rem + 10vw, 27.5rem), 94vw);
+  --nir-confirm-body-pad: var(--nir-gap-md) var(--nir-card-pad-x);
+  --nir-confirm-icon-box: clamp(2.25rem, 2rem + 0.4vw, 2.5rem);
+  --nir-confirm-icon-size: clamp(1.25rem, 1.125rem + 0.2vw, 1.375rem);
   --nir-chart-h: clamp(18rem, 14rem + 18vw, 25rem);
   --nir-empty-state-pad: clamp(2rem, 1.5rem + 2vw, 3.5rem);
   --nir-error-list-indent: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);

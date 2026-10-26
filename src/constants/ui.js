@@ -42,12 +42,20 @@ export const TABLE_SORT_CUSTOM = 'custom'
 export const TABLE_FIXED_RIGHT = 'right'
 export const TABLE_ID_PROP = 'id'
 export const PAGINATION_LAYOUT = 'total, sizes, prev, pager, next'
+
+export function onTableCellMouseEnter(_row, column, cell) {
+  if (!column || !column.property || column.property === TABLE_ID_PROP || !cell) return
+  const text = cell.textContent ? cell.textContent.trim() : ''
+  if (text) cell.title = text
+}
+
 export const TABLE_ATTRS = Object.freeze({
   stripe: true,
   fit: true,
   scrollbarAlwaysOn: true,
   tableLayout: TABLE_LAYOUT_AUTO,
-  maxHeight: TABLE_MAX_HEIGHT
+  maxHeight: TABLE_MAX_HEIGHT,
+  onCellMouseEnter: onTableCellMouseEnter
 })
 
 export const UI_CARD_SHADOW = 'never'
@@ -57,6 +65,9 @@ export const BTN_DANGER = 'danger'
 export const BTN_INFO = 'info'
 export const BTN_SUCCESS = 'success'
 export const BTN_WARNING = 'warning'
+
+export const CONFIRM_BOX_CLASS = 'nir-confirm-box'
+export const CONFIRM_DANGER_BTN_CLASS = 'el-button--danger'
 
 export const TAG_EFFECT_LIGHT = 'light'
 

@@ -8,7 +8,7 @@
     </el-tag>
   </span>
   <span v-else-if="value === 0" class="nir-zero-cell">0</span>
-  <span v-else>{{ formatTableCell(value) }}</span>
+  <span v-else class="nir-cell" :title="formatTableCell(value)">{{ formatTableCell(value) }}</span>
 </template>
 
 <script setup>

@@ -6,6 +6,7 @@ import { useDictionariesStore } from '../stores/dictionaries.js'
 import { getEndpoint } from '../constants/tables.js'
 import { parseApiError } from '../api/errors.js'
 import { shouldAutoCreate } from '../constants/routes.js'
+import { BTN_WARNING, CONFIRM_BOX_CLASS, CONFIRM_DANGER_BTN_CLASS } from '../constants/ui.js'
 import { TEXT_DELETE, TEXT_CONFIRM_TITLE, TEXT_CANCEL, TEXT_CHECK_FORM, TEXT_SAVED, TEXT_CREATED, formatDeleteConfirm } from '../constants/texts.js'
 import { fillForm, emptyFilters, buildFilterQuery, getRowLabel } from '../features/_shared.js'
 
@@ -57,7 +58,10 @@ export function useCrudPage(key, { filterDefs, emptyFormFn, validateFn = null, n
     try {
       await ElMessageBox.confirm(formatDeleteConfirm(label), TEXT_CONFIRM_TITLE, {
         confirmButtonText: TEXT_DELETE,
-        cancelButtonText: TEXT_CANCEL
+        cancelButtonText: TEXT_CANCEL,
+        type: BTN_WARNING,
+        customClass: CONFIRM_BOX_CLASS,
+        confirmButtonClass: CONFIRM_DANGER_BTN_CLASS
       })
     } catch (e) {
       return

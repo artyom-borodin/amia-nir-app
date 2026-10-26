@@ -56,7 +56,7 @@ body {
   transition: border-color var(--nir-transition-fast), box-shadow var(--nir-transition-fast), background-color var(--nir-transition-fast);
 }
 
-:is(.el-button, .el-tag, .el-link) {
+:is(.el-button, .el-tag, .el-link, .el-pagination.is-background :is(.btn-prev, .btn-next, .el-pager li)) {
   transition:
     color var(--nir-transition-fast),
     background-color var(--nir-transition-fast),
@@ -65,17 +65,46 @@ body {
     opacity var(--nir-transition-fast);
 }
 
-:is(.el-button--primary, .el-button--success):not(.is-link):not(.is-text):not(.is-plain) {
+:is(
+  .el-button:not(.is-link):not(.is-text):not(.is-plain),
+  .el-pagination.is-background :is(.btn-prev, .btn-next, .el-pager li)
+) {
   font-weight: var(--nir-font-weight-semibold);
 }
 
-.el-button--primary:not(.is-link):not(.is-text):not(.is-plain) {
-  background: var(--nir-primary-gradient);
-  border-color: var(--el-color-primary);
-  box-shadow: var(--nir-shadow-btn-primary);
+:is(
+  .el-button:not(.el-button--primary):not(.el-button--success):not(.el-button--danger):not(.is-link):not(.is-text):not(.is-disabled),
+  .el-pagination.is-background :is(.btn-prev, .btn-next, .el-pager li:not(.is-active)):not(:disabled):not(.is-disabled)
+) {
+  background-color: var(--nir-color-card-bg);
+  border: var(--nir-border-w) solid var(--nir-color-border);
+  box-shadow: var(--nir-shadow-xs);
+  color: var(--nir-color-body);
 }
 
-.el-button--primary:not(.is-link):not(.is-text):not(.is-plain):not(.is-disabled):is(:hover, :focus-visible) {
+:is(
+  .el-button:not(.el-button--primary):not(.el-button--success):not(.el-button--danger):not(.is-link):not(.is-text):not(.is-disabled),
+  .el-pagination.is-background :is(.btn-prev, .btn-next, .el-pager li:not(.is-active)):not(:disabled):not(.is-disabled)
+):is(:hover, :focus-visible) {
+  color: var(--el-color-primary);
+  border-color: var(--nir-color-accent-border);
+  background-color: var(--nir-color-row-hover);
+}
+
+:is(
+  .el-button--primary:not(.is-link):not(.is-text):not(.is-plain),
+  .el-pagination.is-background .el-pager li.is-active
+) {
+  background: var(--nir-primary-gradient);
+  border: var(--nir-border-w) solid var(--el-color-primary);
+  box-shadow: var(--nir-shadow-btn-primary);
+  color: var(--nir-hero-text);
+}
+
+:is(
+  .el-button--primary:not(.is-link):not(.is-text):not(.is-plain):not(.is-disabled),
+  .el-pagination.is-background .el-pager li.is-active:not(.is-disabled)
+):is(:hover, :focus-visible) {
   background: var(--nir-primary-gradient-hover);
   border-color: var(--el-color-primary-light-3);
   box-shadow: var(--nir-shadow-btn-primary-hover);
@@ -91,6 +120,107 @@ body {
   background: var(--nir-success-gradient-hover);
   border-color: var(--el-color-success-light-3);
   box-shadow: var(--nir-shadow-btn-success-hover);
+}
+
+.el-button--danger:not(.is-link):not(.is-text):not(.is-plain) {
+  background: var(--nir-danger-gradient);
+  border-color: var(--el-color-danger);
+  box-shadow: var(--nir-shadow-btn-danger);
+}
+
+.el-button--danger:not(.is-link):not(.is-text):not(.is-plain):not(.is-disabled):is(:hover, :focus-visible) {
+  background: var(--nir-danger-gradient-hover);
+  border-color: var(--el-color-danger-light-3);
+  box-shadow: var(--nir-shadow-btn-danger-hover);
+}
+
+.el-pagination.is-background :is(.btn-prev, .btn-next, .el-pager li) {
+  border-radius: var(--nir-radius-block);
+  font-variant-numeric: tabular-nums;
+  box-sizing: border-box;
+}
+
+.el-pagination.is-background :is(.btn-prev, .btn-next):is(:disabled, .is-disabled) {
+  background-color: var(--nir-color-soft-bg);
+  border: var(--nir-border-w) solid var(--nir-color-border-subtle);
+  color: var(--nir-color-faint);
+  box-shadow: none;
+}
+
+.nir-confirm-box.el-message-box {
+  width: 100%;
+  max-width: var(--nir-confirm-box-w);
+  padding: 0;
+  border-radius: var(--nir-radius-card);
+  border: var(--nir-border-w) solid var(--nir-color-border);
+  background: var(--nir-color-card-bg);
+  box-shadow: var(--nir-shadow-modal);
+  overflow: hidden;
+}
+
+.nir-confirm-box .el-message-box__header {
+  padding: var(--nir-card-pad-y) var(--nir-card-pad-x);
+  background: var(--nir-table-head-gradient);
+  border-bottom: var(--nir-border-w) solid var(--nir-color-border);
+}
+
+.nir-confirm-box .el-message-box__title {
+  font-weight: var(--nir-font-weight-bold);
+  font-size: var(--nir-font-size-md);
+  line-height: var(--nir-lh-tight);
+  color: var(--nir-color-ink);
+}
+
+.nir-confirm-box .el-message-box__headerbtn {
+  top: var(--nir-card-pad-y);
+  right: var(--nir-card-pad-x);
+}
+
+.nir-confirm-box .el-message-box__content {
+  padding: var(--nir-confirm-body-pad);
+}
+
+.nir-confirm-box .el-message-box__container {
+  display: flex;
+  align-items: center;
+  gap: var(--nir-gap-sm);
+}
+
+.nir-confirm-box .el-message-box__status {
+  position: static;
+  transform: none;
+  flex: 0 0 auto;
+  width: var(--nir-confirm-icon-box);
+  height: var(--nir-confirm-icon-box);
+  border-radius: var(--nir-radius-block);
+  background: var(--el-color-danger-light-9);
+  border: var(--nir-border-w) solid var(--el-color-danger-light-8);
+  color: var(--el-color-danger);
+  font-size: var(--nir-confirm-icon-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nir-confirm-box .el-message-box__message {
+  padding: 0;
+  margin: 0;
+  color: var(--nir-color-ink);
+  font-size: var(--nir-font-size-base);
+  font-weight: var(--nir-font-weight-medium);
+  line-height: var(--nir-lh-base);
+  overflow-wrap: anywhere;
+}
+
+.nir-confirm-box .el-message-box__btns {
+  padding: var(--nir-gap-xs) var(--nir-card-pad-x);
+  background: var(--nir-color-table-head-bg);
+  border-top: var(--nir-border-w) solid var(--nir-color-border);
+  gap: var(--nir-gap-2xs);
+}
+
+.nir-confirm-box .el-message-box__btns .el-button + .el-button {
+  margin-left: 0;
 }
 
 :is(.nir-form, .nir-login-form) .el-form-item__label {
@@ -241,7 +371,7 @@ body {
   min-width: 0;
 }
 
-.nir-ellipsis {
+:is(.nir-ellipsis, .nir-cell-tag .el-tag__content) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

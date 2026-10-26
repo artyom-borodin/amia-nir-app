@@ -181,6 +181,7 @@
 
 .nir-cell-tag {
   font-weight: var(--nir-font-weight-medium);
+  max-width: 100%;
 }
 
 .nir-cell {

@@ -27,11 +27,12 @@
               :size="UI_SIZE_SMALL"
               :type="resolveCellTagType(c.prop, scope.row[c.prop])"
               :effect="TAG_EFFECT_LIGHT"
+              :title="formatTableCell(scope.row[c.prop])"
               class="nir-cell-tag"
             >
               {{ formatTableCell(scope.row[c.prop]) }}
             </el-tag>
-            <span v-else class="nir-cell">{{ formatTableCell(scope.row[c.prop]) }}</span>
+            <span v-else class="nir-cell" :title="formatTableCell(scope.row[c.prop])">{{ formatTableCell(scope.row[c.prop]) }}</span>
           </template>
         </el-table-column>
         <el-table-column
