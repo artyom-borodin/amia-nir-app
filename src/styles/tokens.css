@@ -157,13 +157,13 @@
 
   --nir-hero-text: var(--nir-color-card-bg);
 
-  --nir-scrollbar-track: #f1f5f9;
-  --nir-scrollbar-thumb: #cbd5e1;
-  --nir-scrollbar-thumb-hover: #94a3b8;
-  --nir-scrollbar-size: 0.5rem;
-  --nir-scrollbar-opacity: 0.75;
+  --nir-scrollbar-track: #e6ecf5;
+  --nir-scrollbar-thumb: #8d9db3;
+  --nir-scrollbar-thumb-hover: #64748b;
+  --nir-scrollbar-size: 0.6875rem;
+  --nir-scrollbar-opacity: 0.85;
   --nir-scrollbar-hover-opacity: 1;
-  --nir-table-scroll-pad-b: 0.625rem;
+  --nir-table-scroll-pad-b: 0.875rem;
   --nir-border-w: 0.0625rem;
 
   --nir-shadow-xs:

@@ -328,7 +328,7 @@ body {
   background-color: var(--nir-color-row-hover);
 }
 
-:is(.nir-table, .nir-report-table, .nir-drill-table) .el-table__body-wrapper .el-scrollbar {
+:is(.nir-table, .nir-report-table, .nir-drill-table) .el-table__body-wrapper .el-scrollbar__wrap {
   padding-bottom: var(--nir-table-scroll-pad-b);
   box-sizing: border-box;
 }
@@ -467,4 +467,17 @@ body {
   --el-scrollbar-hover-bg-color: var(--nir-scrollbar-thumb-hover);
   --el-scrollbar-opacity: var(--nir-scrollbar-opacity);
   --el-scrollbar-hover-opacity: var(--nir-scrollbar-hover-opacity);
+}
+
+.el-scrollbar__bar {
+  background: var(--nir-scrollbar-track);
+  border-radius: var(--nir-radius-chip);
+}
+
+.el-scrollbar__bar.is-horizontal {
+  height: var(--nir-scrollbar-size);
+}
+
+.el-scrollbar__bar.is-vertical {
+  width: var(--nir-scrollbar-size);
 }

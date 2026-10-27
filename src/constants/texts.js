@@ -50,9 +50,9 @@ export const TEXT_STUDY_YEAR_PLACEHOLDER = '2025/2026'
 export const TEXT_LEARNER_REQUIRED =
   'Выберите обучающегося: курсанта, студента или слушателя ФПК / магистранта (ровно одного)'
 
-export const TEXT_RESULTS_GROUP = 'Научные результаты'
-export const TEXT_DICTS_GROUP = 'Справочники и структура'
-export const TEXT_REPORTS = 'Отчёты и аналитика'
+export const TEXT_RESULTS_GROUP = 'Результаты'
+export const TEXT_DICTS_GROUP = 'Справочники'
+export const TEXT_REPORTS = 'Отчёты'
 export const TEXT_QUICK_CREATE = 'Добавить'
 export const TEXT_ACTIVE_FILTERS = 'Фильтры'
 
