@@ -2,7 +2,7 @@
   <div class="nir-page">
     <ReportFilterPanel v-model:period="period" v-model:filters="filters" :fields="REPORT_FILTER_FIELDS[KIND]" @update:period="onChange" @search="onLoad" />
     <ErrorAlert :message="error" />
-    <ReportActions :loading="loading" :exporting="exporting" @load="onLoad" @reset="onReset" @export="onExport" />
+    <ReportActions :kind="KIND" :loading="loading" :exporting="exporting" @load="onLoad" @reset="onReset" @export="onExport" />
     <el-card v-loading="loading" class="nir-report-card" :shadow="UI_CARD_SHADOW">
       <div v-if="data">
         <div v-if="items.length" ref="chartRef" class="nir-chart"></div>

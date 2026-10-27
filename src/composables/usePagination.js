@@ -1,5 +1,7 @@
 import { ref } from 'vue'
 import { UI_PAGE_SIZE } from '../constants/ui.js'
+import { QUERY_LIMIT, QUERY_OFFSET, QUERY_EXPORT_SCOPE } from '../constants/api.js'
+import { EXPORT_SCOPE_PAGE } from '../constants/reports.js'
 
 export function usePagination() {
   const page = ref(1)
@@ -7,6 +9,21 @@ export function usePagination() {
 
   function resetPage() {
     page.value = 1
+  }
+
+  function pageParams() {
+    return {
+      [QUERY_LIMIT]: pageSize.value,
+      [QUERY_OFFSET]: (page.value - 1) * pageSize.value
+    }
+  }
+
+  function withPageScope(params = {}) {
+    const next = { ...(params || {}) }
+    if (next[QUERY_EXPORT_SCOPE] === EXPORT_SCOPE_PAGE) {
+      Object.assign(next, pageParams())
+    }
+    return next
   }
 
   function paginateRows(rows) {
@@ -23,5 +40,5 @@ export function usePagination() {
     resetPage()
   }
 
-  return { page, pageSize, resetPage, paginateRows, onPage, onSize }
+  return { page, pageSize, resetPage, pageParams, withPageScope, paginateRows, onPage, onSize }
 }

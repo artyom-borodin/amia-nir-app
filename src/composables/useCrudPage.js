@@ -4,6 +4,13 @@ import { ElMessageBox, ElMessage } from 'element-plus'
 import { useCrud } from './useCrud.js'
 import { useDictionariesStore } from '../stores/dictionaries.js'
 import { getEndpoint } from '../constants/tables.js'
+import {
+  buildCrudFilename,
+  QUERY_EXPORT_SCOPE,
+  QUERY_IDS
+} from '../constants/api.js'
+import { CSV_JOINER } from '../constants/formats.js'
+import { EXPORT_SCOPE_SELECTED } from '../constants/reports.js'
 import { parseApiError } from '../api/errors.js'
 import { shouldAutoCreate } from '../constants/routes.js'
 import { BTN_WARNING, CONFIRM_BOX_CLASS, CONFIRM_DANGER_BTN_CLASS } from '../constants/ui.js'
@@ -11,7 +18,7 @@ import { TEXT_DELETE, TEXT_CONFIRM_TITLE, TEXT_CANCEL, TEXT_CHECK_FORM, TEXT_SAV
 import { fillForm, emptyFilters, buildFilterQuery, getRowLabel } from '../features/_shared.js'
 
 export function useCrudPage(key, { filterDefs, emptyFormFn, validateFn = null, normalizeFn = null }) {
-  const { rows, total, loading, error, fieldErrors, page, pageSize, fetch, remove, removeMany, setQuery, onSortChange, crud: crudApi } =
+  const { rows, total, loading, exporting, error, fieldErrors, page, pageSize, fetch, remove, removeMany, setQuery, onSortChange, exportXlsx, crud: crudApi } =
     useCrud(getEndpoint(key))
   const dicts = useDictionariesStore()
 
@@ -85,8 +92,12 @@ export function useCrudPage(key, { filterDefs, emptyFormFn, validateFn = null, n
     selectedRows.value = Array.isArray(list) ? list : []
   }
 
+  function selectedIds() {
+    return selectedRows.value.map((r) => r.id).filter(Boolean)
+  }
+
   async function onRemoveSelected() {
-    const ids = selectedRows.value.map((r) => r.id).filter(Boolean)
+    const ids = selectedIds()
     if (!ids.length) return
     if (!(await confirmDelete(formatBulkDeleteConfirm(ids.length)))) return
     const { deleted } = await removeMany(ids)
@@ -151,6 +162,20 @@ export function useCrudPage(key, { filterDefs, emptyFormFn, validateFn = null, n
     }
   }
 
+  async function onExport(extraParams = {}) {
+    const params = {
+      ...buildFilterQuery(filters.value, filterDefs),
+      ...(extraParams || {})
+    }
+    if (params[QUERY_EXPORT_SCOPE] === EXPORT_SCOPE_SELECTED) {
+      const ids = selectedIds()
+      if (ids.length) {
+        params[QUERY_IDS] = ids.join(CSV_JOINER)
+      }
+    }
+    await exportXlsx(buildCrudFilename(key), params)
+  }
+
   async function initPage() {
     await fetch()
     if (shouldAutoCreate(route)) onCreate()
@@ -162,6 +187,7 @@ export function useCrudPage(key, { filterDefs, emptyFormFn, validateFn = null, n
     rows,
     total,
     loading,
+    exporting,
     error,
     fieldErrors,
     page,
@@ -187,6 +213,7 @@ export function useCrudPage(key, { filterDefs, emptyFormFn, validateFn = null, n
     onSize,
     onSave,
     onSortChange,
+    onExport,
     initPage
   }
 }

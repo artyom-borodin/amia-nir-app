@@ -54,6 +54,14 @@ export const QUERY_ORDERING = 'ordering'
 export const QUERY_SEARCH = 'search'
 export const QUERY_DRILL_KEY = 'drill_key'
 export const QUERY_DRILL_COL = 'drill_col'
+export const QUERY_EXPORT_COLS = 'export_cols'
+export const QUERY_DETAILS_MODE = 'details_mode'
+export const QUERY_DETAIL_METRICS = 'detail_metrics'
+export const QUERY_EXPAND_GROUPS = 'expand_groups'
+export const QUERY_INCLUDE_TOTALS = 'include_totals'
+export const QUERY_HIDE_ZERO_ROWS = 'hide_zero_rows'
+export const QUERY_EXPORT_SCOPE = 'export_scope'
+export const QUERY_IDS = 'ids'
 export const LOOKUP_SEP = '__'
 export const PK_FIELD = 'id'
 
@@ -72,6 +80,10 @@ export function buildReportFilename(kind) {
 
 export function buildDrillDetailsFilename(kind) {
   return 'report-' + kind + '-details.xlsx'
+}
+
+export function buildCrudFilename(key) {
+  return key + '.xlsx'
 }
 
 export function buildAuthHeader(token) {
@@ -100,6 +112,10 @@ export function baseUrl(endpoint) {
 
 export function itemUrl(base, id) {
   return base + encodeURIComponent(id) + '/'
+}
+
+export function exportUrl(base) {
+  return base + API_REPORT_EXPORT_SUFFIX + '/'
 }
 
 export function toStringArray(val) {

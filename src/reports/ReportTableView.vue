@@ -2,7 +2,7 @@
   <div class="nir-page">
     <ReportFilterPanel v-model:period="period" v-model:filters="filters" :fields="REPORT_FILTER_FIELDS[props.kind]" @update:period="onChange" @search="onLoad" />
     <ErrorAlert :message="error" />
-    <ReportActions :loading="loading" :exporting="exporting" @load="onLoad" @reset="onReset" @export="onExport" />
+    <ReportActions :kind="props.kind" :loading="loading" :exporting="exporting" @load="onLoad" @reset="onReset" @export="onExport" />
     <el-card v-loading="loading" class="nir-report-card" :shadow="UI_CARD_SHADOW">
       <div v-if="data">
         <div class="nir-hint nir-hint-top">{{ TEXT_DRILL_HINT }}</div>

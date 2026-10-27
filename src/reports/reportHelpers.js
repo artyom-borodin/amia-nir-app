@@ -1,27 +1,24 @@
 import {
-  REPORT_COLUMN_LABELS,
   REPORT_ROW_KEYS,
   REPORT_STRATEGY_SOME_ARRAY,
   REPORT_STRATEGY_KEYS_LENGTH,
   REPORT_BY_COURSE_PROP,
   TOTALS_DRILL_KEY,
   TECHNICAL_KEYS,
-  TECHNICAL_ID_SUFFIX
+  TECHNICAL_ID_SUFFIX,
+  labelFor,
+  mapReportCols
 } from '../constants/reports.js'
 import { REPORT_KIND_FACULTY } from '../constants/tables.js'
 import { formatRowFallback, TEXT_TOTALS } from '../constants/texts.js'
 import { KV_JOINER, TITLE_SEPARATOR } from '../constants/formats.js'
 
-export { TOTALS_DRILL_KEY }
+export { TOTALS_DRILL_KEY, labelFor }
 
 export function isTechnicalKey(key) {
   if (!key) return true
   if (TECHNICAL_KEYS.includes(key)) return true
   return key.endsWith(TECHNICAL_ID_SUFFIX)
-}
-
-export function labelFor(key) {
-  return REPORT_COLUMN_LABELS[key] ?? key
 }
 
 export function fallbackRowLabel(idx) {
@@ -43,9 +40,7 @@ export function reportTotals(data) {
 }
 
 export function columnsFromKeys(keys, hidden = []) {
-  return keys
-    .filter((k) => !isTechnicalKey(k) && !hidden.includes(k))
-    .map((k) => ({ prop: k, label: labelFor(k) }))
+  return mapReportCols(keys.filter((k) => !isTechnicalKey(k) && !hidden.includes(k)))
 }
 
 export function buildReportColumns(firstRow, hidden = []) {

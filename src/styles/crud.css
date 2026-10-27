@@ -360,7 +360,7 @@
   color: var(--nir-color-muted);
 }
 
-.nir-ref-dropdown-actions {
+:is(.nir-ref-dropdown-actions, .nir-export-quick-links) {
   display: flex;
   align-items: center;
   gap: var(--nir-gap-xs);
@@ -392,7 +392,7 @@
   color: var(--nir-color-body);
 }
 
-:is(.nir-ref-selected-count, .nir-entity-popover-head-count) {
+:is(.nir-ref-selected-count, .nir-entity-popover-head-count, .nir-export-scope-badge) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -620,11 +620,12 @@
   border-bottom: var(--nir-border-w) solid var(--nir-color-border-subtle);
 }
 
-.nir-entity-popover-head-title {
+:is(.nir-entity-popover-head-title, .nir-export-section-label) {
   font-size: var(--nir-font-size-xs);
   font-weight: var(--nir-font-weight-bold);
   text-transform: uppercase;
   letter-spacing: var(--nir-th-letter-spacing);
+  line-height: var(--nir-lh-tight);
   color: var(--nir-color-muted);
 }
 
@@ -721,4 +722,228 @@
   font-weight: var(--nir-font-weight-semibold);
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.nir-export-group.el-button-group {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.nir-export-group.el-button-group > .nir-export-cfg-btn.el-button {
+  position: relative;
+  padding-left: var(--nir-gap-xs);
+  padding-right: var(--nir-gap-xs);
+  border-left: var(--nir-border-w) solid var(--nir-export-btn-sep);
+}
+
+.nir-export-cfg-dot {
+  position: absolute;
+  top: var(--nir-export-dot-offset);
+  right: var(--nir-export-dot-offset);
+  width: var(--nir-export-dot-size);
+  height: var(--nir-export-dot-size);
+  border-radius: var(--nir-radius-pill);
+  background: var(--nir-export-dot-bg);
+  box-shadow: var(--nir-export-dot-ring);
+}
+
+.nir-export-dialog.el-dialog {
+  width: var(--nir-export-dialog-w);
+  max-height: var(--nir-export-dialog-max-h);
+  display: flex;
+  flex-direction: column;
+}
+
+:is(.nir-export-dialog .el-dialog__header, .nir-export-dialog .el-dialog__footer) {
+  flex: 0 0 auto;
+}
+
+.nir-export-dialog .el-dialog__body {
+  padding: var(--nir-gap-md) var(--nir-card-pad-x);
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.nir-export-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nir-gap-md);
+}
+
+.nir-export-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nir-gap-2xs);
+  min-width: 0;
+}
+
+.nir-export-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--nir-gap-2xs);
+}
+
+.nir-export-counter {
+  font-weight: var(--nir-font-weight-semibold);
+  color: var(--nir-color-faint);
+  text-transform: none;
+}
+
+.nir-export-quick-links .el-button.is-link {
+  padding: 0;
+  height: auto;
+  line-height: var(--nir-lh-tight);
+}
+
+.nir-export-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--nir-export-mode-col), 1fr));
+  gap: var(--nir-gap-2xs);
+}
+
+.nir-export-scope-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--nir-export-scope-col), 1fr));
+  gap: var(--nir-gap-2xs);
+}
+
+:is(.nir-export-mode-item, .nir-export-scope-item) {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--nir-gap-2xs);
+  padding: var(--nir-gap-xs) var(--nir-gap-sm);
+  border-radius: var(--nir-radius-block);
+  border: var(--nir-border-w) solid var(--nir-color-border-subtle);
+  background: var(--nir-color-card-bg);
+  cursor: pointer;
+  transition:
+    background-color var(--nir-transition-fast),
+    border-color var(--nir-transition-fast),
+    box-shadow var(--nir-transition-fast);
+}
+
+.nir-export-scope-item {
+  align-items: center;
+}
+
+:is(.nir-export-mode-item, .nir-export-scope-item:not(.is-disabled)):hover {
+  background: var(--nir-color-zebra-bg);
+  border-color: var(--nir-color-border);
+}
+
+:is(.nir-export-mode-item, .nir-export-scope-item).is-active {
+  background: var(--nir-color-accent-bg);
+  border-color: var(--nir-color-accent-border);
+  box-shadow: var(--nir-shadow-xs);
+}
+
+.nir-export-scope-item.is-disabled {
+  opacity: var(--nir-export-disabled-opacity);
+  cursor: not-allowed;
+}
+
+.nir-export-mode-radio {
+  margin-top: var(--nir-export-radio-offset);
+  accent-color: var(--el-color-primary);
+  cursor: inherit;
+  flex: 0 0 auto;
+}
+
+.nir-export-scope-item .nir-export-mode-radio {
+  margin-top: 0;
+}
+
+.nir-export-mode-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nir-gap-3xs);
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+:is(.nir-export-mode-title, .nir-export-scope-text) {
+  font-size: var(--nir-font-size-sm);
+  font-weight: var(--nir-font-weight-semibold);
+  color: var(--nir-color-ink);
+  line-height: var(--nir-lh-tight);
+}
+
+.nir-export-scope-text {
+  flex: 1 1 auto;
+}
+
+.nir-export-mode-hint {
+  font-size: var(--nir-font-size-xs);
+  color: var(--nir-color-muted);
+  line-height: var(--nir-lh-tight);
+}
+
+.nir-export-scope-badge {
+  background: var(--nir-color-soft-bg);
+  border-color: var(--nir-color-border-subtle);
+  color: var(--nir-color-body);
+}
+
+:is(.nir-export-check-grid.el-checkbox-group, .nir-export-opts-list) {
+  padding: var(--nir-gap-xs) var(--nir-gap-sm);
+  border-radius: var(--nir-radius-block);
+  border: var(--nir-border-w) solid var(--nir-color-border-subtle);
+  background: var(--nir-color-table-head-bg);
+}
+
+.nir-export-check-grid.el-checkbox-group {
+  display: block;
+  columns: var(--nir-export-check-col);
+  column-gap: var(--nir-gap-md);
+}
+
+.nir-export-check-item.el-checkbox {
+  display: flex;
+  align-items: flex-start;
+  break-inside: avoid;
+  padding: var(--nir-gap-3xs) 0;
+  margin-right: 0;
+  white-space: normal;
+}
+
+.nir-export-check-item .el-checkbox__input {
+  margin-top: 0;
+  flex: 0 0 auto;
+}
+
+:is(.nir-export-check-item, .nir-export-opts-list) .el-checkbox__label {
+  font-size: var(--nir-font-size-sm);
+  color: var(--nir-color-ink);
+  white-space: normal;
+}
+
+.nir-export-check-item .el-checkbox__label {
+  padding-top: var(--nir-export-label-offset);
+  line-height: var(--nir-lh-tight);
+  word-break: break-word;
+}
+
+.nir-export-opts-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nir-gap-xs) var(--nir-gap-md);
+}
+
+.nir-export-dialog-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--nir-gap-xs);
+  flex-wrap: wrap;
+}
+
+.nir-export-dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--nir-gap-2xs);
+  margin-left: auto;
 }

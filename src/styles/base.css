@@ -147,9 +147,7 @@ body {
   box-shadow: none;
 }
 
-.nir-confirm-box.el-message-box {
-  width: 100%;
-  max-width: var(--nir-confirm-box-w);
+:is(.nir-confirm-box.el-message-box, .nir-export-dialog.el-dialog) {
   padding: 0;
   border-radius: var(--nir-radius-card);
   border: var(--nir-border-w) solid var(--nir-color-border);
@@ -158,22 +156,58 @@ body {
   overflow: hidden;
 }
 
-.nir-confirm-box .el-message-box__header {
-  padding: var(--nir-card-pad-y) var(--nir-card-pad-x);
+.nir-confirm-box.el-message-box {
+  width: 100%;
+  max-width: var(--nir-confirm-box-w);
+}
+
+:is(.nir-confirm-box .el-message-box__header, .nir-export-dialog .el-dialog__header) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--nir-gap-sm) var(--nir-card-pad-x);
+  padding-right: var(--nir-modal-head-pad-r);
+  margin: 0;
   background: var(--nir-table-head-gradient);
   border-bottom: var(--nir-border-w) solid var(--nir-color-border);
 }
 
-.nir-confirm-box .el-message-box__title {
+:is(.nir-confirm-box .el-message-box__title, .nir-export-dialog .el-dialog__title) {
   font-weight: var(--nir-font-weight-bold);
   font-size: var(--nir-font-size-md);
   line-height: var(--nir-lh-tight);
   color: var(--nir-color-ink);
 }
 
-.nir-confirm-box .el-message-box__headerbtn {
-  top: var(--nir-card-pad-y);
-  right: var(--nir-card-pad-x);
+:is(.nir-confirm-box .el-message-box__headerbtn, .nir-export-dialog .el-dialog__headerbtn) {
+  position: absolute;
+  top: 50%;
+  right: var(--nir-gap-sm);
+  transform: translateY(-50%);
+  width: var(--nir-modal-close-size);
+  height: var(--nir-modal-close-size);
+  border-radius: var(--nir-radius-chip);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color var(--nir-transition-fast),
+    color var(--nir-transition-fast);
+}
+
+:is(.nir-confirm-box .el-message-box__headerbtn .el-message-box__close, .nir-export-dialog .el-dialog__headerbtn .el-dialog__close) {
+  color: var(--nir-color-muted);
+  font-size: var(--nir-modal-close-icon-size);
+  transition: color var(--nir-transition-fast);
+}
+
+:is(.nir-confirm-box .el-message-box__headerbtn, .nir-export-dialog .el-dialog__headerbtn):is(:hover, :focus-visible) {
+  background-color: var(--el-color-danger-light-9);
+}
+
+:is(.nir-confirm-box .el-message-box__headerbtn, .nir-export-dialog .el-dialog__headerbtn):is(:hover, :focus-visible) :is(.el-message-box__close, .el-dialog__close) {
+  color: var(--el-color-danger);
 }
 
 .nir-confirm-box .el-message-box__content {
@@ -212,10 +246,13 @@ body {
   overflow-wrap: anywhere;
 }
 
-.nir-confirm-box .el-message-box__btns {
+:is(.nir-confirm-box .el-message-box__btns, .nir-export-dialog .el-dialog__footer) {
   padding: var(--nir-gap-xs) var(--nir-card-pad-x);
   background: var(--nir-color-table-head-bg);
   border-top: var(--nir-border-w) solid var(--nir-color-border);
+}
+
+.nir-confirm-box .el-message-box__btns {
   gap: var(--nir-gap-2xs);
 }
 
@@ -253,6 +290,7 @@ body {
   --el-checkbox-input-width: var(--nir-checkbox-size);
   --el-checkbox-input-height: var(--nir-checkbox-size);
   --el-checkbox-border-radius: var(--nir-radius-chip);
+  --el-checkbox-checked-text-color: var(--nir-color-ink);
   height: auto;
   margin-right: 0;
 }
@@ -278,16 +316,26 @@ body {
   box-shadow: var(--nir-shadow-input-focus);
 }
 
-.el-checkbox__input.is-checked .el-checkbox__inner {
+:is(.el-checkbox__input.is-checked, .el-checkbox__input.is-indeterminate) .el-checkbox__inner {
   background: var(--nir-primary-gradient);
   border-color: var(--el-color-primary);
   box-shadow: var(--nir-shadow-btn-primary);
 }
 
-.el-checkbox:not(.is-disabled):hover .el-checkbox__input.is-checked .el-checkbox__inner {
+.el-checkbox:not(.is-disabled):hover :is(.el-checkbox__input.is-checked, .el-checkbox__input.is-indeterminate) .el-checkbox__inner {
   background: var(--nir-primary-gradient-hover);
   border-color: var(--el-color-primary-light-3);
   box-shadow: var(--nir-shadow-btn-primary-hover);
+}
+
+.el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  width: var(--nir-checkbox-mark-h);
+  height: var(--nir-checkbox-mark-stroke);
+  border-radius: var(--nir-radius-pill);
+  transform: translate(-50%, -50%);
 }
 
 .el-checkbox__inner::after {

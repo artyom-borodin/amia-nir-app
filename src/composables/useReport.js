@@ -12,10 +12,6 @@ function cleanParams(params) {
   return out
 }
 
-function buildParams(periodState, filters) {
-  return cleanParams({ ...buildPeriodParams(periodState), ...filters })
-}
-
 export function useReport(kind) {
   const data = ref(null)
   const loading = ref(false)
@@ -30,8 +26,8 @@ export function useReport(kind) {
     error.value = parseApiError(err).message
   }
 
-  function reportParams(periodState, filters = {}) {
-    return buildParams(periodState, filters)
+  function reportParams(periodState, filters = {}, extra = {}) {
+    return cleanParams({ ...buildPeriodParams(periodState), ...filters, ...(extra || {}) })
   }
 
   async function load(periodState, filters = {}) {
@@ -60,19 +56,18 @@ export function useReport(kind) {
     }
   }
 
-  async function exportXlsx(periodState, filters = {}) {
+  async function exportXlsx(periodState, filters = {}, extraParams = {}) {
     await runExport(async () => {
-      const blob = await exportReport(kind, reportParams(periodState, filters))
+      const blob = await exportReport(kind, reportParams(periodState, filters, extraParams))
       downloadBlob(blob, buildReportFilename(kind))
     })
   }
 
   async function exportDrill(periodState, filters = {}, drill = {}) {
     await runExport(async () => {
-      const drillParams = {}
-      if (!isEmptyValue(drill.key)) drillParams[QUERY_DRILL_KEY] = drill.key
-      if (!isEmptyValue(drill.col)) drillParams[QUERY_DRILL_COL] = drill.col
-      const blob = await exportDrillDetails(kind, { ...reportParams(periodState, filters), ...drillParams })
+      const { key, col, ...rest } = drill || {}
+      const drillParams = { ...rest, [QUERY_DRILL_KEY]: key, [QUERY_DRILL_COL]: col }
+      const blob = await exportDrillDetails(kind, reportParams(periodState, filters, drillParams))
       downloadBlob(blob, buildDrillDetailsFilename(kind))
     })
   }

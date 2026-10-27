@@ -83,13 +83,13 @@ export function useReportPage(kind, options = {}) {
     await load(period.value, filters.value)
   }
 
-  async function onExport() {
-    await exportXlsx(period.value, filters.value)
+  async function onExport(extraParams = {}) {
+    await exportXlsx(period.value, filters.value, extraParams)
   }
 
-  async function onExportDrill() {
+  async function onExportDrill(extraParams = {}) {
     if (!drillKey.value) return
-    await exportDrill(period.value, filters.value, { key: drillKey.value, col: drillCol.value })
+    await exportDrill(period.value, filters.value, { ...(extraParams || {}), key: drillKey.value, col: drillCol.value })
   }
 
   return {

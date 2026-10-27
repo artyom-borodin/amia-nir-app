@@ -4,6 +4,8 @@ export const UPDATE_PERIOD_EVENT = 'update:period'
 
 export const EMIT_SEARCH = 'search'
 export const EMIT_RESET = 'reset'
+export const EMIT_LOAD = 'load'
+export const EMIT_EXPORT = 'export'
 export const EMIT_SAVE = 'save'
 export const EMIT_EDIT = 'edit'
 export const EMIT_REMOVE = 'remove'

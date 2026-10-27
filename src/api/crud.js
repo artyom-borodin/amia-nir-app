@@ -2,8 +2,10 @@ import { api } from './client.js'
 import {
   baseUrl,
   itemUrl,
+  exportUrl,
   PAGINATION_RESULTS_KEY,
-  PAGINATION_COUNT_KEY
+  PAGINATION_COUNT_KEY,
+  RESPONSE_TYPE_BLOB
 } from '../constants/api.js'
 
 function normalizeList(data) {
@@ -43,6 +45,13 @@ export function makeCrud(endpoint) {
     async remove(id) {
       await api.delete(itemUrl(base, id))
       return true
+    },
+    async exportXlsx(params = {}) {
+      const res = await api.get(exportUrl(base), {
+        params,
+        responseType: RESPONSE_TYPE_BLOB
+      })
+      return res.data
     }
   }
 }

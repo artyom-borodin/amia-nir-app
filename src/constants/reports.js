@@ -25,7 +25,25 @@ import {
   LABEL_EVENT_FOUNDER,
   LABEL_DIPLOMA
 } from './labels.js'
-import { TEXT_CITY, TEXT_COUNT, TEXT_END_DATE, TEXT_FOUNDER, TEXT_METRIC, TEXT_START_DATE } from './texts.js'
+import {
+  TEXT_CITY,
+  TEXT_COUNT,
+  TEXT_END_DATE,
+  TEXT_FOUNDER,
+  TEXT_METRIC,
+  TEXT_START_DATE,
+  TEXT_EXPORT_MODE_NONE,
+  TEXT_EXPORT_MODE_NONE_HINT,
+  TEXT_EXPORT_MODE_SHEETS,
+  TEXT_EXPORT_MODE_SHEETS_HINT,
+  TEXT_EXPORT_MODE_INLINE,
+  TEXT_EXPORT_MODE_INLINE_HINT,
+  TEXT_EXPORT_MODE_BOTH,
+  TEXT_EXPORT_MODE_BOTH_HINT,
+  TEXT_EXPORT_SCOPE_ALL,
+  TEXT_EXPORT_SCOPE_PAGE,
+  TEXT_EXPORT_SCOPE_SELECTED
+} from './texts.js'
 import {
   COURSE,
   CONF_LEVEL,
@@ -40,6 +58,18 @@ import {
 import { FIELD_TYPES } from './fieldTypes.js'
 import { DICT_LABEL_FIELD, DICT_FULL_NAME_FIELD, DICT_SUBDIVISION_FIELD } from './ui.js'
 import { DIPLOMA_OPTIONS } from './diploma.js'
+import {
+  REPORT_KIND_SUMMARY,
+  REPORT_KIND_STUDENT,
+  REPORT_KIND_PPS,
+  REPORT_KIND_DEPARTMENT,
+  REPORT_KIND_FACULTY,
+  REPORT_KIND_CIRCLES,
+  REPORT_KIND_CATEGORY,
+  REPORT_KIND_STATUS,
+  REPORT_KIND_FOUNDER,
+  REPORT_KIND_DYNAMICS
+} from './tables.js'
 
 export const SUMMARY_METRIC_LABELS = {
   students: 'Обучающиеся',
@@ -148,14 +178,28 @@ export const REPORT_COLUMN_LABELS = {
   has_certificate: LABEL_CERTIFICATE
 }
 
-export const DYNAMICS_METRICS = [
-  { prop: 'conferences', label: SUMMARY_METRIC_LABELS.conferences },
-  { prop: 'publications', label: SUMMARY_METRIC_LABELS.publications },
-  { prop: 'contests', label: SUMMARY_METRIC_LABELS.contests },
-  { prop: 'acts', label: SUMMARY_METRIC_LABELS.acts },
-  { prop: 'exhibitions', label: SUMMARY_METRIC_LABELS.exhibitions },
-  { prop: 'circle_reports', label: SUMMARY_METRIC_LABELS.circle_reports }
-]
+export function labelFor(key) {
+  return REPORT_COLUMN_LABELS[key] ?? key
+}
+
+export function mapReportCols(keys = []) {
+  return keys.map((prop) => ({
+    prop,
+    label: labelFor(prop)
+  }))
+}
+
+export const CORE_WORK_METRICS = Object.freeze([
+  'conferences',
+  'publications',
+  'contests',
+  'acts',
+  'exhibitions'
+])
+
+export const DYNAMICS_METRIC_KEYS = Object.freeze([...CORE_WORK_METRICS, 'circle_reports'])
+
+export const DYNAMICS_METRICS = Object.freeze(mapReportCols(DYNAMICS_METRIC_KEYS))
 
 export const REPORT_FILTER_ENDPOINTS = {
   cadet: 'cadet',
@@ -171,16 +215,16 @@ export const REPORT_FILTER_ENDPOINTS = {
 }
 
 export const REPORT_HIDDEN_COLUMNS = {
-  summary: [],
-  'by-student': ['student'],
-  'by-pps': ['supervisor'],
-  'by-department': ['department'],
-  'by-faculty': ['faculty'],
-  'by-circles': ['circle'],
-  'by-category': [],
-  'by-status': [],
-  'by-founder': ['founder'],
-  dynamics: []
+  [REPORT_KIND_SUMMARY]: [],
+  [REPORT_KIND_STUDENT]: ['student'],
+  [REPORT_KIND_PPS]: ['supervisor'],
+  [REPORT_KIND_DEPARTMENT]: ['department'],
+  [REPORT_KIND_FACULTY]: ['faculty'],
+  [REPORT_KIND_CIRCLES]: ['circle'],
+  [REPORT_KIND_CATEGORY]: [],
+  [REPORT_KIND_STATUS]: [],
+  [REPORT_KIND_FOUNDER]: ['founder'],
+  [REPORT_KIND_DYNAMICS]: []
 }
 
 const BASE_REPORT_FILTERS = [
@@ -219,34 +263,35 @@ const COMMON_REPORT_DROP = ['activity_type', 'organization', 'result', 'gifted_d
 const MIN_REPORT_DROP = ['gifted_db', 'president_fund']
 
 export const REPORT_FILTER_FIELDS = {
-  summary: BASE_REPORT_FILTERS,
-  'by-student': BASE_REPORT_FILTERS,
-  'by-faculty': BASE_REPORT_FILTERS,
-  'by-pps': dropReportFilters(COMMON_REPORT_DROP),
-  'by-department': dropReportFilters(MIN_REPORT_DROP),
-  'by-circles': dropReportFilters(COMMON_REPORT_DROP),
-  'by-category': dropReportFilters(MIN_REPORT_DROP),
-  'by-founder': dropReportFilters(COMMON_REPORT_DROP),
-  dynamics: dropReportFilters(MIN_REPORT_DROP),
-  'by-status': ['cadet', 'student', 'fpk_student', 'subdivision', 'gifted_db', 'president_fund']
+  [REPORT_KIND_SUMMARY]: BASE_REPORT_FILTERS,
+  [REPORT_KIND_STUDENT]: BASE_REPORT_FILTERS,
+  [REPORT_KIND_FACULTY]: BASE_REPORT_FILTERS,
+  [REPORT_KIND_PPS]: dropReportFilters(COMMON_REPORT_DROP),
+  [REPORT_KIND_DEPARTMENT]: dropReportFilters(MIN_REPORT_DROP),
+  [REPORT_KIND_CIRCLES]: dropReportFilters(COMMON_REPORT_DROP),
+  [REPORT_KIND_CATEGORY]: dropReportFilters(MIN_REPORT_DROP),
+  [REPORT_KIND_FOUNDER]: dropReportFilters(COMMON_REPORT_DROP),
+  [REPORT_KIND_DYNAMICS]: dropReportFilters(MIN_REPORT_DROP),
+  [REPORT_KIND_STATUS]: ['cadet', 'student', 'fpk_student', 'subdivision', 'gifted_db', 'president_fund']
 }
 
 export const REPORT_ROW_KEYS = {
-  'by-faculty': { key: ['key', 'id', 'faculty', 'student', 'supervisor', 'department', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },
-  'by-department': { key: ['key', 'id', 'department', 'student', 'supervisor', 'faculty', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },
-  'by-student': { key: ['key', 'id', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['fio', 'name', 'category', 'academic_year', 'year', 'key'] },
-  'by-pps': { key: ['key', 'id', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['pps', 'name', 'fio', 'category', 'academic_year', 'year', 'key'] },
-  'by-circles': { key: ['key', 'id', 'circle', 'student', 'supervisor', 'department', 'faculty', 'founder', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },
-  'by-category': { key: ['key', 'id', 'category', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'academic_year', 'year'], label: ['category', 'name', 'fio', 'academic_year', 'year', 'key'] },
-  'by-status': { key: ['key', 'id', 'academic_year', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'category', 'year'], label: ['academic_year', 'name', 'fio', 'category', 'year', 'key'] },
-  'by-founder': { key: ['key', 'id', 'founder', 'student', 'supervisor', 'department', 'faculty', 'circle', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },
-  dynamics: { key: ['key', 'id', 'year', 'academic_year', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'category'], label: ['year', 'academic_year', 'name', 'fio', 'category', 'key'] }
+  [REPORT_KIND_FACULTY]: { key: ['key', 'id', 'faculty', 'student', 'supervisor', 'department', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },
+  [REPORT_KIND_DEPARTMENT]: { key: ['key', 'id', 'department', 'student', 'supervisor', 'faculty', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },
+  [REPORT_KIND_STUDENT]: { key: ['key', 'id', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['fio', 'name', 'category', 'academic_year', 'year', 'key'] },
+  [REPORT_KIND_PPS]: { key: ['key', 'id', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'category', 'academic_year', 'year'], label: ['pps', 'name', 'fio', 'category', 'academic_year', 'year', 'key'] },
+  [REPORT_KIND_CIRCLES]: { key: ['key', 'id', 'circle', 'student', 'supervisor', 'department', 'faculty', 'founder', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },
+  [REPORT_KIND_CATEGORY]: { key: ['key', 'id', 'category', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'academic_year', 'year'], label: ['category', 'name', 'fio', 'academic_year', 'year', 'key'] },
+  [REPORT_KIND_STATUS]: { key: ['key', 'id', 'academic_year', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'category', 'year'], label: ['academic_year', 'name', 'fio', 'category', 'year', 'key'] },
+  [REPORT_KIND_FOUNDER]: { key: ['key', 'id', 'founder', 'student', 'supervisor', 'department', 'faculty', 'circle', 'category', 'academic_year', 'year'], label: ['name', 'fio', 'category', 'academic_year', 'year', 'key'] },
+  [REPORT_KIND_DYNAMICS]: { key: ['key', 'id', 'year', 'academic_year', 'student', 'supervisor', 'department', 'faculty', 'circle', 'founder', 'category'], label: ['year', 'academic_year', 'name', 'fio', 'category', 'key'] }
 }
 
 export const REPORT_STRATEGY_SOME_ARRAY = 'some-array'
 export const REPORT_STRATEGY_KEYS_LENGTH = 'keys-length'
 
 export const REPORT_BY_COURSE_PROP = 'by_course'
+export const TABLE_STUDENT_FIO_PROP = 'student_fio'
 export const TABLE_MEMBERS_COUNT_PROP = 'members_count'
 export const REPORT_DIPLOMA_KEY = 'diploma'
 export const TOTALS_DRILL_KEY = '__totals__'
@@ -321,6 +366,104 @@ export function resolveReportFilterDefs(fields, includeDiploma = false) {
   if (!includeDiploma) return base
   const showDiploma = !fields || fields.includes(REPORT_DIPLOMA_KEY)
   return showDiploma ? [...base, REPORT_DIPLOMA_FILTER_DEF] : base
+}
+
+export const EXPORT_TARGET_REPORT = 'report'
+export const EXPORT_TARGET_CRUD = 'crud'
+export const EXPORT_TARGET_DRILL = 'drill'
+
+export const EXPORT_MODE_NONE = 'none'
+export const EXPORT_MODE_SHEETS = 'sheets'
+export const EXPORT_MODE_INLINE = 'inline'
+export const EXPORT_MODE_BOTH = 'both'
+
+export const EXPORT_DETAILS_MODES = Object.freeze([
+  { value: EXPORT_MODE_NONE, label: TEXT_EXPORT_MODE_NONE, hint: TEXT_EXPORT_MODE_NONE_HINT },
+  { value: EXPORT_MODE_SHEETS, label: TEXT_EXPORT_MODE_SHEETS, hint: TEXT_EXPORT_MODE_SHEETS_HINT },
+  { value: EXPORT_MODE_INLINE, label: TEXT_EXPORT_MODE_INLINE, hint: TEXT_EXPORT_MODE_INLINE_HINT },
+  { value: EXPORT_MODE_BOTH, label: TEXT_EXPORT_MODE_BOTH, hint: TEXT_EXPORT_MODE_BOTH_HINT }
+])
+
+export const EXPORT_SCOPE_ALL = 'all'
+export const EXPORT_SCOPE_PAGE = 'page'
+export const EXPORT_SCOPE_SELECTED = 'selected'
+
+export const EXPORT_SCOPES = Object.freeze([
+  { value: EXPORT_SCOPE_ALL, label: TEXT_EXPORT_SCOPE_ALL },
+  { value: EXPORT_SCOPE_PAGE, label: TEXT_EXPORT_SCOPE_PAGE },
+  { value: EXPORT_SCOPE_SELECTED, label: TEXT_EXPORT_SCOPE_SELECTED }
+])
+
+const SUMMARY_METRIC_KEYS = Object.keys(SUMMARY_METRIC_LABELS)
+const LEARNER_ACHIEVEMENT_METRICS = [
+  ...CORE_WORK_METRICS,
+  'diplomas',
+  'statuses',
+  'gifted_db',
+  'president_fund'
+]
+const LEARNER_REPORT_METRICS = [...LEARNER_ACHIEVEMENT_METRICS, 'total']
+
+export const REPORT_DETAIL_METRIC_KEYS = Object.freeze({
+  [REPORT_KIND_SUMMARY]: SUMMARY_METRIC_KEYS,
+  [REPORT_KIND_STUDENT]: LEARNER_REPORT_METRICS,
+  [REPORT_KIND_PPS]: ['students', 'conferences', 'publications', 'contests', 'problem_groups', 'members'],
+  [REPORT_KIND_DEPARTMENT]: ['supervisors', ...CORE_WORK_METRICS, 'problem_groups', 'members'],
+  [REPORT_KIND_FACULTY]: ['students', ...LEARNER_REPORT_METRICS],
+  [REPORT_KIND_CIRCLES]: ['problem_groups', 'members', 'conferences', 'publications', 'contests', 'reports'],
+  [REPORT_KIND_CATEGORY]: ['students', ...CORE_WORK_METRICS, 'total', REPORT_BY_COURSE_PROP],
+  [REPORT_KIND_STATUS]: ['students', 'gifted_db', 'president_fund'],
+  [REPORT_KIND_FOUNDER]: ['conferences', 'conference_events', 'publications', 'contests', 'contest_events'],
+  [REPORT_KIND_DYNAMICS]: DYNAMICS_METRIC_KEYS
+})
+
+export const REPORT_EXPORT_COLUMN_KEYS = Object.freeze({
+  [REPORT_KIND_SUMMARY]: SUMMARY_METRIC_KEYS,
+  [REPORT_KIND_STUDENT]: [
+    'fio',
+    'group',
+    'category',
+    'faculty',
+    ...LEARNER_ACHIEVEMENT_METRICS,
+    'status_years',
+    'total'
+  ],
+  [REPORT_KIND_PPS]: ['pps', 'department', ...REPORT_DETAIL_METRIC_KEYS[REPORT_KIND_PPS]],
+  [REPORT_KIND_DEPARTMENT]: ['name', ...REPORT_DETAIL_METRIC_KEYS[REPORT_KIND_DEPARTMENT]],
+  [REPORT_KIND_FACULTY]: ['name', ...REPORT_DETAIL_METRIC_KEYS[REPORT_KIND_FACULTY]],
+  [REPORT_KIND_CIRCLES]: ['name', 'year', ...REPORT_DETAIL_METRIC_KEYS[REPORT_KIND_CIRCLES]],
+  [REPORT_KIND_CATEGORY]: ['category', ...REPORT_DETAIL_METRIC_KEYS[REPORT_KIND_CATEGORY]],
+  [REPORT_KIND_STATUS]: ['academic_year', ...REPORT_DETAIL_METRIC_KEYS[REPORT_KIND_STATUS]],
+  [REPORT_KIND_FOUNDER]: ['name', ...REPORT_DETAIL_METRIC_KEYS[REPORT_KIND_FOUNDER]],
+  [REPORT_KIND_DYNAMICS]: ['year', ...DYNAMICS_METRIC_KEYS]
+})
+
+export function getReportExportColumns(kind) {
+  return mapReportCols(REPORT_EXPORT_COLUMN_KEYS[kind])
+}
+
+export function getReportDetailMetrics(kind) {
+  return mapReportCols(REPORT_DETAIL_METRIC_KEYS[kind])
+}
+
+const CRUD_EXTRA_EXPORT_COLUMN_KEYS = Object.freeze({
+  [TABLE_STUDENT_FIO_PROP]: ['learner_category', 'learner_group', 'learner_subdivision'],
+  [TABLE_MEMBERS_COUNT_PROP]: ['members_fio']
+})
+
+export function buildCrudExportColumns(columns = []) {
+  const out = []
+  for (const col of columns) {
+    if (!col?.prop) continue
+    out.push({ prop: col.prop, label: col.label || labelFor(col.prop) })
+    const extras = CRUD_EXTRA_EXPORT_COLUMN_KEYS[col.prop]
+    if (extras) {
+      for (const prop of extras) {
+        out.push({ prop, label: labelFor(prop), extra: true })
+      }
+    }
+  }
+  return out
 }
 
 export { DIPLOMA_FILTER_ANY, DIPLOMA_FILTER_NONE, DIPLOMA_FILTER_D1, DIPLOMA_FILTER_D2, DIPLOMA_FILTER_D3, DIPLOMA_TRUE, DIPLOMA_FALSE, DIPLOMA_EMPTY, encodeDiploma, isOn, decodeDiploma, DIPLOMA_OPTIONS } from './diploma.js'

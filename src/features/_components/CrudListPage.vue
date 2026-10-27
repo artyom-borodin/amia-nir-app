@@ -23,6 +23,16 @@
         >
           {{ TEXT_DELETE_SELECTED }} ({{ selectedRows.length }})
         </el-button>
+        <ExportXlsxButton
+          :mode="EXPORT_TARGET_CRUD"
+          :columns="exportColumns"
+          :total-count="total"
+          :page-count="rows.length"
+          :selected-count="selectedRows.length"
+          :exporting="exporting"
+          :disabled="loading"
+          @export="onExport"
+        />
         <el-button :type="BTN_PRIMARY" :icon="Plus" @click="onCreate">{{ TEXT_CREATE_RECORD }}</el-button>
       </div>
     </div>
@@ -48,6 +58,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import DataTable from '../../components/DataTable.vue'
 import FilterPanel from '../../components/FilterPanel.vue'
@@ -55,7 +66,9 @@ import FormDrawer from '../../components/FormDrawer.vue'
 import ErrorAlert from '../../components/ErrorAlert.vue'
 import ReferenceSelect from '../../components/ReferenceSelect.vue'
 import ActiveFilterTags from '../../components/ActiveFilterTags.vue'
+import ExportXlsxButton from '../../reports/ExportXlsxButton.vue'
 import { getEndpoint } from '../../constants/tables.js'
+import { EXPORT_TARGET_CRUD, buildCrudExportColumns } from '../../constants/reports.js'
 import { DATE_VALUE_FORMAT } from '../../constants/formats.js'
 import { FIELD_TYPES } from '../../constants/fieldTypes.js'
 import { BTN_PRIMARY, BTN_DANGER } from '../../constants/ui.js'
@@ -88,6 +101,7 @@ const {
   rows,
   total,
   loading,
+  exporting,
   error,
   fieldErrors,
   page,
@@ -112,13 +126,16 @@ const {
   onPage,
   onSize,
   onSave,
-  onSortChange
+  onSortChange,
+  onExport
 } = useCrudPage(props.crudKey, {
   filterDefs: props.filterDefs,
   emptyFormFn: props.emptyForm,
   validateFn: props.validate,
   normalizeFn: props.normalize
 })
+
+const exportColumns = computed(() => buildCrudExportColumns(props.columns))
 
 function onFilterRefChange(prop, val) {
   applyLearnerExclusive(filters.value, prop, val, '')

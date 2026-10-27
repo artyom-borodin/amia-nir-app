@@ -1,23 +1,23 @@
 import { api } from './client.js'
 import {
   API_REPORT_PREFIX,
-  API_REPORT_EXPORT_SUFFIX,
   API_REPORT_DETAILS_SUFFIX,
   REPORT_FILE_DEFAULT,
   REPORT_MIME_XLSX,
-  RESPONSE_TYPE_BLOB
+  RESPONSE_TYPE_BLOB,
+  exportUrl
 } from '../constants/api.js'
 import { UI_BLOB_REVOKE_TIMEOUT_MS } from '../constants/ui.js'
 
 export { REPORT_MIME_XLSX }
 
 export function reportUrl(kind, forExport) {
-  const tail = forExport ? API_REPORT_EXPORT_SUFFIX + '/' : ''
-  return API_REPORT_PREFIX + kind + '/' + tail
+  const base = API_REPORT_PREFIX + kind + '/'
+  return forExport ? exportUrl(base) : base
 }
 
 export function reportDetailsExportUrl(kind) {
-  return reportUrl(kind, false) + API_REPORT_DETAILS_SUFFIX + '/' + API_REPORT_EXPORT_SUFFIX + '/'
+  return exportUrl(reportUrl(kind, false) + API_REPORT_DETAILS_SUFFIX + '/')
 }
 
 export async function getReport(kind, params = {}) {
